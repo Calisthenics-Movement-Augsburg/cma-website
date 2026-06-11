@@ -1,4 +1,6 @@
 ---
+import MapEmbed from "./MapEmbed.astro";
+
 ---
 
 <section id="training-ablauf" class="relative isolate overflow-hidden py-20 md:py-28">
@@ -111,7 +113,7 @@
 						</p>
 					</div>
 
-					<div class="mt-6 flex flex-wrap gap-4">
+					<!-- <div class="mt-6 flex flex-wrap gap-4">
 						<a
 							class="inline-flex items-center rounded-full bg-brand px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-brand-muted"
 							href="https://www.google.com/maps"
@@ -120,10 +122,14 @@
 						>
 							Auf Google Maps öffnen
 						</a>
-					</div>
+					</div> -->
 				</div>
 
-				<div class="overflow-hidden rounded-2xl border border-gray-200 bg-gray-100 dark:border-white/15 dark:bg-white/5">
+				<MapEmbed
+				address="Augsburg"
+				mapsUrl="https://www.google.com/maps?q=Calisthenics+Augsburg"
+			  />
+				<!-- <div class="overflow-hidden rounded-2xl border border-gray-200 bg-gray-100 dark:border-white/15 dark:bg-white/5">
 					<a
 						href="https://www.google.com/maps"
 						target="_blank"
@@ -134,11 +140,11 @@
 							<div class="text-5xl">📍</div>
 							<p class="mt-4 text-lg font-bold">Karte / Maps-Link</p>
 							<p class="mt-2 text-sm opacity-75">
-								TODO: ggf Maps Link einfügen, falls wir das wirklich wollen
+								TODO: Falls wir das wirklich wollen, müssen wir Datenschutz anpassen.
 							</p>
 						</div>
 					</a>
-				</div>
+				</div> -->
 			</div>
 		</article>
 

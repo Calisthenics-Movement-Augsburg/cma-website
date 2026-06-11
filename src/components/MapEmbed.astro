@@ -1,0 +1,138 @@
+---
+// src/components/LocationMap.astro
+
+const {
+	imageSrc = '/images/location-map.svg',
+	googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=Calisthenics+Augsburg',
+	title = 'Training in Augsburg',
+	description = 'Unser Training findet im Raum Augsburg statt. Die genaue Route kannst du direkt über Google Maps öffnen.',
+	alt = 'Grobe Karte des Trainingsorts in Augsburg',
+} = Astro.props;
+---
+
+<section class="rounded-2xl border border-gray-200/70 bg-white/80 p-6 shadow-sm dark:border-gray-800/70 dark:bg-gray-950/70">
+	<div class="mb-5">
+		<p class="text-sm font-bold uppercase tracking-wide text-brand">
+			{title}
+		</p>
+
+		<!-- <h2 class="mt-2 text-3xl font-black uppercase tracking-tight text-gray-950 dark:text-white">
+			{title}
+		</h2> -->
+
+		<!-- <p class="mt-3 max-w-2xl text-gray-600 dark:text-gray-300">
+			{description}
+		</p> -->
+	</div>
+
+	<figure class="overflow-hidden rounded-2xl border border-gray-200 bg-[#f4f1e8] dark:border-gray-800 dark:bg-gray-900">
+		<div class="relative aspect-[16/9] w-full overflow-hidden">
+			<img
+				src={imageSrc}
+				alt={alt}
+				loading="lazy"
+				decoding="async"
+				class="h-full w-full object-cover"
+			/>
+
+			<!-- Animated marker -->
+			<div
+				class="map-marker absolute left-[50%] top-[24%]"
+				aria-hidden="true"
+			>
+				<div class="marker-dot"></div>
+				<div class="marker-pulse"></div>
+			</div>
+		</div>
+
+		<figcaption class="px-4 py-2 text-xs text-gray-500 dark:text-gray-400">
+			Kartendaten ©
+			<a
+				href="https://www.openstreetmap.org/copyright"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="underline underline-offset-2 transition hover:text-brand"
+			>
+				OpenStreetMap-Mitwirkende
+			</a>
+		</figcaption>
+	</figure>
+
+    <div class="mt-5 flex flex-wrap justify-center gap-4"> 
+
+            <a
+            class="inline-flex items-center rounded-full bg-brand px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-brand-muted"
+            href="https://www.google.com/maps"
+            target="_blank"
+            rel="noreferrer"
+            >
+            Auf Google Maps öffnen
+        </a>
+
+    </div>
+</section>
+
+<style>
+	.map-marker {
+		transform: translate(-50%, -100%);
+		animation: marker-bounce 2.2s ease-in-out infinite;
+	}
+
+	.marker-dot {
+		position: relative;
+		z-index: 2;
+		width: 1.25rem;
+		height: 1.25rem;
+		border-radius: 9999px;
+		background: var(--color-brand, #facc15);
+		border: 3px solid white;
+		box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+	}
+
+	.marker-pulse {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		width: 2.4rem;
+		height: 2.4rem;
+		border-radius: 9999px;
+		background: var(--color-brand, #facc15);
+		opacity: 0.35;
+		transform: translate(-50%, -50%);
+		animation: marker-pulse 2.2s ease-out infinite;
+	}
+
+	@keyframes marker-bounce {
+		0%,
+		100% {
+			transform: translate(-50%, -100%) translateY(0);
+		}
+
+		50% {
+			transform: translate(-50%, -100%) translateY(-10px);
+		}
+	}
+
+	@keyframes marker-pulse {
+		0% {
+			transform: translate(-50%, -50%) scale(0.6);
+			opacity: 0.45;
+		}
+
+		70% {
+			transform: translate(-50%, -50%) scale(1.4);
+			opacity: 0;
+		}
+
+		100% {
+			opacity: 0;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.map-marker,
+		.marker-pulse {
+			animation: none;
+		}
+	}
+</style>
