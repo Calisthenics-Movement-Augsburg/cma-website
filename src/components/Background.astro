@@ -1,0 +1,23 @@
+<div class="background-effects" aria-hidden="true">
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+    <div class="glow glow-3"></div>
+  
+    <div class="particles">
+      {
+        Array.from({ length: 28 }).map(() => (
+          <span
+            class="particle"
+            style={`
+              --x:${Math.random() * 100};
+              --y:${Math.random() * 100};
+              --delay:${Math.random() * 12}s;
+              --duration:${18 + Math.random() * 18}s;
+            `}
+          />
+        ))
+      }
+    </div>
+  
+    <div class="soft-vignette"></div>
+  </div>

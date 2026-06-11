@@ -1,0 +1,189 @@
+---
+const trainingDays = [
+	'Montag - Gemeinsames Gruppentraining',
+	'Dienstag - Freies Static Training',
+	'Mittwoch - Gemeinsames Gruppentraining',
+	'Donnerstag - Freies Static Training',
+	'Freitag - Gemeinsames Gruppentraining',
+];
+
+const experienceOptions = [
+	'Keine Vorerfahrung',
+	'Ein bisschen Trainingserfahrung',
+	'Ich trainiere regelmäßig',
+	'Fortgeschritten',
+];
+
+const ageOptions = [
+	'Unter 16',
+	'16-17',
+	'18+',
+];
+---
+
+<form
+	name="probetraining"
+	method="POST"
+	data-netlify="true"
+	netlify-honeypot="website"
+	action="/success"
+	class="mx-auto flex max-w-2xl flex-col gap-5 rounded-2xl border border-gray-200 bg-gray-50 p-6 shadow-lg dark:border-white/10 dark:bg-gray-900 md:p-8"
+>
+	<input type="hidden" name="form-name" value="probetraining" />
+
+	<!-- Honeypot: hidden from humans, visible to simple bots -->
+	<div class="hidden" aria-hidden="true">
+		<label>
+			Website
+			<input
+				name="website"
+				type="text"
+				tabindex="-1"
+				autocomplete="off"
+			/>
+		</label>
+	</div>
+
+	<!-- Optional timestamp. Useful for manually spotting instant bot submissions. -->
+	<input type="hidden" name="submitted_at" value={new Date().toISOString()} />
+
+	<div>
+		<h2 class="text-2xl font-bold uppercase dark:text-white">Probetraining anfragen</h2>
+		<p class="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+			Schreib uns kurz, wann du vorbeikommen möchtest. Wir melden uns bei dir zurück.
+		</p>
+	</div>
+
+	<div class="grid gap-5 md:grid-cols-2">
+		<div>
+			<label for="name" class="mb-1 block text-sm font-medium dark:text-white">
+				Name <span class="text-brand">*</span>
+			</label>
+			<input
+				id="name"
+				type="text"
+				name="name"
+				required
+				autocomplete="name"
+				class="w-full rounded border border-gray-300 bg-white p-3 text-gray-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/30 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+			/>
+		</div>
+
+		<div>
+			<label for="email" class="mb-1 block text-sm font-medium dark:text-white">
+				E-Mail <span class="text-brand">*</span>
+			</label>
+			<input
+				id="email"
+				type="email"
+				name="email"
+				required
+				autocomplete="email"
+				class="w-full rounded border border-gray-300 bg-white p-3 text-gray-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/30 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+			/>
+		</div>
+	</div>
+
+	<div class="grid gap-5 md:grid-cols-2">
+		<div>
+			<label for="age" class="mb-1 block text-sm font-medium dark:text-white">
+				Alter <span class="text-brand">*</span>
+			</label>
+			<select
+				id="age"
+				name="age"
+				required
+				class="w-full rounded border border-gray-300 bg-white p-3 text-gray-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/30 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+			>
+				<option value="">Bitte auswählen</option>
+				{ageOptions.map((option) => <option value={option}>{option}</option>)}
+			</select>
+		</div>
+
+		<div>
+			<label for="desired_training_day" class="mb-1 block text-sm font-medium dark:text-white">
+				Gewünschter Trainingstag <span class="text-brand">*</span>
+			</label>
+			<select
+				id="desired_training_day"
+				name="desired_training_day"
+				required
+				class="w-full rounded border border-gray-300 bg-white p-3 text-gray-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/30 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+			>
+				<option value="">Bitte auswählen</option>
+				{trainingDays.map((day) => <option value={day}>{day}</option>)}
+			</select>
+		</div>
+	</div>
+
+	<div>
+		<label for="training_experience" class="mb-1 block text-sm font-medium dark:text-white">
+			Trainingserfahrung <span class="text-brand">*</span>
+		</label>
+		<select
+			id="training_experience"
+			name="training_experience"
+			required
+			class="w-full rounded border border-gray-300 bg-white p-3 text-gray-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/30 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+		>
+			<option value="">Bitte auswählen</option>
+			{experienceOptions.map((option) => <option value={option}>{option}</option>)}
+		</select>
+	</div>
+
+	<div>
+		<label for="message" class="mb-1 block text-sm font-medium dark:text-white">
+			Nachricht <span class="text-brand">*</span>
+		</label>
+		<textarea
+			id="message"
+			name="message"
+			rows="5"
+			required
+			placeholder="Zum Beispiel: Ich würde gerne am Mittwoch zum Probetraining kommen."
+			class="w-full rounded border border-gray-300 bg-white p-3 text-gray-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/30 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+		></textarea>
+	</div>
+
+	<div class="rounded-xl bg-white/70 p-4 text-sm text-gray-700 dark:bg-white/5 dark:text-gray-300">
+		<label class="flex gap-3">
+			<input
+				type="checkbox"
+				name="privacy"
+				value="accepted"
+				required
+				class="mt-1 h-4 w-4 rounded border-gray-300 text-brand focus:ring-brand"
+			/>
+			<span>
+				Ich habe die Datenschutzerklärung gelesen und bin damit einverstanden,
+				dass meine Angaben zur Bearbeitung meiner Anfrage verwendet werden.
+				<a href="/datenschutz" class="font-semibold text-brand hover:text-brand-muted">
+					Datenschutzerklärung
+				</a>
+				<span class="text-brand">*</span>
+			</span>
+		</label>
+	</div>
+
+	<p class="text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+		Bitte bring zum Probetraining das ausgefüllte Probetraining-Formular mit.
+		Bei Minderjährigen benötigen wir die Unterschrift eines Erziehungsberechtigten.
+	</p>
+
+	<div class="flex flex-col gap-3 sm:flex-row">
+		<button
+			type="submit"
+			class="inline-flex flex-1 items-center justify-center rounded-full bg-brand px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-brand-muted focus:outline-none focus:ring-4 focus:ring-brand/30"
+		>
+			Probetraining anfragen
+		</button>
+
+		<a
+			href="/downloads/probetraining-formular.pdf"
+			download
+			class="inline-flex flex-1 items-center justify-center rounded-full border border-brand px-6 py-3 text-center text-sm font-bold uppercase tracking-wide text-brand transition hover:bg-brand hover:text-white focus:outline-none focus:ring-4 focus:ring-brand/30"
+		>
+			Formular herunterladen
+		</a>
+	</div>
+</form>

@@ -1,0 +1,404 @@
+---
+// src/pages/faq.astro
+
+import Layout from '../layouts/Layout.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import Background from '../components/Background.astro';
+
+const faqColumns = [
+	[
+		{
+			question: 'Kann ich einfach zum Probetraining vorbeikommen?',
+			answer:
+				'Bitte melde dich vorher über unser Kontaktformular an. So können wir besser planen und dir sagen, welches Training für dein erstes Probetraining am besten passt.',
+		},
+		{
+			question: 'Brauche ich Vorerfahrung für das Training?',
+			answer:
+				'Nein. Du brauchst keine Vorerfahrung. Unser Training ist für verschiedene Leistungsstände geeignet. Wichtig ist nur, dass du offen bist, sauber lernst und auf deinen Körper hörst.',
+		},
+		{
+			question: 'Was soll ich zum Probetraining mitbringen?',
+			answer:
+				'Bring Sportkleidung, etwas zu trinken und bei Bedarf ein kleines Handtuch mit. Trainiert wird meistens mit dem eigenen Körpergewicht. Spezielle Ausrüstung brauchst du für den Einstieg nicht.',
+		},
+		{
+			question: 'Ab welchem Alter kann ich mittrainieren?',
+			answer:
+				'Minderjährige können grundsätzlich mit Einverständnis der Erziehungsberechtigten teilnehmen. Die genauen Voraussetzungen findest du in unseren Unterlagen oder bekommst du direkt von uns beim Erstkontakt.',
+		},
+	],
+	[
+		{
+			question: 'Wie funktioniert eure Mitgliedschaft?',
+			answer:
+				'Wir arbeiten mit einem solidarischen Beitragsmodell. Das bedeutet: Es gibt verschiedene Beitragsstufen und du wählst die Stufe, die zu deiner Situation passt. Beiträge sind ab 5 € monatlich möglich.',
+		},
+		{
+			question: 'Kann ich meinen Mitgliedsbeitrag ändern?',
+			answer:
+				'Ja. Die Beitragsstufe kann monatlich angepasst werden. So bleibt die Mitgliedschaft flexibel, falls sich deine Situation verändert.',
+		},
+		{
+			question: 'Kann ich meine Mitgliedschaft pausieren?',
+			answer:
+				'Ja. Wenn du zum Beispiel wegen Auslandssemester, längerer Reise, Verletzung oder anderer Gründe vorübergehend nicht trainieren kannst, sprich uns an. Eine Pause ist grundsätzlich möglich.',
+		},
+		{
+			question: 'Wo finde ich Mitgliedsantrag, Satzung und Formulare?',
+			answer:
+				'Alle wichtigen Dokumente findest du im Downloadbereich. Dort liegen Mitgliedsantrag, Vereinssatzung und Probetraining-Formular als PDF bereit.',
+		},
+	],
+];
+
+const allFaqItems = faqColumns.flat();
+---
+
+<Layout title="FAQ | Calisthenics Movement Augsburg">
+	<header
+		id="faq-header"
+		class="fixed top-0 w-full z-50 border-b border-white/10 bg-black/55 backdrop-blur-md"
+	>
+		<div class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 md:px-6">
+			<a href="/" aria-label="Calisthenics Movement Augsburg">
+				<img
+					src="/logo.png"
+					alt="Calisthenics Movement Augsburg"
+					loading="lazy"
+					decoding="async"
+					class="h-9 w-9 md:h-10 md:w-10"
+				/>
+			</a>
+
+			<nav class="hidden lg:block">
+				<ul class="flex gap-7 uppercase font-bold text-sm text-white/95">
+					<li><a href="/#tarife" class="hover:text-brand">Tarife</a></li>
+					<li><a href="/#trainings-timetable" class="hover:text-brand">Training</a></li>
+					<li><a href="/team" class="hover:text-brand">Team</a></li>
+					<li><a href="/downloads" class="hover:text-brand">Downloads</a></li>
+					<li><a href="/faq" class="text-brand">FAQ</a></li>
+					<li><a href="/#contact" class="hover:text-brand">Kontakt</a></li>
+				</ul>
+			</nav>
+
+			<div class="flex items-center gap-3">
+				<a
+					class="hidden md:inline-flex items-center rounded-full bg-brand px-5 py-2 text-xs font-bold uppercase tracking-wide text-white transition hover:bg-brand-muted"
+					href="/#contact"
+				>
+					Zum Probetraining
+				</a>
+				<ThemeToggle />
+			</div>
+		</div>
+	</header>
+
+	<main>
+        
+		<section class="l-section custom relative min-h-[34vh] md:min-h-[40vh] flex items-center justify-center overflow-hidden pt-14 md:pt-16">
+			<div
+				class="absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat"
+				style="background-image:url('https://www.fitnesscenter-california.at/wp-content/uploads/2023/02/banner-breadcrumb.jpeg')"
+				role="img"
+				aria-label="FAQ banner"
+			></div>
+			<div class="absolute inset-0 -z-10 bg-white/70 md:bg-white/60 lg:bg-white/50 dark:bg-black/45"></div>
+
+			<h1 class="text-dark text-4xl md:text-6xl font-black tracking-tight drop-shadow-xl dark:text-white/95">
+				FAQ
+			</h1>
+		</section>
+        <Background />
+		<section class="py-14 md:py-22 px-4">
+			<div class="mx-auto max-w-[1120px]">
+				<div class="mx-auto mt-3 h-1.5 w-24 md:w-28 bg-brand"></div>
+
+				<p class="mx-auto mt-8 max-w-3xl text-center text-sm md:text-base opacity-85">
+					Hier findest du Antworten auf die wichtigsten Fragen zu Probetraining, Mitgliedschaft, Beiträgen und Training.
+				</p>
+
+				<div class="faq-grid mt-10 md:mt-12">
+					{
+						faqColumns.map((column) => (
+							<div class="faq-column">
+								{column.map((item) => (
+									<details name="faq-accordion" class="faq-item group">
+										<summary class="faq-summary">
+											<span>{item.question}</span>
+
+											<span class="faq-icon" aria-hidden="true">
+												<svg
+													class="faq-plus"
+													xmlns="http://www.w3.org/2000/svg"
+													width="20"
+													height="20"
+													viewBox="0 0 24 24"
+													fill="none"
+													stroke="currentColor"
+													stroke-width="2"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+												>
+													<path d="M5 12h14" />
+													<path d="M12 5v14" />
+												</svg>
+
+												<svg
+													class="faq-minus"
+													xmlns="http://www.w3.org/2000/svg"
+													width="20"
+													height="20"
+													viewBox="0 0 24 24"
+													fill="none"
+													stroke="currentColor"
+													stroke-width="2"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+												>
+													<path d="M5 12h14" />
+												</svg>
+											</span>
+										</summary>
+
+										<div class="faq-answer-wrap">
+											<div class="overflow-hidden">
+												<p class="faq-answer">{item.answer}</p>
+											</div>
+										</div>
+									</details>
+								))}
+							</div>
+						))
+					}
+				</div>
+
+				<div class="faq-help mt-10 md:mt-12">
+					<h2>Noch Fragen?</h2>
+					<p>
+						Dann schreib uns kurz. Wir helfen dir gerne weiter und sagen dir, welches Training für deinen Einstieg sinnvoll ist.
+					</p>
+
+					<div class="mt-6 flex flex-wrap justify-center gap-4">
+						<a
+							class="inline-flex items-center rounded-full bg-brand px-8 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-brand-muted"
+							href="/#contact"
+						>
+							Kontakt aufnehmen
+						</a>
+
+						<a
+							class="inline-flex items-center rounded-full border border-current px-8 py-3 text-sm font-bold uppercase tracking-wide transition hover:bg-black/5 dark:hover:bg-white/10"
+							href="/downloads"
+						>
+							Zu den Downloads
+						</a>
+					</div>
+				</div>
+
+				<script type="application/ld+json" set:html={JSON.stringify({
+					'@context': 'https://schema.org',
+					'@type': 'FAQPage',
+					mainEntity: allFaqItems.map((item) => ({
+						'@type': 'Question',
+						name: item.question,
+						acceptedAnswer: {
+							'@type': 'Answer',
+							text: item.answer,
+						},
+					})),
+				})} />
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	.l-section {
+		padding-left: 2.5rem;
+		padding-right: 2.5rem;
+	}
+
+	.l-section.custom {
+		padding-top: var(--section-custom-padding, 5vmax);
+		padding-bottom: var(--section-custom-padding, 5vmax);
+	}
+
+	.faq-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1rem;
+	}
+
+	.faq-column {
+		display: grid;
+		gap: 1rem;
+		align-content: start;
+	}
+
+	.faq-item {
+		border-radius: 1rem;
+		border: 1px solid rgba(17, 24, 39, 0.14);
+		background: rgba(255, 255, 255, 0.78);
+		box-shadow: 0 18px 45px -34px rgba(17, 24, 39, 0.35);
+		overflow: hidden;
+		transition:
+			background-color 200ms ease,
+			border-color 200ms ease,
+			transform 200ms ease,
+			box-shadow 200ms ease;
+	}
+
+	.faq-item:hover {
+		transform: translateY(-1px);
+		box-shadow: 0 22px 50px -34px rgba(17, 24, 39, 0.45);
+	}
+
+	:global(.dark) .faq-item {
+		background: rgba(255, 255, 255, 0.06);
+		border-color: rgba(255, 255, 255, 0.15);
+		box-shadow: none;
+	}
+
+	:global(.dark) .faq-item:hover {
+		background: rgba(255, 255, 255, 0.09);
+		border-color: rgba(255, 255, 255, 0.22);
+	}
+
+	.faq-summary {
+		display: flex;
+		cursor: pointer;
+		list-style: none;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 1rem 1.1rem;
+		font-size: 0.95rem;
+		font-weight: 800;
+		line-height: 1.35;
+	}
+
+	.faq-summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.faq-icon {
+		display: inline-flex;
+		flex-shrink: 0;
+		align-items: center;
+		justify-content: center;
+		border-radius: 0.6rem;
+		color: var(--color-brand);
+		padding: 0.25rem;
+		transition:
+			background-color 200ms ease,
+			color 200ms ease,
+			transform 200ms ease;
+	}
+
+	.faq-summary:hover .faq-icon {
+		background: rgba(17, 24, 39, 0.06);
+	}
+
+	:global(.dark) .faq-summary:hover .faq-icon {
+		background: rgba(255, 255, 255, 0.1);
+	}
+
+	.faq-minus {
+		display: none;
+	}
+
+	.faq-item[open] .faq-plus {
+		display: none;
+	}
+
+	.faq-item[open] .faq-minus {
+		display: block;
+	}
+
+	.faq-item[open] .faq-icon {
+		transform: rotate(180deg);
+	}
+
+	.faq-answer-wrap {
+		display: grid;
+		grid-template-rows: 0fr;
+		opacity: 0;
+		transition:
+			grid-template-rows 260ms ease,
+			opacity 220ms ease;
+	}
+
+	.faq-item[open] .faq-answer-wrap {
+		grid-template-rows: 1fr;
+		opacity: 1;
+	}
+
+	.faq-answer {
+		padding: 0 1.1rem 1.1rem;
+		font-size: 0.92rem;
+		line-height: 1.7;
+		opacity: 0.78;
+	}
+
+	.faq-help {
+		border-radius: 1rem;
+		border: 1px solid rgba(17, 24, 39, 0.14);
+		background: rgba(255, 255, 255, 0.78);
+		box-shadow: 0 18px 45px -28px rgba(17, 24, 39, 0.35);
+		padding: 2rem 1.5rem;
+		text-align: center;
+	}
+
+	:global(.dark) .faq-help {
+		background: rgba(255, 255, 255, 0.06);
+		border-color: rgba(255, 255, 255, 0.15);
+		box-shadow: none;
+	}
+
+	.faq-help h2 {
+		font-size: 1.4rem;
+		font-weight: 900;
+		letter-spacing: -0.02em;
+	}
+
+	.faq-help p {
+		margin: 0.75rem auto 0;
+		max-width: 42rem;
+		font-size: 0.95rem;
+		line-height: 1.7;
+		opacity: 0.78;
+	}
+
+	@media (min-width: 768px) {
+		.faq-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 1rem;
+		}
+
+		.faq-help {
+			padding: 2.5rem;
+		}
+
+		.faq-help h2 {
+			font-size: 1.75rem;
+		}
+	}
+
+	@media (max-width: 767px) {
+		.l-section {
+			padding-left: 1.25rem;
+			padding-right: 1.25rem;
+		}
+
+		.faq-summary {
+			padding: 0.95rem 1rem;
+			font-size: 0.9rem;
+		}
+
+		.faq-answer {
+			padding: 0 1rem 1rem;
+			font-size: 0.88rem;
+		}
+	}
+</style>

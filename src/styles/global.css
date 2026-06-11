@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+
+
+/* You can put your custom @theme overwrites right below the import */
+@theme {
+    /* Overwriting/Defining brand colors */
+    --color-brand: #bc6cff;
+    --color-brand-muted: #ff5ca8; 
+    /* --color-brand: #e30613;
+    --color-brand-muted: #b0050f; */
+    
+    /* Defining semantic colors for dark mode */
+    --color-page-bg: #ffffff;
+    --color-page-text: #1a1a1a;
+    
+    --breakpoint-2xl: 1536px;
+    /* Condensed display + readable body; both loaded with latin-ext for ä ö ü ß */
+    --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+    --font-body: "Source Sans 3", "Segoe UI", sans-serif;
+
+    --section-custom-padding: 7rem;
+    --section-custom-padding-mobile: 5rem;
+    --section-custom-padding-tablet: 6rem;
+
+}
+
+/* Global Dark Mode Overwrites */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light;
+}
+
+
+/* 1. Standard Light Mode Styles */
+:root {
+  --bg-color: #f8f8f8;
+  --text-color: #1a1a1a;
+  /* --bg-color: #ffffff;
+  --text-color: #1a1a1a; */
+  color-scheme: light;
+}
+
+/* 2. Dark Mode Styles (triggered by the .dark class) */
+.dark {
+  --bg-color: #080f2b;
+  --text-color: #ffffff;
+  /* --bg-color: #0f0f0f;
+  --text-color: #ffffff; */
+  color-scheme: dark;
+}
+
+/* 3. Using the variables in your body */
+body {
+    @apply bg-[var(--color-page-bg)] text-[var(--color-page-text)] transition-colors duration-300;
+    font-family: var(--font-body);
+
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    @apply transition-colors duration-300; /* Smoothly fade between modes */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+header {
+    font-family: var(--font-display);
+}

@@ -1,0 +1,140 @@
+.background-effects {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -10;
+    overflow: hidden;
+    pointer-events: none;
+  
+    /* Light mode */
+    background:
+      radial-gradient(circle at 18% 18%, rgba(255, 60, 172, 0.16), transparent 32%),
+      radial-gradient(circle at 82% 28%, rgba(0, 217, 255, 0.12), transparent 30%),
+      radial-gradient(circle at 50% 92%, rgba(255, 123, 57, 0.10), transparent 38%),
+      #f3f4f6;
+  }
+  
+  html.dark .background-effects {
+    /* Your old dark version */
+    background: #080a14;
+  }
+  
+  /* ==========================
+     GLOW BLOBS
+     ========================== */
+  
+  .glow {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(120px);
+    opacity: 0.18;
+    animation: drift 25s ease-in-out infinite alternate;
+  }
+  
+  html.dark .glow {
+    opacity: 0.28;
+  }
+  
+  .glow-1 {
+    width: 500px;
+    height: 500px;
+    background: #ff3cac;
+    top: -150px;
+    left: -150px;
+  }
+  
+  .glow-2 {
+    width: 450px;
+    height: 450px;
+    background: #00d9ff;
+    top: 20%;
+    right: -150px;
+    animation-duration: 32s;
+  }
+  
+  .glow-3 {
+    width: 550px;
+    height: 550px;
+    background: #ff7b39;
+    bottom: -200px;
+    left: 30%;
+    animation-duration: 40s;
+  }
+  
+  /* ==========================
+     PARTICLES
+     ========================== */
+  
+  .particles {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .particle {
+    position: absolute;
+    left: calc(var(--x) * 1%);
+    top: calc(var(--y) * 1%);
+    width: 2px;
+    height: 2px;
+    border-radius: 9999px;
+  
+    /* Light mode: dark particles */
+    background: rgba(17, 24, 39, 0.38);
+    box-shadow: 0 0 8px rgba(17, 24, 39, 0.16);
+  
+    animation:
+      particle-float var(--duration) linear infinite,
+      twinkle 3s ease-in-out infinite;
+    animation-delay: var(--delay);
+  }
+  
+  html.dark .particle {
+    /* Your old dark version */
+    background: rgba(255, 255, 255, 0.45);
+    box-shadow: none;
+  }
+  
+  /* ==========================
+     ANIMATION
+     ========================== */
+  
+  @keyframes drift {
+    from {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  
+    to {
+      transform: translate3d(60px, -40px, 0) scale(1.15);
+    }
+  }
+  
+  @keyframes particle-float {
+    from {
+      transform: translateY(0);
+    }
+  
+    to {
+      transform: translateY(-140px);
+    }
+  }
+  
+  @keyframes twinkle {
+    0%,
+    100% {
+      opacity: 0.15;
+    }
+  
+    50% {
+      opacity: 0.75;
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .glow,
+    .particle {
+      animation: none;
+    }
+  }

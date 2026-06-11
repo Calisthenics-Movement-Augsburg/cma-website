@@ -1,0 +1,153 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import Background from '../components/Background.astro';
+
+const teamMembers = [
+	{
+		name: 'Tobi',
+		role: 'Coach & Trainer',
+		image: 'https://i.pinimg.com/1200x/08/49/0f/08490f226de5720d8ae56f1a6b541753.jpg',
+	},
+	{
+		name: 'Dr. Ivo',
+		role: '1. Vorsitzende & Medizinischer Leiter',
+		image: 'https://i.pinimg.com/1200x/c3/4f/06/c34f067c1d04b96b523ea6bbfb57a14b.jpg',
+	},
+	{
+		name: 'Leonie',
+		role: '2. Vorsitzende',
+		image: 'https://i.pinimg.com/736x/22/ba/e2/22bae2ed0fdf65abc5e75edbc99a5ea0.jpg',
+	}
+];
+---
+
+<Layout title="Team | Cali Fitness">
+	<Background />
+	<header
+		id="team-header"
+		class="fixed top-0 w-full z-50 border-b border-white/10 bg-black/55 backdrop-blur-md"
+	>
+		<div class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 md:px-6">
+			<a href="/" aria-label="Fitnesscenter California">
+				<img
+					src="/public/logo.png"
+					alt="Fitnesscenter California"
+					loading="lazy"
+					decoding="async"
+					class="h-9 w-9 md:h-10 md:w-10"
+				/>
+			</a>
+			<nav class="hidden lg:block">
+				<ul class="flex gap-7 uppercase font-bold text-sm text-white/95">
+					<li><a href="/#tarife" class="hover:text-brand">Tarife</a></li>
+					<li><a href="/#groupfitness" class="hover:text-brand">Leistungen</a></li>
+					<li><a href="/team" class="text-brand">Team</a></li>
+					<li><a href="/#contact" class="hover:text-brand">Kontakt</a></li>
+				</ul>
+			</nav>
+			<div class="flex items-center gap-3">
+			<a
+				class="hidden md:inline-flex items-center rounded-full bg-brand px-5 py-2 text-xs font-bold uppercase tracking-wide text-white transition hover:bg-brand-muted"
+				href="https://checkout.moresports.io/1068/landing/anmeldung"
+				target="_blank"
+				rel="nofollow noreferrer"
+			>
+				Jetzt anmelden
+			</a>
+			<ThemeToggle />
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<section class="l-section custom relative min-h-[34vh] md:min-h-[40vh] flex items-center justify-center overflow-hidden pt-14 md:pt-16">
+			<div
+				class="absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat"
+				style="background-image:url('https://www.fitnesscenter-california.at/wp-content/uploads/2023/02/banner-breadcrumb.jpeg')"
+				role="img"
+				aria-label="Team banner"
+			></div>
+			<div class="absolute inset-0 -z-10 bg-white/70 md:bg-white/60 lg:bg-white/50 dark:bg-black/45"></div>
+			<h1 class="text-dark text-4xl md:text-6xl font-black tracking-tight drop-shadow-xl dark:text-white/95">Team</h1>
+		</section>
+
+		<section class="py-14 md:py-22 px-4">
+			<div class="mx-auto max-w-[1120px]">
+				<h2 class="text-center text-3xl md:text-5xl font-bold dark:text-white/95  ">Unser starkes Team</h2>
+				<div class="mx-auto mt-3 h-1.5 w-24 md:w-28 bg-brand"></div>
+
+				<div class="team-grid mt-10 md:mt-12 grid">
+					{
+						teamMembers.map((member) => (
+							<article class="team-card">
+								<img
+									src={member.image}
+									alt={member.name}
+									loading="lazy"
+									decoding="async"
+									class="w-full object-cover object-center"
+									style="aspect-ratio: 2 / 3;"
+								/>
+								<div class="pt-3 md:pt-4 text-center">
+									<h3 class="text-[1.55rem] md:text-2xl font-bold leading-tight">{member.name}</h3>
+									<p class="mt-1 text-[0.92rem] opacity-70">{member.role}</p>
+								</div>
+							</article>
+						))
+					}
+				</div>
+
+				<div class="mt-10 md:mt-12 flex justify-center">
+					<a
+						class="inline-flex items-center rounded-full bg-brand px-8 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-brand-muted"
+						title="Jetzt anmelden"
+						rel="nofollow noreferrer"
+						target="_blank"
+						href="https://checkout.moresports.io/1068/landing/anmeldung"
+					>
+						Jetzt anmelden
+					</a>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<style>
+
+	.team-card {
+		text-align: center;
+		position: relative;
+		z-index: 1;
+		max-width: 25rem;
+		margin-left: auto;
+		margin-right: auto;
+		transition: transform 220ms ease;
+	}
+
+    .l-section {
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+    }
+
+    .l-section.custom {
+        padding-top: var(--section-custom-padding, 5vmax);
+        padding-bottom: var(--section-custom-padding, 5vmax);
+    }
+
+	.team-card:hover {
+		transform: translateY(-4px);
+	}
+
+	.team-grid {
+		gap: 3rem;
+		grid-template-columns: 1fr;
+	}
+
+	@media (min-width: 900px) {
+		.team-grid {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+	}
+</style>

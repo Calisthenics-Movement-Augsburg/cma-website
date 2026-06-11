@@ -1,0 +1,315 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+
+const downloadDocuments = [
+	{
+		title: 'Mitgliedsantrag Minderjährige',
+		description:
+			'Für die Aufnahme minderjähriger Mitglieder. Der Antrag muss von den Erziehungsberechtigten unterschrieben werden.',
+		format: 'PDF',
+		file: '/downloads/mitgliedsantrag-minderjaehrige.pdf',
+	},
+	{
+		title: 'Vereinssatzung',
+		description:
+			'Die rechtliche Grundlage unseres Vereins mit allen wichtigen Regelungen zu Zweck, Mitgliedschaft, Organen und Vereinsstruktur.',
+		format: 'PDF',
+		file: '/downloads/vereinssatzung.pdf',
+	},
+	{
+		title: 'Probetraining-Formular',
+		description: 'Für Gäste beim ersten Probetraining. Bitte ausgefüllt zum Training mitbringen.',
+		format: 'PDF',
+		file: '/downloads/probetraining-formular.pdf',
+	},
+];
+---
+
+<Layout title="Downloads | Calisthenics Movement Augsburg">
+	<header
+		id="downloads-header"
+		class="fixed top-0 w-full z-50 border-b border-white/10 bg-black/55 backdrop-blur-md"
+	>
+		<div class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 md:px-6">
+			<a href="/" aria-label="Calisthenics Movement Augsburg">
+				<img
+					src="/logo.png"
+					alt="Calisthenics Movement Augsburg"
+					loading="lazy"
+					decoding="async"
+					class="h-9 w-9 md:h-10 md:w-10"
+				/>
+			</a>
+			<nav class="hidden lg:block">
+				<ul class="flex gap-7 uppercase font-bold text-sm text-white/95">
+					<li><a href="/#tarife" class="hover:text-brand">Tarife</a></li>
+					<li><a href="/#trainings-timetable" class="hover:text-brand">Training</a></li>
+					<li><a href="/team" class="hover:text-brand">Team</a></li>
+					<li><a href="/downloads" class="text-brand">Downloads</a></li>
+					<li><a href="/#contact" class="hover:text-brand">Kontakt</a></li>
+				</ul>
+			</nav>
+			<div class="flex items-center gap-3">
+				<a
+					class="hidden md:inline-flex items-center rounded-full bg-brand px-5 py-2 text-xs font-bold uppercase tracking-wide text-white transition hover:bg-brand-muted"
+					href="/#contact"
+				>
+					Zum Probetraining
+				</a>
+				<ThemeToggle />
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<section class="l-section custom relative min-h-[34vh] md:min-h-[40vh] flex items-center justify-center overflow-hidden pt-14 md:pt-16">
+			<div
+				class="absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat"
+				style="background-image:url('https://www.fitnesscenter-california.at/wp-content/uploads/2023/02/banner-breadcrumb.jpeg')"
+				role="img"
+				aria-label="Downloads banner"
+			></div>
+			<div class="absolute inset-0 -z-10 bg-white/70 md:bg-white/60 lg:bg-white/50 dark:bg-black/45"></div>
+			<h1 class="text-dark text-4xl md:text-6xl font-black tracking-tight drop-shadow-xl dark:text-white/95">
+				Downloads
+			</h1>
+		</section>
+
+		<section class="py-14 md:py-22 px-4">
+			<div class="mx-auto max-w-[1120px]">
+				<!-- <h2 class="text-center text-3xl md:text-5xl font-bold dark:text-white/95">Dokumenten Download</h2> -->
+				<div class="mx-auto mt-3 h-1.5 w-24 md:w-28 bg-brand"></div>
+
+				<p class="mx-auto mt-8 max-w-3xl text-center text-sm md:text-base opacity-85">
+					Hier findest du die wichtigsten Dokumente für Mitgliedschaft, Probetraining und Vereinsorganisation.
+				</p>
+
+				<div class="downloads-table-wrap mt-10 md:mt-12 overflow-x-auto">
+					<table class="downloads-table w-full min-w-[720px] border-collapse text-left">
+						<thead>
+							<tr>
+								<th scope="col">Dokument</th>
+								<th scope="col">Beschreibung</th>
+								<th scope="col">Format</th>
+								<th scope="col" class="downloads-col-action">Download</th>
+							</tr>
+						</thead>
+						<tbody>
+							{
+								downloadDocuments.map((doc) => (
+									<tr>
+										<td data-label="Dokument">
+											<span class="font-bold">{doc.title}</span>
+										</td>
+										<td data-label="Beschreibung">{doc.description}</td>
+										<td data-label="Format">
+											<span class="downloads-format">{doc.format}</span>
+										</td>
+										<td data-label="Download" class="downloads-col-action">
+											<a
+												class="downloads-btn"
+												href={doc.file}
+												download
+												target="_blank"
+												rel="noopener noreferrer"
+											>
+												Download
+											</a>
+										</td>
+									</tr>
+								))
+							}
+						</tbody>
+					</table>
+				</div>
+
+				<div class="mt-10 md:mt-12 flex flex-wrap justify-center gap-4">
+					<a
+						class="inline-flex items-center rounded-full bg-brand px-8 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-brand-muted"
+						href="/#contact"
+					>
+						Zum Probetraining
+					</a>
+					<a
+						class="inline-flex items-center rounded-full border border-current px-8 py-3 text-sm font-bold uppercase tracking-wide transition hover:bg-black/5 dark:hover:bg-white/10"
+						href="/"
+					>
+						Zur Startseite
+					</a>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	.l-section {
+		padding-left: 2.5rem;
+		padding-right: 2.5rem;
+	}
+
+	.l-section.custom {
+		padding-top: var(--section-custom-padding, 5vmax);
+		padding-bottom: var(--section-custom-padding, 5vmax);
+	}
+
+	.downloads-table-wrap {
+		border-radius: 1rem;
+		border: 1px solid rgba(17, 24, 39, 0.14);
+		background: rgba(255, 255, 255, 0.78);
+		box-shadow: 0 18px 45px -28px rgba(17, 24, 39, 0.35);
+	}
+
+	:global(.dark) .downloads-table-wrap {
+		background: rgba(255, 255, 255, 0.06);
+		border-color: rgba(255, 255, 255, 0.15);
+	}
+
+	.downloads-table th,
+	.downloads-table td {
+		padding: 1rem 1.25rem;
+		border-bottom: 1px solid rgba(17, 24, 39, 0.1);
+		vertical-align: middle;
+	}
+
+	:global(.dark) .downloads-table th,
+	:global(.dark) .downloads-table td {
+		border-bottom-color: rgba(255, 255, 255, 0.12);
+	}
+
+	.downloads-table thead th {
+		font-size: 0.8rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		background: rgba(17, 24, 39, 0.04);
+	}
+
+	:global(.dark) .downloads-table thead th {
+		background: rgba(255, 255, 255, 0.06);
+	}
+
+	.downloads-table tbody tr:last-child td {
+		border-bottom: none;
+	}
+
+	.downloads-col-action {
+		text-align: right;
+		white-space: nowrap;
+		width: 1%;
+	}
+
+	.downloads-format {
+		display: inline-block;
+		padding: 0.2rem 0.55rem;
+		border-radius: 0.35rem;
+		font-size: 0.75rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		background: rgba(17, 24, 39, 0.08);
+	}
+
+	:global(.dark) .downloads-format {
+		background: rgba(255, 255, 255, 0.12);
+	}
+
+	.downloads-btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 999px;
+		background: var(--color-brand);
+		color: #fff;
+		padding: 0.5rem 1rem;
+		font-size: 0.75rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		transition: background-color 200ms ease;
+	}
+
+	.downloads-btn:hover {
+		background: var(--color-brand-muted);
+	}
+
+	@media (max-width: 767px) {
+		.downloads-table-wrap {
+			background: transparent;
+			border: none;
+			box-shadow: none;
+			overflow-x: visible;
+		}
+
+		.downloads-table,
+		.downloads-table thead,
+		.downloads-table tbody,
+		.downloads-table th,
+		.downloads-table td,
+		.downloads-table tr {
+			display: block;
+			width: 100%;
+			min-width: 0;
+		}
+
+		.downloads-table thead {
+			display: none;
+		}
+
+		.downloads-table tbody tr {
+			margin-bottom: 1rem;
+			border: 1px solid rgba(17, 24, 39, 0.14);
+			border-radius: 1rem;
+			background: rgba(255, 255, 255, 0.78);
+			overflow: hidden;
+		}
+
+		:global(.dark) .downloads-table tbody tr {
+			background: rgba(255, 255, 255, 0.06);
+			border-color: rgba(255, 255, 255, 0.15);
+		}
+
+		.downloads-table td {
+			display: grid;
+			grid-template-columns: minmax(7rem, 38%) 1fr;
+			gap: 0.5rem 1rem;
+			border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+			padding: 0.85rem 1rem;
+			text-align: left;
+			white-space: normal;
+		}
+
+		:global(.dark) .downloads-table td {
+			border-bottom-color: rgba(255, 255, 255, 0.1);
+		}
+
+		.downloads-table td::before {
+			content: attr(data-label);
+			font-size: 0.72rem;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
+			opacity: 0.7;
+		}
+
+		.downloads-table td.downloads-col-action {
+			display: block;
+			padding-top: 0.25rem;
+			padding-bottom: 1rem;
+			border-bottom: none;
+		}
+
+		.downloads-table td.downloads-col-action::before {
+			display: none;
+		}
+
+		.downloads-btn {
+			width: 100%;
+		}
+
+		.downloads-table tbody tr:last-child td:last-child {
+			border-bottom: none;
+		}
+	}
+</style>
