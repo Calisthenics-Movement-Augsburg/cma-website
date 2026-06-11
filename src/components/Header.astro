@@ -1,0 +1,60 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+const navLinks = [
+	{ href: '#home', label: 'Home' },
+	{ href: '#image-gallery', label: 'Training' },
+	{ href: '#trainings-timetable', label: 'Trainingszeiten' },
+	{ href: '#pricing', label: 'Kosten' },
+	{ href: '#contact', label: 'Kontakt' },
+	{ href: '/team', label: 'Team' },
+	{ href: '/downloads', label: 'Downloads' },
+];
+---
+
+<header
+	id="site-header"
+	class="fixed top-0 w-full z-50 flex justify-between items-center px-8 py-4 border-b border-transparent bg-transparent transition-all duration-300"
+>
+	<div class="text-2xl font-black text-white drop-shadow-md">
+		Calisthenics Movement <span class="text-brand">Augsburg</span>
+	</div>
+	<div class="flex items-center gap-6">
+		<nav class="hidden md:block">
+			<ul class="flex gap-6 uppercase font-bold text-sm text-white drop-shadow-md">
+				{
+					navLinks.map((link) => (
+						<li>
+							<a href={link.href} class="hover:text-brand">
+								{link.label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+		<ThemeToggle />
+	</div>
+</header>
+
+<script>
+	const header = document.getElementById('site-header');
+	const hero = document.getElementById('home');
+
+	if (header && hero) {
+		const setHeaderState = () => {
+			const threshold = hero.clientHeight * 0.35;
+			const scrolled = window.scrollY > threshold;
+
+			header.classList.toggle('bg-white/70', scrolled);
+			header.classList.toggle('dark:bg-black/70', scrolled);
+			header.classList.toggle('backdrop-blur-md', scrolled);
+			header.classList.toggle('border-gray-200/70', scrolled);
+			header.classList.toggle('dark:border-gray-800/70', scrolled);
+		};
+
+		setHeaderState();
+		window.addEventListener('scroll', setHeaderState, { passive: true });
+		window.addEventListener('resize', setHeaderState);
+	}
+</script>

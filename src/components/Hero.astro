@@ -1,0 +1,64 @@
+---
+import settings from '../content/settings.json';
+---
+
+<section id="home" class="relative min-h-screen h-[100svh] w-full overflow-hidden flex items-center justify-center">
+	<div
+		class="hero-media absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+		style="background-image:url('https://www.fitnesscenter-california.at/wp-content/uploads/2025/12/Hero-Gym-2025-Thumbnail.webp')"
+		role="img"
+		aria-label="Fitnesscenter California hero background"
+	>
+	</div>
+	<video
+		autoplay
+		muted
+		loop
+		playsinline
+		preload="auto"
+		class="hero-media absolute inset-0 z-10 hidden h-full w-full object-cover md:block"
+		poster="https://www.fitnesscenter-california.at/wp-content/uploads/2025/12/Hero-Gym-2025-Thumbnail.webp"
+		aria-hidden="true"
+	>
+		<source src={settings.videoUrl} type="video/mp4" />
+	</video>
+	<div
+		class="hero-overlay absolute inset-0 z-20 bg-[rgba(25,25,25,0.58)] md:bg-[rgba(25,25,25,0.50)] lg:bg-[rgba(25,25,25,0.42)]"
+	>
+	</div>
+
+	<div class="relative z-30 flex flex-col items-center justify-center px-4 text-center">
+		<img
+			src="/logo.png"
+			alt="Calisthenics Movement Augsburg"
+			width="300"
+			height="300"
+			loading="lazy"
+			decoding="async"
+			class="w-[180px] md:w-[220px] lg:w-[300px] animate-hero-logo-in"
+		/>
+	</div>
+</section>
+
+<style>
+	@keyframes hero-logo-in {
+		from {
+			opacity: 0;
+			transform: translateY(12px) scale(0.98);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0) scale(1);
+		}
+	}
+
+	.animate-hero-logo-in {
+		animation: hero-logo-in 800ms ease-out both;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.animate-hero-logo-in {
+			animation: none;
+		}
+	}
+</style>

@@ -1,0 +1,297 @@
+---
+const groupfitnessDays = [
+	{
+		dateLabel: 'Montags',
+		isToday: true,
+		slots: [
+			{ title: 'Gemeinsames Gruppentraining', time: '18:30 - 20:15 Uhr', trainer: 'Tobi, die Maus & Team', booked: 12, max: 20 },
+		],
+	},
+	{
+		dateLabel: 'Dienstags',
+		isToday: false,
+		slots: [{ title: 'Freies Static Training', time: '17:00 - 20:00 Uhr', trainer: 'Lennardo van de Leevar', booked: 4, max: 10 }],
+	},
+	{
+		dateLabel: 'Mittwochs',
+		isToday: false,
+		slots: [
+			{ title: 'Gemeinsames Gruppentraining', time: '18:30 - 20:15 Uhr', trainer: 'Tobi, die Maus & Team', booked: 8, max: 20 },
+		],
+	},
+	{
+		dateLabel: 'Donnerstags',
+		isToday: false,
+		slots: [{ title: 'Freies Static Training', time: '17:00 - 20:00 Uhr', trainer: 'Lennardo van de Leevar', booked: 3, max: 10 }],
+	},
+	{
+		dateLabel: 'Freitags',
+		isToday: false,
+		slots: [
+			{ title: 'Gemeinsames Gruppentraining', time: '18:30 - 20:15 Uhr', trainer: 'Tobi, die Maus & Team', booked: 9, max: 20 },
+		],
+	},
+];
+---
+
+<section id="trainings-timetable" class="relative isolate overflow-hidden py-20 md:py-28">
+	<div
+		class="absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat"
+		style="background-image:url('https://www.fitnesscenter-california.at/wp-content/uploads/2026/04/Groupfitness-Timetable-Background.png')"
+		role="img"
+		aria-label="trainings timetable background"
+	>
+	</div>
+	<div class="absolute inset-0 -z-10 bg-white/70 dark:bg-black/60"></div>
+
+	<div class="mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-10 text-gray-900 dark:text-white">
+		<h2 class="text-center text-4xl md:text-5xl font-bold">Trainingszeiten</h2>
+		<div class="mx-auto mt-4 h-1.5 w-28 bg-brand"></div>
+
+		<div class="mt-10">
+			<!-- <div class="mb-4 flex items-center justify-center gap-3">
+				<button class="ml-nav-btn" id="ml-prev" type="button" disabled>Zuruck</button>
+				<button class="ml-nav-btn" id="ml-next" type="button">Weiter</button>
+			</div> -->
+
+			<div id="ml-slider" class="ml-slider-cols">
+				{
+					groupfitnessDays.map((day) => (
+						<article class="ml-day-col">
+							<header class="ml-day-header">
+								<span class:list={['ml-day-title', day.isToday && 'ml-today']}>{day.dateLabel}</span>
+							</header>
+							<div class="ml-day-slots">
+								{day.slots.map((slot) => {
+									const percent = Math.round((slot.booked / slot.max) * 100);
+									const freeSpots = slot.max - slot.booked;
+									const warnProgress = percent >= 60;
+
+									return (
+										<div class="ml-card">
+											<div class="ml-card-title">{slot.title}</div>
+											<div class="ml-meta-row">
+												<strong>{slot.time}</strong>
+											</div>
+											<div class="ml-meta-row">
+												<strong>{slot.trainer}</strong>
+											</div>
+											<div class="ml-progress-labels">
+												<span>
+													{slot.booked} / {slot.max} Anmeldungen
+												</span>
+												<span>{percent}%</span>
+											</div>
+											<div class="ml-progress-bar-bg">
+												<div
+													class:list={['ml-progress-bar-fill', warnProgress && 'ml-progress-warn']}
+													style={`width:${percent}%`}
+												/>
+											</div>
+											<span class="ml-badge ml-badge-free">{freeSpots} Plätze frei</span>
+										</div>
+									);
+								})}
+							</div>
+						</article>
+					))
+				}
+			</div>
+		</div>
+
+		<div class="mt-10 flex justify-center">
+			<a
+				class="inline-flex items-center rounded-full bg-brand px-8 py-3 text-sm font-bold uppercase tracking-wide transition hover:bg-brand-muted"
+				href="#contact"
+			>
+				Zum Probetraining
+			</a>
+		</div>
+	</div>
+</section>
+
+<style>
+	.ml-slider-cols {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 1rem;
+	}
+
+	.ml-day-col {
+		width: 100%;
+		max-width: 100%;
+		background: rgba(255, 255, 255, 0.72);
+		border: 1px solid rgba(17, 24, 39, 0.12);
+		backdrop-filter: blur(6px);
+		border-radius: 1rem;
+		padding: 1rem;
+	}
+
+	.ml-day-header {
+		padding-bottom: 0.75rem;
+		border-bottom: 1px solid rgba(17, 24, 39, 0.15);
+		margin-bottom: 0.75rem;
+	}
+
+	.ml-day-title {
+		font-weight: 700;
+	}
+
+	.ml-today {
+		color: #f87171;
+	}
+
+	.ml-day-slots {
+		display: grid;
+		gap: 0.75rem;
+	}
+
+	.ml-card {
+		background: rgba(255, 255, 255, 0.85);
+		border: 1px solid rgba(17, 24, 39, 0.1);
+		border-radius: 0.75rem;
+		padding: 0.875rem;
+	}
+
+	.ml-card-title {
+		font-size: 1.05rem;
+		font-weight: 700;
+		margin-bottom: 0.5rem;
+	}
+
+	.ml-meta-row {
+		font-size: 0.9rem;
+		margin-top: 0.25rem;
+		opacity: 0.95;
+	}
+
+	.ml-progress-labels {
+		display: flex;
+		justify-content: space-between;
+		gap: 0.5rem;
+		font-size: 0.8rem;
+		margin-top: 0.65rem;
+	}
+
+	.ml-progress-bar-bg {
+		height: 0.5rem;
+		background: rgba(17, 24, 39, 0.14);
+		border-radius: 999px;
+		margin-top: 0.4rem;
+		overflow: hidden;
+	}
+
+	.ml-progress-bar-fill {
+		height: 100%;
+		background: rgb(36, 200, 0);
+		border-radius: 999px;
+	}
+
+	.ml-progress-warn {
+		background: rgb(255, 120, 0);
+	}
+
+	.ml-badge {
+		display: inline-block;
+		margin-top: 0.7rem;
+		font-size: 0.8rem;
+		font-weight: 600;
+	}
+
+	.ml-badge-free {
+		color: #15803d;
+	}
+
+	.ml-nav-btn {
+		border: 1px solid rgba(17, 24, 39, 0.22);
+		background: rgba(255, 255, 255, 0.8);
+		color: #111827;
+		padding: 0.55rem 0.9rem;
+		border-radius: 999px;
+		font-size: 0.85rem;
+		font-weight: 700;
+	}
+
+	:global(.dark) .ml-day-col {
+		background: rgba(255, 255, 255, 0.08);
+		border-color: rgba(255, 255, 255, 0.15);
+	}
+
+	:global(.dark) .ml-day-header {
+		border-bottom-color: rgba(255, 255, 255, 0.18);
+	}
+
+	:global(.dark) .ml-card {
+		background: rgba(0, 0, 0, 0.35);
+		border-color: transparent;
+	}
+
+	:global(.dark) .ml-progress-bar-bg {
+		background: rgba(255, 255, 255, 0.2);
+	}
+
+	:global(.dark) .ml-badge-free {
+		color: #86efac;
+	}
+
+	:global(.dark) .ml-nav-btn {
+		border-color: rgba(255, 255, 255, 0.25);
+		background: rgba(255, 255, 255, 0.1);
+		color: #ffffff;
+	}
+
+	.ml-nav-btn:disabled {
+		opacity: 0.45;
+		cursor: not-allowed;
+	}
+
+	@media (min-width: 800px) {
+		.ml-day-col {
+			width: calc((100% - 1rem) / 2);
+			max-width: calc((100% - 1rem) / 2);
+		}
+	}
+
+	@media (min-width: 1100px) {
+		.ml-day-col {
+			width: calc((100% - 3rem) / 4);
+			max-width: calc((100% - 3rem) / 4);
+		}
+	}
+</style>
+
+<script>
+	const slider = document.getElementById('ml-slider');
+	const prevBtn = document.getElementById('ml-prev') as HTMLButtonElement | null;
+	const nextBtn = document.getElementById('ml-next') as HTMLButtonElement | null;
+
+	if (slider && prevBtn && nextBtn) {
+		const dayCols = Array.from(slider.children) as HTMLElement[];
+		const pages = dayCols.length;
+		let page = 0;
+
+		const visibleCount = () => (window.innerWidth >= 1100 ? 4 : window.innerWidth >= 800 ? 2 : 1);
+
+		const update = () => {
+			const visible = visibleCount();
+			dayCols.forEach((col, idx) => {
+				col.style.display = idx >= page && idx < page + visible ? '' : 'none';
+			});
+			prevBtn.disabled = page === 0;
+			nextBtn.disabled = page + visible >= pages;
+		};
+
+		prevBtn.addEventListener('click', () => {
+			page = Math.max(0, page - 1);
+			update();
+		});
+		nextBtn.addEventListener('click', () => {
+			const visible = visibleCount();
+			page = Math.min(Math.max(0, pages - visible), page + 1);
+			update();
+		});
+		window.addEventListener('resize', update);
+		update();
+	}
+</script>

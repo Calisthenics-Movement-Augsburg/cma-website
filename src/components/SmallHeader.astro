@@ -1,0 +1,66 @@
+---
+
+import ThemeToggle from '../components/ThemeToggle.astro';
+
+type Props = {
+	currentPage?: 'home' | 'pricing' | 'training' | 'team' | 'downloads' | 'faq' | 'kontakt' | 'impressum' | 'datenschutz';
+};
+
+const { currentPage } = Astro.props;
+
+const linkClass = (page: Props['currentPage']) =>
+	currentPage === page
+		? 'text-brand'
+		: 'hover:text-brand';
+
+---
+
+<header
+		id="faq-header"
+		class="fixed top-0 w-full z-50 border-b border-white/10 bg-black/55 backdrop-blur-md"
+	>
+		<div class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 md:px-6">
+			<a href="/" aria-label="Calisthenics Movement Augsburg">
+				<img
+					src="/logo.png"
+					alt="Calisthenics Movement Augsburg"
+					loading="lazy"
+					decoding="async"
+					class="h-9 w-9 md:h-10 md:w-10"
+				/>
+			</a>
+
+            <nav class="hidden lg:block">
+                <ul class="flex gap-7 uppercase font-bold text-sm text-white/95">
+                    <li>
+                        <a href="/#pricing" class={linkClass('pricing')}>Kosten</a>
+                    </li>
+                    <li>
+                        <a href="/#trainings-timetable" class={linkClass('training')}>Training</a>
+                    </li>
+                    <li>
+                        <a href="/team" class={linkClass('team')}>Team</a>
+                    </li>
+                    <li>
+                        <a href="/downloads" class={linkClass('downloads')}>Downloads</a>
+                    </li>
+                    <li>
+                        <a href="/faq" class={linkClass('faq')}>FAQ</a>
+                    </li>
+                    <li>
+                        <a href="/#contact" class={linkClass('kontakt')}>Kontakt</a>
+                    </li>
+                </ul>
+            </nav>
+
+			<div class="flex items-center gap-3">
+				<a
+					class="hidden md:inline-flex items-center rounded-full bg-brand px-5 py-2 text-xs font-bold uppercase tracking-wide text-white transition hover:bg-brand-muted"
+					href="/#contact"
+				>
+					Zum Probetraining
+				</a>
+				<ThemeToggle />
+			</div>
+		</div>
+	</header>

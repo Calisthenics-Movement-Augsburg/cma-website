@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
 import Background from '../components/Background.astro';
+import SmallHeader from '../components/SmallHeader.astro';
 
 const teamMembers = [
 	{
@@ -24,41 +25,7 @@ const teamMembers = [
 
 <Layout title="Team | Cali Fitness">
 	<Background />
-	<header
-		id="team-header"
-		class="fixed top-0 w-full z-50 border-b border-white/10 bg-black/55 backdrop-blur-md"
-	>
-		<div class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 md:px-6">
-			<a href="/" aria-label="Fitnesscenter California">
-				<img
-					src="/public/logo.png"
-					alt="Fitnesscenter California"
-					loading="lazy"
-					decoding="async"
-					class="h-9 w-9 md:h-10 md:w-10"
-				/>
-			</a>
-			<nav class="hidden lg:block">
-				<ul class="flex gap-7 uppercase font-bold text-sm text-white/95">
-					<li><a href="/#tarife" class="hover:text-brand">Tarife</a></li>
-					<li><a href="/#groupfitness" class="hover:text-brand">Leistungen</a></li>
-					<li><a href="/team" class="text-brand">Team</a></li>
-					<li><a href="/#contact" class="hover:text-brand">Kontakt</a></li>
-				</ul>
-			</nav>
-			<div class="flex items-center gap-3">
-			<a
-				class="hidden md:inline-flex items-center rounded-full bg-brand px-5 py-2 text-xs font-bold uppercase tracking-wide text-white transition hover:bg-brand-muted"
-				href="https://checkout.moresports.io/1068/landing/anmeldung"
-				target="_blank"
-				rel="nofollow noreferrer"
-			>
-				Jetzt anmelden
-			</a>
-			<ThemeToggle />
-			</div>
-		</div>
-	</header>
+	<SmallHeader currentPage='team' />
 
 	<main>
 		<section class="l-section custom relative min-h-[34vh] md:min-h-[40vh] flex items-center justify-center overflow-hidden pt-14 md:pt-16">
