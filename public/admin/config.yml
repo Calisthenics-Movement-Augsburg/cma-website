@@ -45,3 +45,71 @@ collections:
         name: "order"
         widget: "number"
         value_type: "int"
+
+  - name: "pricing"
+    label: "Mitgliedsbeiträge"
+    folder: "src/content/pricing"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - label: "Name"
+        name: "name"
+        widget: "string"
+
+      - label: "Tagline"
+        name: "tagline"
+        widget: "string"
+
+      - label: "Beschreibung"
+        name: "description"
+        widget: "text"
+
+      - label: "Features"
+        name: "features"
+        widget: "list"
+        field:
+          label: "Feature"
+          name: "feature"
+          widget: "string"
+
+      - label: "Preisoptionen"
+        name: "options"
+        widget: "list"
+        fields:
+          - label: "Euro"
+            name: "price"
+            widget: "string"
+
+          - label: "Cent"
+            name: "cents"
+            widget: "string"
+            default: "00"
+
+      - label: "Reihenfolge"
+        name: "order"
+        widget: "number"
+        value_type: "int"
+
+      - label: "Hervorheben"
+        name: "highlight"
+        widget: "boolean"
+        default: false
+
+  - name: "pricing_page"
+    label: "Mitgliedsbeiträge: Seitentext"
+    files:
+      - label: "Beitragsbereich"
+        name: "pricing_page"
+        file: "src/content/pricing-page/index.md"
+        fields:
+          - label: "Überschrift"
+            name: "title"
+            widget: "string"
+
+          - label: "Absätze"
+            name: "paragraphs"
+            widget: "list"
+            field:
+              label: "Absatz"
+              name: "paragraph"
+              widget: "text"

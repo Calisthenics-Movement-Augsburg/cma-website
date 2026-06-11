@@ -1,6 +1,6 @@
 ---
 name: STANDARD.
-tagline: Der faire Regelbeitrag
+tagline: Unsere Empfehlung
 description: Für regelmäßiges Training und eine stabile Vereinsfinanzierung.
 features:
   - Nutzung der Halle bis zu 3× pro Woche

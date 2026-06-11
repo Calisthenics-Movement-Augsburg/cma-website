@@ -29,6 +29,16 @@ const faq = defineCollection({
 	}),
 });
 
+const pricingPage = defineCollection({
+	loader: glob({
+		pattern: 'index.md',
+		base: './src/content/pricing-page',
+	}),
+	schema: z.object({
+		title: z.string(),
+		paragraphs: z.array(z.string()),
+	}),
+});
 
 const pricing = defineCollection({
 	loader: glob({
@@ -54,5 +64,6 @@ const pricing = defineCollection({
 export const collections = {
 	downloads,
 	faq,
-    pricing
+    pricing,
+    pricingPage
 };

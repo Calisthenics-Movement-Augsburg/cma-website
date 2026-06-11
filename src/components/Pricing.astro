@@ -4,30 +4,25 @@ import type { CollectionEntry } from 'astro:content';
 type PricingEntry = CollectionEntry<'pricing'>;
 
 interface Props {
+	content: PricingContent;
 	items: PricingEntry[];
 }
 
-const { items } = Astro.props;
+interface PricingContent {
+	title: string;
+	paragraphs: string[];
+}
+
+const { content, items } = Astro.props;
 ---
 
 <section id="pricing" class="py-20 md:py-30 px-4">
 	<div class="mx-auto max-w-6xl">
-		<h2 class="text-center text-4xl md:text-5xl font-bold">Mitgliedschaft & Beiträge</h2>
+		<h2 class="text-center text-4xl md:text-5xl font-bold">{content.title}</h2>
 		<div class="mx-auto mt-4 h-1.5 w-28 bg-brand"></div>
 
 		<div class="mt-12 text-md">
-			<p>
-				Wir möchten Training möglichst zugänglich halten und finanzieren den Verein deshalb über ein solidarisches Beitragsmodell.
-			</p>
-			<p>
-				Die Mitgliedschaft ist bereits ab 5 € monatlich möglich. Unser empfohlener Standardbeitrag liegt bei 20 € monatlich. Wer den
-				Verein stärker unterstützen möchte, kann freiwillig eine höhere Beitragsstufe wählen.
-			</p>
-			<p>
-				Deine Beitragsstufe kannst du monatlich an deine aktuelle Situation anpassen. Wenn du für längere Zeit nicht teilnehmen
-				kannst, zum Beispiel wegen 'nem Auslandssemester, längerer Reise oder persönlicher Umstände, kannst du deine Mitgliedschaft
-				natürlich pausieren.
-			</p>
+			{content.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
 		</div>
 
 		<div class="mt-12 grid gap-7 lg:grid-cols-2">
@@ -82,7 +77,7 @@ const { items } = Astro.props;
 			<a
 				class="inline-flex items-center rounded-full bg-brand px-8 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-brand-muted"
 				title="Beitragsstufen"
-				href="/tarifs"
+				href="/pricing"
 			>
 				Alle Beitragsstufen ansehen
 			</a>

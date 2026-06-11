@@ -11,7 +11,7 @@ import Pricing from '../components/Pricing.astro';
 import TrialTraining from '../components/TrialTraining.astro';
 import Contact from '../components/Contact.astro';
 
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 
 type PricingEntry = CollectionEntry<'pricing'>;
@@ -19,6 +19,12 @@ type PricingEntry = CollectionEntry<'pricing'>;
 const pricingItems = ((await getCollection('pricing')) as PricingEntry[]).sort(
 	(a, b) => a.data.order - b.data.order
 );
+
+const pricingPage = await getEntry('pricingPage', 'index');
+
+if (!pricingPage) {
+	throw new Error('Missing pricing page content: src/content/pricing-page/index.md');
+}
 
 ---
 
@@ -32,7 +38,7 @@ const pricingItems = ((await getCollection('pricing')) as PricingEntry[]).sort(
 		<Gallery />
 		<TrainingInfo />
 		<Timetable />
-		<Pricing items={pricingItems} />
+		<Pricing content={pricingPage.data} items={pricingItems} />
 		<TrialTraining />
 		<Contact />
 	</main>
