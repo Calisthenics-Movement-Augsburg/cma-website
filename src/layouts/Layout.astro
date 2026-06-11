@@ -7,7 +7,7 @@ import Footer from '../components/Footer.astro';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -28,11 +28,12 @@ import Footer from '../components/Footer.astro';
         return 'light';
       })();
 
-      if (theme === 'dark') {
-        document.documentElement.classList.add('dark');
-      } else {
+      if (theme === 'light') {
         document.documentElement.classList.remove('dark');
+      } else {
+        document.documentElement.classList.add('dark');
       }
+
       window.localStorage.setItem('theme', theme);
     </script>
   </head>

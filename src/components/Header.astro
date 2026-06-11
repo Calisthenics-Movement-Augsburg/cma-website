@@ -17,7 +17,7 @@ const navLinks = [
 	class="fixed top-0 w-full z-50 flex justify-between items-center px-8 py-4 border-b border-transparent bg-transparent transition-all duration-300"
 >
 	<div class="text-2xl font-black text-white drop-shadow-md">
-		Calisthenics Movement <span class="text-brand">Augsburg</span>
+		Calisthenics Movement <span id="logo-augsburg" class="text-brand">Augsburg</span>
 	</div>
 	<div class="flex items-center gap-6">
 		<nav class="hidden md:block">
@@ -39,22 +39,51 @@ const navLinks = [
 
 <script>
 	const header = document.getElementById('site-header');
+	const augsburg = document.getElementById('logo-augsburg');
 	const hero = document.getElementById('home');
+
+	const getTheme = () => {
+	const storedTheme = localStorage.getItem('theme');
+
+	if (storedTheme) {
+		return storedTheme;
+	}
+
+	if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+		return 'dark';
+	}
+
+	return 'light';
+};
 
 	if (header && hero) {
 		const setHeaderState = () => {
+			const theme = getTheme();
+			
 			const threshold = hero.clientHeight * 0.35;
 			const scrolled = window.scrollY > threshold;
 
-			header.classList.toggle('bg-white/70', scrolled);
+			header.classList.toggle('bg-transparent', !scrolled);
+			header.classList.toggle('bg-brand/40', scrolled);
 			header.classList.toggle('dark:bg-black/70', scrolled);
 			header.classList.toggle('backdrop-blur-md', scrolled);
 			header.classList.toggle('border-gray-200/70', scrolled);
 			header.classList.toggle('dark:border-gray-800/70', scrolled);
+
+			if (augsburg) {
+				if (theme === 'light') {
+					augsburg.classList.toggle('text-brand', !scrolled);
+					augsburg.classList.toggle('text-black/80', scrolled);
+				} else {
+					augsburg.classList.add('text-brand');
+					augsburg.classList.remove('text-black/80');
+}
+			} 
 		};
 
 		setHeaderState();
 		window.addEventListener('scroll', setHeaderState, { passive: true });
 		window.addEventListener('resize', setHeaderState);
 	}
+	
 </script>
