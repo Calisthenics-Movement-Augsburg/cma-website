@@ -29,7 +29,30 @@ const faq = defineCollection({
 	}),
 });
 
+
+const pricing = defineCollection({
+	loader: glob({
+		pattern: '**/*.md',
+		base: './src/content/pricing',
+	}),
+	schema: z.object({
+		name: z.string(),
+		tagline: z.string(),
+		description: z.string(),
+		features: z.array(z.string()),
+		options: z.array(
+			z.object({
+				price: z.string(),
+				cents: z.string(),
+			})
+		),
+		order: z.number(),
+		highlight: z.boolean().default(false),
+	}),
+});
+
 export const collections = {
 	downloads,
 	faq,
+    pricing
 };

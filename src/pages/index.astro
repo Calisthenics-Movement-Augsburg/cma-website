@@ -10,6 +10,16 @@ import Timetable from '../components/Timetable.astro';
 import Pricing from '../components/Pricing.astro';
 import TrialTraining from '../components/TrialTraining.astro';
 import Contact from '../components/Contact.astro';
+
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+type PricingEntry = CollectionEntry<'pricing'>;
+
+const pricingItems = ((await getCollection('pricing')) as PricingEntry[]).sort(
+	(a, b) => a.data.order - b.data.order
+);
+
 ---
 
 <Layout title="Calisthenics Movement Augsburg">
@@ -22,7 +32,7 @@ import Contact from '../components/Contact.astro';
 		<Gallery />
 		<TrainingInfo />
 		<Timetable />
-		<Pricing />
+		<Pricing items={pricingItems} />
 		<TrialTraining />
 		<Contact />
 	</main>

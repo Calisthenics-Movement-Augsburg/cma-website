@@ -1,24 +1,13 @@
 ---
-const pricingPlans = [
-	{
-		name: 'EINSTIEG.',
-		tagline: 'Dabei sein, auch mit kleinem Budget',
-		description: 'Für alle, die mittrainieren möchten, aber aktuell wenig finanziellen Spielraum haben.',
-		features: ['Nutzung der Halle bis zu 1× pro Woche', 'Teilnahme an offenen Trainingseinheiten'],
-		options: [{ price: '5', cents: '00' }],
-	},
-	{
-		name: 'BASIC.',
-		tagline: 'Unsere Empfehlung',
-		description: 'Der Standardbeitrag hilft uns, den laufenden Vereinsbetrieb verlässlich zu finanzieren.',
-		features: [
-			'Nutzung der Halle bis zu 3× pro Woche',
-			'Teilnahme an allen regulären Trainingszeiten',
-			'Mitwirkungsmöglichkeit bei internen Trainingsformaten',
-		],
-		options: [{ price: '20', cents: '00' }],
-	},
-];
+import type { CollectionEntry } from 'astro:content';
+
+type PricingEntry = CollectionEntry<'pricing'>;
+
+interface Props {
+	items: PricingEntry[];
+}
+
+const { items } = Astro.props;
 ---
 
 <section id="pricing" class="py-20 md:py-30 px-4">
@@ -43,12 +32,12 @@ const pricingPlans = [
 
 		<div class="mt-12 grid gap-7 lg:grid-cols-2">
 			{
-				pricingPlans.map((plan) => (
+				items.map((plan) => (
 					<article class="pricing-card rounded-2xl border p-6 md:p-9">
-						<h3 class="text-3xl md:text-4xl font-extrabold tracking-tight">{plan.name}</h3>
-						<h5 class="text-xl text-brand-muted md:text-2xl font-bold tracking-tight">{plan.tagline}</h5>
+						<h3 class="text-3xl md:text-4xl font-extrabold tracking-tight">{plan.data.name}</h3>
+						<h5 class="text-xl text-brand-muted md:text-2xl font-bold tracking-tight">{plan.data.tagline}</h5>
 						<div class="mt-5 grid gap-3 sm:grid-cols-2">
-							{plan.features.map((feature) => (
+							{plan.data.features.map((feature) => (
 								<div class="flex items-center gap-2 text-sm font-semibold">
 									<span class="pricing-check">•</span>
 									<span>{feature}</span>
@@ -56,7 +45,7 @@ const pricingPlans = [
 							))}
 						</div>
 						<div class="mt-9 flex flex-wrap justify-center gap-4">
-							{plan.options.map((option) => (
+							{plan.data.options.map((option) => (
 								<div class="pricing-option w-full max-w-xs sm:max-w-sm rounded-xl border p-4 md:p-5 text-center">
 									<div class="mb-4">
 										<span class="text-sm font-semibold uppercase tracking-wide opacity-75">EUR</span>
