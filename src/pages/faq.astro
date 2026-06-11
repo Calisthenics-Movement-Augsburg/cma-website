@@ -2,58 +2,27 @@
 // src/pages/faq.astro
 
 import Layout from '../layouts/Layout.astro';
-import ThemeToggle from '../components/ThemeToggle.astro';
 import Background from '../components/Background.astro';
 import SmallHeader from '../components/SmallHeader.astro';
 
-const faqColumns = [
-	[
-		{
-			question: 'Kann ich einfach zum Probetraining vorbeikommen?',
-			answer:
-				'Bitte melde dich vorher über unser Kontaktformular an. So können wir besser planen und dir sagen, welches Training für dein erstes Probetraining am besten passt.',
-		},
-		{
-			question: 'Brauche ich Vorerfahrung für das Training?',
-			answer:
-				'Nein. Du brauchst keine Vorerfahrung. Unser Training ist für verschiedene Leistungsstände geeignet. Wichtig ist nur, dass du offen bist, sauber lernst und auf deinen Körper hörst.',
-		},
-		{
-			question: 'Was soll ich zum Probetraining mitbringen?',
-			answer:
-				'Bring Sportkleidung, etwas zu trinken und bei Bedarf ein kleines Handtuch mit. Trainiert wird meistens mit dem eigenen Körpergewicht. Spezielle Ausrüstung brauchst du für den Einstieg nicht.',
-		},
-		{
-			question: 'Ab welchem Alter kann ich mittrainieren?',
-			answer:
-				'Minderjährige können grundsätzlich mit Einverständnis der Erziehungsberechtigten teilnehmen. Die genauen Voraussetzungen findest du in unseren Unterlagen oder bekommst du direkt von uns beim Erstkontakt.',
-		},
-	],
-	[
-		{
-			question: 'Wie funktioniert eure Mitgliedschaft?',
-			answer:
-				'Wir arbeiten mit einem solidarischen Beitragsmodell. Das bedeutet: Es gibt verschiedene Beitragsstufen und du wählst die Stufe, die zu deiner Situation passt. Beiträge sind ab 5 € monatlich möglich.',
-		},
-		{
-			question: 'Kann ich meinen Mitgliedsbeitrag ändern?',
-			answer:
-				'Ja. Die Beitragsstufe kann monatlich angepasst werden. So bleibt die Mitgliedschaft flexibel, falls sich deine Situation verändert.',
-		},
-		{
-			question: 'Kann ich meine Mitgliedschaft pausieren?',
-			answer:
-				'Ja. Wenn du zum Beispiel wegen Auslandssemester, längerer Reise, Verletzung oder anderer Gründe vorübergehend nicht trainieren kannst, sprich uns an. Eine Pause ist grundsätzlich möglich.',
-		},
-		{
-			question: 'Wo finde ich Mitgliedsantrag, Satzung und Formulare?',
-			answer:
-				'Alle wichtigen Dokumente findest du im Downloadbereich. Dort liegen Mitgliedsantrag, Vereinssatzung und Probetraining-Formular als PDF bereit.',
-		},
-	],
-];
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 
-const allFaqItems = faqColumns.flat();
+type FaqItem = CollectionEntry<'faq'>;
+
+const faqItems = (await getCollection('faq')) as FaqItem[];
+
+const leftColumn = faqItems
+	.filter((item) => item.data.column === 'left')
+	.sort((a, b) => a.data.order - b.data.order);
+
+const rightColumn = faqItems
+	.filter((item) => item.data.column === 'right')
+	.sort((a, b) => a.data.order - b.data.order);
+
+const faqColumns = [leftColumn, rightColumn];
+
+const allFaqItems = [...leftColumn, ...rightColumn];
 ---
 
 <Layout title="FAQ | Calisthenics Movement Augsburg">
@@ -83,60 +52,60 @@ const allFaqItems = faqColumns.flat();
 					Hier findest du Antworten auf die wichtigsten Fragen zu Probetraining, Mitgliedschaft, Beiträgen und Training.
 				</p>
 
-				<div class="faq-grid mt-10 md:mt-12">
-					{
-						faqColumns.map((column) => (
-							<div class="faq-column">
-								{column.map((item) => (
-									<details name="faq-accordion" class="faq-item group">
-										<summary class="faq-summary">
-											<span>{item.question}</span>
-
-											<span class="faq-icon" aria-hidden="true">
-												<svg
-													class="faq-plus"
-													xmlns="http://www.w3.org/2000/svg"
-													width="20"
-													height="20"
-													viewBox="0 0 24 24"
-													fill="none"
-													stroke="currentColor"
-													stroke-width="2"
-													stroke-linecap="round"
-													stroke-linejoin="round"
-												>
-													<path d="M5 12h14" />
-													<path d="M12 5v14" />
-												</svg>
-
-												<svg
-													class="faq-minus"
-													xmlns="http://www.w3.org/2000/svg"
-													width="20"
-													height="20"
-													viewBox="0 0 24 24"
-													fill="none"
-													stroke="currentColor"
-													stroke-width="2"
-													stroke-linecap="round"
-													stroke-linejoin="round"
-												>
-													<path d="M5 12h14" />
-												</svg>
-											</span>
-										</summary>
-
-										<div class="faq-answer-wrap">
-											<div class="overflow-hidden">
-												<p class="faq-answer">{item.answer}</p>
-											</div>
-										</div>
-									</details>
-								))}
-							</div>
-						))
-					}
-				</div>
+                <div class="faq-grid mt-10 md:mt-12">
+                    {
+                        faqColumns.map((column) => (
+                            <div class="faq-column">
+                                {column.map((item) => (
+                                    <details name="faq-accordion" class="faq-item group">
+                                        <summary class="faq-summary">
+                                            <span>{item.data.question}</span>
+                
+                                            <span class="faq-icon" aria-hidden="true">
+                                                <svg
+                                                    class="faq-plus"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="20"
+                                                    height="20"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                >
+                                                    <path d="M5 12h14" />
+                                                    <path d="M12 5v14" />
+                                                </svg>
+                
+                                                <svg
+                                                    class="faq-minus"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="20"
+                                                    height="20"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                >
+                                                    <path d="M5 12h14" />
+                                                </svg>
+                                            </span>
+                                        </summary>
+                
+                                        <div class="faq-answer-wrap">
+                                            <div class="overflow-hidden">
+                                                <p class="faq-answer">{item.data.answer}</p>
+                                            </div>
+                                        </div>
+                                    </details>
+                                ))}
+                            </div>
+                        ))
+                    }
+                </div>
 
 				<div class="faq-help mt-10 md:mt-12">
 					<h2>Noch Fragen?</h2>
@@ -162,17 +131,17 @@ const allFaqItems = faqColumns.flat();
 				</div>
 
 				<script type="application/ld+json" set:html={JSON.stringify({
-					'@context': 'https://schema.org',
-					'@type': 'FAQPage',
-					mainEntity: allFaqItems.map((item) => ({
-						'@type': 'Question',
-						name: item.question,
-						acceptedAnswer: {
-							'@type': 'Answer',
-							text: item.answer,
-						},
-					})),
-				})} />
+                    '@context': 'https://schema.org',
+                    '@type': 'FAQPage',
+                    mainEntity: allFaqItems.map((item) => ({
+                        '@type': 'Question',
+                        name: item.data.question,
+                        acceptedAnswer: {
+                            '@type': 'Answer',
+                            text: item.data.answer,
+                        },
+                    })),
+                })} />
 			</div>
 		</section>
 	</main>

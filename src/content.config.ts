@@ -16,6 +16,20 @@ const downloads = defineCollection({
 	}),
 });
 
+const faq = defineCollection({
+	loader: glob({
+		pattern: '**/*.md',
+		base: './src/content/faq',
+	}),
+	schema: z.object({
+		question: z.string(),
+		answer: z.string(),
+		column: z.enum(['left', 'right']),
+		order: z.number(),
+	}),
+});
+
 export const collections = {
 	downloads,
+	faq,
 };
