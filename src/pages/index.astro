@@ -20,6 +20,12 @@ const pricingItems = ((await getCollection('pricing')) as PricingEntry[]).sort(
 	(a, b) => a.data.order - b.data.order
 );
 
+const hero = await getEntry('homeHero', 'index');
+
+if (!hero) {
+	throw new Error('Missing hero content: src/content/home-hero/index.md');
+}
+
 const pricingPage = await getEntry('pricingPage', 'index');
 
 if (!pricingPage) {
@@ -33,7 +39,7 @@ if (!pricingPage) {
 	<Header />
 
 	<main>
-		<Hero />
+		<Hero content={hero.data} />
 		<Intro />
 		<Gallery />
 		<TrainingInfo />

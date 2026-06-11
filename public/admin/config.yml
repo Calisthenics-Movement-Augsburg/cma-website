@@ -46,6 +46,58 @@ collections:
         widget: "number"
         value_type: "int"
 
+  - name: "home_hero"
+    label: "Startseite: Hero"
+    files:
+      - label: "Hero"
+        name: "hero"
+        file: "src/content/home-hero/index.md"
+        fields:
+          - label: "Hintergrundbild"
+            name: "backgroundImage"
+            widget: "image"
+            required: true
+
+          - label: "Video Poster"
+            name: "posterImage"
+            widget: "image"
+            required: true
+
+          - label: "Video URL"
+            name: "videoUrl"
+            widget: "file"
+            required: false
+            media_folder: "/public/videos"
+            public_folder: "/videos"
+
+          - label: "Bildbeschreibung"
+            name: "backgroundAlt"
+            widget: "string"
+
+          - label: "Logo"
+            name: "logo"
+            widget: "object"
+            fields:
+              - label: "Logo Datei"
+                name: "src"
+                widget: "image"
+
+              - label: "Alt Text"
+                name: "alt"
+                widget: "string"
+
+              - label: "Breite"
+                name: "width"
+                widget: "number"
+                value_type: "int"
+                default: 300
+
+              - label: "Höhe"
+                name: "height"
+                widget: "number"
+                value_type: "int"
+                default: 300
+
   - name: "pricing"
     label: "Mitgliedsbeiträge"
     folder: "src/content/pricing"

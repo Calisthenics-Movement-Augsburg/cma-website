@@ -61,9 +61,29 @@ const pricing = defineCollection({
 	}),
 });
 
+const homeHero = defineCollection({
+	loader: glob({
+		pattern: 'index.md',
+		base: './src/content/home-hero',
+	}),
+	schema: z.object({
+		backgroundImage: z.string(),
+		posterImage: z.string(),
+		videoUrl: z.string().optional(),
+		backgroundAlt: z.string(),
+		logo: z.object({
+			src: z.string(),
+			alt: z.string(),
+			width: z.number().default(300),
+			height: z.number().default(300),
+		}),
+	}),
+});
+
 export const collections = {
 	downloads,
 	faq,
     pricing,
-    pricingPage
+    pricingPage,
+    homeHero
 };

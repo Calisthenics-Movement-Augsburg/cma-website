@@ -1,27 +1,50 @@
 ---
-import settings from '../content/settings.json';
+interface HeroContent {
+	backgroundImage: string;
+	posterImage: string;
+	videoUrl?: string;
+	backgroundAlt: string;
+	logo: {
+		src: string;
+		alt: string;
+		width: number;
+		height: number;
+	};
+}
+
+interface Props {
+	content: HeroContent;
+}
+
+const { content } = Astro.props;
 ---
 
 <section id="home" class="relative min-h-screen h-[100svh] w-full overflow-hidden flex items-center justify-center">
 	<div
 		class="hero-media absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
-		style="background-image:url('https://www.fitnesscenter-california.at/wp-content/uploads/2025/12/Hero-Gym-2025-Thumbnail.webp')"
+		style={`background-image:url('${content.backgroundImage}')`}
 		role="img"
-		aria-label="Fitnesscenter California hero background"
+		aria-label={content.backgroundAlt}
 	>
 	</div>
-	<video
-		autoplay
-		muted
-		loop
-		playsinline
-		preload="auto"
-		class="hero-media absolute inset-0 z-10 hidden h-full w-full object-cover md:block"
-		poster="https://www.fitnesscenter-california.at/wp-content/uploads/2025/12/Hero-Gym-2025-Thumbnail.webp"
-		aria-hidden="true"
-	>
-		<source src={settings.videoUrl} type="video/mp4" />
-	</video>
+
+	{
+		content.videoUrl && (
+			<video
+				autoplay
+				muted
+				loop
+				playsinline
+				preload="auto"
+				class="hero-media absolute inset-0 z-10 hidden h-full w-full object-cover md:block"
+				poster={content.posterImage}
+				aria-hidden="true"
+			>
+				<source src={content.videoUrl} type="video/mp4" />
+			</video>
+		)
+	}
+
 	<div
 		class="hero-overlay absolute inset-0 z-20 bg-[rgba(25,25,25,0.58)] md:bg-[rgba(25,25,25,0.50)] lg:bg-[rgba(25,25,25,0.42)]"
 	>
@@ -29,10 +52,10 @@ import settings from '../content/settings.json';
 
 	<div class="relative z-30 flex flex-col items-center justify-center px-4 text-center">
 		<img
-			src="/logo.png"
-			alt="Calisthenics Movement Augsburg"
-			width="300"
-			height="300"
+			src={content.logo.src}
+			alt={content.logo.alt}
+			width={content.logo.width}
+			height={content.logo.height}
 			loading="lazy"
 			decoding="async"
 			class="w-[180px] md:w-[220px] lg:w-[300px] animate-hero-logo-in"
