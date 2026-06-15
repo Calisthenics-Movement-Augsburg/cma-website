@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 
-
 /* You can put your custom @theme overwrites right below the import */
 @theme {
     /* Overwriting/Defining brand colors */
