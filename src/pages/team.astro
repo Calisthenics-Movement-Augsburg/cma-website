@@ -1,88 +1,94 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ThemeToggle from '../components/ThemeToggle.astro';
 import Background from '../components/Background.astro';
 import SmallHeader from '../components/SmallHeader.astro';
+import SectionBackground from '../components/SectionBackground.astro';
+import { getEntry } from 'astro:content';
 
-const teamMembers = [
-	{
-		name: 'Tobi',
-		role: 'Coach & Trainer',
-		image: 'https://i.pinimg.com/1200x/08/49/0f/08490f226de5720d8ae56f1a6b541753.jpg',
-	},
-	{
-		name: 'Dr. Ivo',
-		role: '1. Vorsitzende & Medizinischer Leiter',
-		image: 'https://i.pinimg.com/1200x/c3/4f/06/c34f067c1d04b96b523ea6bbfb57a14b.jpg',
-	},
-	{
-		name: 'Leonie',
-		role: '2. Vorsitzende',
-		image: 'https://i.pinimg.com/736x/22/ba/e2/22bae2ed0fdf65abc5e75edbc99a5ea0.jpg',
-	}
-];
+const teamPage = await getEntry('team', 'index');
+
+if (!teamPage) {
+	throw new Error('Missing team content: src/content/team/index.md');
+}
+
+const sharedSectionBackground = await getEntry('sharedSectionBackground', 'index');
+
+if (!sharedSectionBackground) {
+	throw new Error('Missing shared section background content: src/content/shared-section-background/index.md');
+}
+
+const content = teamPage.data;
+const backgroundImage = sharedSectionBackground.data.image;
 ---
 
-<Layout title="Team | Cali Fitness">
+<Layout title={content.layoutTitle}>
 	<Background />
-	<SmallHeader currentPage='team' />
+	<SmallHeader currentPage="team" />
 
 	<main>
 		<section class="l-section custom relative min-h-[34vh] md:min-h-[40vh] flex items-center justify-center overflow-hidden pt-14 md:pt-16">
-			<div
-				class="absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat"
-				style="background-image:url('https://www.fitnesscenter-california.at/wp-content/uploads/2023/02/banner-breadcrumb.jpeg')"
-				role="img"
-				aria-label="Team banner"
-			></div>
-			<div class="absolute inset-0 -z-10 bg-white/70 md:bg-white/60 lg:bg-white/50 dark:bg-black/45"></div>
-			<h1 class="text-dark text-4xl md:text-6xl font-black tracking-tight drop-shadow-xl dark:text-white/95">Team</h1>
+			<SectionBackground
+				image={backgroundImage}
+				overlayClass="bg-white/70 md:bg-white/60 lg:bg-white/50 dark:bg-black/45"
+			/>
+
+			<h1 class="text-dark text-4xl md:text-6xl font-black tracking-tight drop-shadow-xl dark:text-white/95">
+				{content.heroTitle}
+			</h1>
 		</section>
 
 		<section class="py-14 md:py-22 px-4">
 			<div class="mx-auto max-w-[1120px]">
-				<h2 class="text-center text-3xl md:text-5xl font-bold dark:text-white/95  ">Unser starkes Team</h2>
+				<h2 class="text-center text-3xl md:text-5xl font-bold dark:text-white/95">
+					{content.sectionTitle}
+				</h2>
+
 				<div class="mx-auto mt-3 h-1.5 w-24 md:w-28 bg-brand"></div>
 
 				<div class="team-grid mt-10 md:mt-12 grid">
 					{
-						teamMembers.map((member) => (
+						content.members.map((member) => (
 							<article class="team-card">
 								<img
 									src={member.image}
-									alt={member.name}
+									alt={member.alt}
 									loading="lazy"
 									decoding="async"
 									class="w-full object-cover object-center"
 									style="aspect-ratio: 2 / 3;"
 								/>
+
 								<div class="pt-3 md:pt-4 text-center">
-									<h3 class="text-[1.55rem] md:text-2xl font-bold leading-tight">{member.name}</h3>
-									<p class="mt-1 text-[0.92rem] opacity-70">{member.role}</p>
+									<h3 class="text-[1.55rem] md:text-2xl font-bold leading-tight">
+										{member.name}
+									</h3>
+
+									<p class="mt-1 text-[0.92rem] opacity-70">
+										{member.role}
+									</p>
 								</div>
 							</article>
 						))
 					}
 				</div>
 
-				<div class="mt-10 md:mt-12 flex justify-center">
+				<!-- <div class="mt-10 md:mt-12 flex justify-center">
 					<a
 						class="inline-flex items-center rounded-full bg-brand px-8 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-brand-muted"
-						title="Jetzt anmelden"
-						rel="nofollow noreferrer"
-						target="_blank"
-						href="https://checkout.moresports.io/1068/landing/anmeldung"
+						title={content.cta.title ?? content.cta.label}
+						rel={content.cta.external ? 'nofollow noreferrer' : undefined}
+						target={content.cta.external ? '_blank' : undefined}
+						href={content.cta.href}
 					>
-						Jetzt anmelden
+						{content.cta.label}
 					</a>
-				</div>
+				</div> -->
 			</div>
 		</section>
 	</main>
 </Layout>
 
 <style>
-
 	.team-card {
 		text-align: center;
 		position: relative;
@@ -93,15 +99,15 @@ const teamMembers = [
 		transition: transform 220ms ease;
 	}
 
-    .l-section {
-        padding-left: 2.5rem;
-        padding-right: 2.5rem;
-    }
+	.l-section {
+		padding-left: 2.5rem;
+		padding-right: 2.5rem;
+	}
 
-    .l-section.custom {
-        padding-top: var(--section-custom-padding, 5vmax);
-        padding-bottom: var(--section-custom-padding, 5vmax);
-    }
+	.l-section.custom {
+		padding-top: var(--section-custom-padding, 5vmax);
+		padding-bottom: var(--section-custom-padding, 5vmax);
+	}
 
 	.team-card:hover {
 		transform: translateY(-4px);

@@ -8,44 +8,6 @@ media_folder: "public/uploads"
 public_folder: "/uploads"
 
 collections:
-  - name: "downloads"
-    label: "Downloads"
-    folder: "src/content/downloads"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - { label: "Titel", name: "title", widget: "string" }
-      - { label: "Beschreibung", name: "description", widget: "text" }
-      - { label: "Format", name: "format", widget: "string", default: "PDF" }
-      - { label: "Datei", name: "file", widget: "file" }
-      - { label: "Reihenfolge", name: "order", widget: "number", value_type: "int" }
-
-  - name: "faq"
-    label: "FAQ"
-    folder: "src/content/faq"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - label: "Frage"
-        name: "question"
-        widget: "string"
-
-      - label: "Antwort"
-        name: "answer"
-        widget: "text"
-
-      - label: "Spalte"
-        name: "column"
-        widget: "select"
-        options:
-          - { label: "Links", value: "left" }
-          - { label: "Rechts", value: "right" }
-
-      - label: "Reihenfolge"
-        name: "order"
-        widget: "number"
-        value_type: "int"
-
   - name: "home_hero"
     label: "Startseite: Hero"
     files:
@@ -332,88 +294,6 @@ collections:
                 name: "href"
                 widget: "string"
 
-  - name: "pricing"
-    label: "Mitgliedsbeiträge"
-    folder: "src/content/pricing"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - label: "Name"
-        name: "name"
-        widget: "string"
-
-      - label: "Tagline"
-        name: "tagline"
-        widget: "string"
-
-      - label: "Beschreibung"
-        name: "description"
-        widget: "text"
-
-      - label: "Features"
-        name: "features"
-        widget: "list"
-        field:
-          label: "Feature"
-          name: "feature"
-          widget: "string"
-
-      - label: "Preisoptionen"
-        name: "options"
-        widget: "list"
-        fields:
-          - label: "Euro"
-            name: "price"
-            widget: "string"
-
-          - label: "Cent"
-            name: "cents"
-            widget: "string"
-            default: "00"
-
-      - label: "Reihenfolge"
-        name: "order"
-        widget: "number"
-        value_type: "int"
-
-      - label: "Hervorheben"
-        name: "highlight"
-        widget: "boolean"
-        default: false
-
-  - name: "pricing_page"
-    label: "Mitgliedsbeiträge: Seitentext"
-    files:
-      - label: "Beitragsbereich"
-        name: "pricing_page"
-        file: "src/content/pricing-page/index.md"
-        fields:
-          - label: "Überschrift"
-            name: "title"
-            widget: "string"
-
-          - label: "Absätze"
-            name: "paragraphs"
-            widget: "list"
-            field:
-              label: "Absatz"
-              name: "paragraph"
-              widget: "text"
-
-  - name: "shared_section_background"
-    label: "Global: Section Background"
-    files:
-      - label: "Section Background"
-        name: "section_background"
-        file: "src/content/shared-section-background/index.md"
-        fields:
-          - label: "Hintergrundbild"
-            name: "image"
-            widget: "image"
-            required: true
-            media_folder: "/public/uploads/backgrounds"
-            public_folder: "/uploads/backgrounds"
-
   - name: "home_contact_form"
     label: "Startseite: Kontaktformular"
     files:
@@ -494,3 +374,344 @@ collections:
                 widget: "file"
                 media_folder: "public/downloads"
                 public_folder: "/downloads"
+
+  - name: "pricing"
+    label: "Mitgliedsbeiträge"
+    folder: "src/content/pricing"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - label: "Name"
+        name: "name"
+        widget: "string"
+
+      - label: "Tagline"
+        name: "tagline"
+        widget: "string"
+
+      - label: "Beschreibung"
+        name: "description"
+        widget: "text"
+
+      - label: "Features"
+        name: "features"
+        widget: "list"
+        field:
+          label: "Feature"
+          name: "feature"
+          widget: "string"
+
+      - label: "Preisoptionen"
+        name: "options"
+        widget: "list"
+        fields:
+          - label: "Euro"
+            name: "price"
+            widget: "string"
+
+          - label: "Cent"
+            name: "cents"
+            widget: "string"
+            default: "00"
+
+      - label: "Reihenfolge"
+        name: "order"
+        widget: "number"
+        value_type: "int"
+
+      - label: "Hervorheben"
+        name: "highlight"
+        widget: "boolean"
+        default: false
+
+  - name: "pricing_page"
+    label: "Mitgliedsbeiträge: Seitentext"
+    files:
+      - label: "Beitragsbereich"
+        name: "pricing_page"
+        file: "src/content/pricing-page/index.md"
+        fields:
+          - label: "Überschrift"
+            name: "title"
+            widget: "string"
+
+          - label: "Absätze"
+            name: "paragraphs"
+            widget: "list"
+            field:
+              label: "Absatz"
+              name: "paragraph"
+              widget: "text"
+
+  - name: "downloads"
+    label: "Downloads"
+    folder: "src/content/downloads"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Titel", name: "title", widget: "string" }
+      - { label: "Beschreibung", name: "description", widget: "text" }
+      - { label: "Format", name: "format", widget: "string", default: "PDF" }
+      - { label: "Datei", name: "file", widget: "file" }
+      - { label: "Reihenfolge", name: "order", widget: "number", value_type: "int" }
+
+  - name: "faq"
+    label: "FAQ"
+    folder: "src/content/faq"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - label: "Frage"
+        name: "question"
+        widget: "string"
+
+      - label: "Antwort"
+        name: "answer"
+        widget: "text"
+
+      - label: "Spalte"
+        name: "column"
+        widget: "select"
+        options:
+          - { label: "Links", value: "left" }
+          - { label: "Rechts", value: "right" }
+
+      - label: "Reihenfolge"
+        name: "order"
+        widget: "number"
+        value_type: "int"
+
+
+  - name: "team"
+    label: "Team"
+    files:
+      - label: "Team Seite"
+        name: "team"
+        file: "src/content/team/index.md"
+        fields:
+          - label: "Browser Titel"
+            name: "layoutTitle"
+            widget: "string"
+
+          - label: "Hero Titel"
+            name: "heroTitle"
+            widget: "string"
+
+          - label: "Abschnitt Überschrift"
+            name: "sectionTitle"
+            widget: "string"
+
+          - label: "Teammitglieder"
+            name: "members"
+            widget: "list"
+            fields:
+              - label: "Name"
+                name: "name"
+                widget: "string"
+
+              - label: "Rolle"
+                name: "role"
+                widget: "string"
+
+              - label: "Bild"
+                name: "image"
+                widget: "image"
+                media_folder: "public/uploads/team"
+                public_folder: "/uploads/team"
+
+              - label: "Alt Text"
+                name: "alt"
+                widget: "string"
+
+          - label: "CTA"
+            name: "cta"
+            widget: "object"
+            fields:
+              - label: "Button Text"
+                name: "label"
+                widget: "string"
+
+              - label: "Link"
+                name: "href"
+                widget: "string"
+
+              - label: "Title Attribut"
+                name: "title"
+                widget: "string"
+                required: false
+
+              - label: "Externer Link"
+                name: "external"
+                widget: "boolean"
+                default: true
+
+  - name: "shared_section_background"
+    label: "Global: Section Background"
+    files:
+      - label: "Section Background"
+        name: "section_background"
+        file: "src/content/shared-section-background/index.md"
+        fields:
+          - label: "Hintergrundbild"
+            name: "image"
+            widget: "image"
+            required: true
+            media_folder: "/public/uploads/backgrounds"
+            public_folder: "/uploads/backgrounds"
+
+
+  - name: "footer"
+    label: "Global: Footer"
+    files:
+      - label: "Footer"
+        name: "footer"
+        file: "src/content/footer/index.md"
+        fields:
+          - label: "Verein"
+            name: "brand"
+            widget: "object"
+            fields:
+              - label: "Titel"
+                name: "title"
+                widget: "string"
+
+              - label: "Beschreibung"
+                name: "descriptionLines"
+                widget: "list"
+                field:
+                  label: "Zeile"
+                  name: "line"
+                  widget: "string"
+
+          - label: "Adresse"
+            name: "address"
+            widget: "object"
+            fields:
+              - label: "Name"
+                name: "name"
+                widget: "string"
+
+              - label: "Adresszeilen"
+                name: "lines"
+                widget: "list"
+                field:
+                  label: "Zeile"
+                  name: "line"
+                  widget: "string"
+
+              - label: "E-Mail"
+                name: "email"
+                widget: "string"
+
+          - label: "Impressum Hinweis"
+            name: "legalNotice"
+            widget: "object"
+            fields:
+              - label: "Text vor Link"
+                name: "before"
+                widget: "text"
+
+              - label: "Link Text"
+                name: "linkLabel"
+                widget: "string"
+
+              - label: "Link"
+                name: "href"
+                widget: "string"
+
+              - label: "Text nach Link"
+                name: "after"
+                widget: "string"
+
+          - label: "Footer Navigation"
+            name: "footerNavigation"
+            widget: "object"
+            fields:
+              - label: "Titel"
+                name: "title"
+                widget: "string"
+
+              - label: "ARIA Label"
+                name: "ariaLabel"
+                widget: "string"
+
+              - label: "Links"
+                name: "links"
+                widget: "list"
+                fields:
+                  - label: "Link"
+                    name: "href"
+                    widget: "string"
+
+                  - label: "Text"
+                    name: "label"
+                    widget: "string"
+
+          - label: "Rechtliches"
+            name: "legalNavigation"
+            widget: "object"
+            fields:
+              - label: "Titel"
+                name: "title"
+                widget: "string"
+
+              - label: "Links"
+                name: "links"
+                widget: "list"
+                fields:
+                  - label: "Link"
+                    name: "href"
+                    widget: "string"
+
+                  - label: "Text"
+                    name: "label"
+                    widget: "string"
+
+          - label: "Social"
+            name: "social"
+            widget: "object"
+            fields:
+              - label: "Titel"
+                name: "title"
+                widget: "string"
+
+              - label: "Links"
+                name: "links"
+                widget: "list"
+                fields:
+                  - label: "Link"
+                    name: "href"
+                    widget: "string"
+
+                  - label: "Text"
+                    name: "label"
+                    widget: "string"
+
+                  - label: "Externer Link"
+                    name: "external"
+                    widget: "boolean"
+                    default: true
+
+          - label: "Copyright"
+            name: "copyright"
+            widget: "object"
+            fields:
+              - label: "Name"
+                name: "name"
+                widget: "string"
+
+              - label: "Text"
+                name: "text"
+                widget: "string"
+
+          - label: "Credit"
+            name: "credit"
+            widget: "object"
+            fields:
+              - label: "Text vor Icon"
+                name: "before"
+                widget: "string"
+
+              - label: "Text nach Icon"
+                name: "after"
+                widget: "string"                

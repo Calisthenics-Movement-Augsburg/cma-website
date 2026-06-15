@@ -1,124 +1,147 @@
 ---
+import { getEntry } from 'astro:content';
 
+const footerEntry = await getEntry('footer', 'index');
+
+if (!footerEntry) {
+	throw new Error('Missing footer content: src/content/footer/index.md');
+}
+
+const content = footerEntry.data;
 const currentYear = new Date().getFullYear();
 
-const footerLinks = [
-  { href: "/training", label: "Training" },
-  { href: "/probetraining", label: "Probetraining" },
-  { href: "/mitgliedschaft", label: "Mitgliedschaft" },
-  { href: "/downloads", label: "Downloads" },
-  { href: "/kontakt", label: "Kontakt" },
-];
-
-const legalLinks = [
-  { href: "/impressum", label: "Impressum" },
-  { href: "/datenschutz", label: "Datenschutz" },
-];
+const linkRel = (external?: boolean) => external ? 'noopener noreferrer' : undefined;
+const linkTarget = (external?: boolean) => external ? '_blank' : undefined;
 ---
 
 <footer class="relative z-10 border-t border-white/10 bg-black/80 text-white backdrop-blur-md">
-  <div class="mx-auto max-w-7xl px-6 py-10 lg:px-8">
-    <div class="grid gap-10 md:grid-cols-[1.3fr_1fr_1fr]">
-      
-      <!-- Verein / Mini-Impressum -->
-      <section>
-        <h2 class="text-lg font-bold uppercase tracking-wide">
-          CMA e.V.
-        </h2>
+	<div class="mx-auto max-w-7xl px-6 py-10 lg:px-8">
+		<div class="grid gap-10 md:grid-cols-[1.3fr_1fr_1fr]">
+			<section>
+				<h2 class="text-lg font-bold uppercase tracking-wide">
+					{content.brand.title}
+				</h2>
 
-        <p class="mt-3 max-w-md text-sm leading-6 text-white/70">
-          Calisthenics Movement Augsburg e.V.<br />
-          Gemeinnütziger Sportverein für Calisthenics, Streetworkout und funktionelles Training in Augsburg.
-        </p>
+				<p class="mt-3 max-w-md text-sm leading-6 text-white/70">
+					{content.brand.descriptionLines.map((line) => (
+						<>
+							{line}
+							<br />
+						</>
+					))}
+				</p>
 
-        <address class="mt-4 not-italic text-sm leading-6 text-white/70">
-          CMA e.V.<br />
-          Augsburg, Deutschland<br />
-          E-Mail:
-          <a
-            href="mailto:info@cma-augsburg.de"
-            class="text-white underline decoration-white/30 underline-offset-4 hover:decoration-white"
-          >
-            info@cma-augsburg.de
-          </a>
-        </address>
+				<address class="mt-4 not-italic text-sm leading-6 text-white/70">
+					{content.address.name}<br />
 
-        <p class="mt-4 text-xs leading-5 text-white/50">
-          Vertreten durch den Vorstand. Vollständige Angaben gemäß § 5 TMG findest du im
-          <a
-            href="/impressum"
-            class="text-white underline decoration-white/30 underline-offset-4 hover:decoration-white"
-          >
-            Impressum
-          </a>.
-        </p>
-      </section>
+					{content.address.lines.map((line) => (
+						<>
+							{line}
+							<br />
+						</>
+					))}
 
-      <!-- Navigation -->
-      <nav aria-label="Footer Navigation">
-        <h3 class="text-sm font-semibold uppercase tracking-wide text-white/90">
-          Verein
-        </h3>
+					E-Mail:{' '}
+					<a
+						href={`mailto:${content.address.email}`}
+						class="text-white underline decoration-white/30 underline-offset-4 hover:decoration-white"
+					>
+						{content.address.email}
+					</a>
+				</address>
 
-        <ul class="mt-4 space-y-2 text-sm">
-          {footerLinks.map((link) => (
-            <li>
-              <a
-                href={link.href}
-                class="text-white/65 transition hover:text-white"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
+				<p class="mt-4 text-xs leading-5 text-white/50">
+					{content.legalNotice.before}{' '}
+					<a
+						href={content.legalNotice.href}
+						class="text-white underline decoration-white/30 underline-offset-4 hover:decoration-white"
+					>
+						{content.legalNotice.linkLabel}
+					</a>
+					{content.legalNotice.after}
+				</p>
+			</section>
 
-      <!-- Rechtliches / Kontakt -->
-      <section>
-        <h3 class="text-sm font-semibold uppercase tracking-wide text-white/90">
-          Rechtliches
-        </h3>
+			<nav aria-label={content.footerNavigation.ariaLabel}>
+				<h3 class="text-sm font-semibold uppercase tracking-wide text-white/90">
+					{content.footerNavigation.title}
+				</h3>
 
-        <ul class="mt-4 space-y-2 text-sm">
-          {legalLinks.map((link) => (
-            <li>
-              <a
-                href={link.href}
-                class="text-white/65 transition hover:text-white"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+				<ul class="mt-4 space-y-2 text-sm">
+					{content.footerNavigation.links.map((link) => (
+						<li>
+							<a
+								href={link.href}
+								class="text-white/65 transition hover:text-white"
+							>
+								{link.label}
+							</a>
+						</li>
+					))}
+				</ul>
+			</nav>
 
-        <div class="mt-6">
-          <h3 class="text-sm font-semibold uppercase tracking-wide text-white/90">
-            Folge uns
-          </h3>
+			<section>
+				<h3 class="text-sm font-semibold uppercase tracking-wide text-white/90">
+					{content.legalNavigation.title}
+				</h3>
 
-          <a
-            href="https://www.instagram.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="mt-3 inline-block text-sm text-white/65 transition hover:text-white"
-          >
-            Instagram
-          </a>
-        </div>
-      </section>
-    </div>
+				<ul class="mt-4 space-y-2 text-sm">
+					{content.legalNavigation.links.map((link) => (
+						<li>
+							<a
+								href={link.href}
+								class="text-white/65 transition hover:text-white"
+							>
+								{link.label}
+							</a>
+						</li>
+					))}
+				</ul>
 
-    <!-- Bottom Bar -->
-    <div class="mt-10 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-white/50 md:flex-row md:items-center md:justify-between">
-      <p>
-        © {currentYear} CMA e.V. Alle Rechte vorbehalten.
-      </p>
+				<div class="mt-6">
+					<h3 class="text-sm font-semibold uppercase tracking-wide text-white/90">
+						{content.social.title}
+					</h3>
 
-      <p>
-        Website für Calisthenics Movement Augsburg e.V.
-      </p>
-    </div>
-  </div>
+					<ul class="mt-3 space-y-2 text-sm">
+						{content.social.links.map((link) => (
+							<li>
+								<a
+									href={link.href}
+									target={linkTarget(link.external)}
+									rel={linkRel(link.external)}
+									class="text-white/65 transition hover:text-white"
+								>
+									{link.label}
+								</a>
+							</li>
+						))}
+					</ul>
+				</div>
+			</section>
+		</div>
+
+		<div class="mt-10 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-white/50 md:flex-row md:items-center md:justify-between">
+			<p>
+				© {currentYear} {content.copyright.name}. {content.copyright.text}
+			</p>
+
+			<p class="inline-flex items-center gap-1.5">
+				<span>{content.credit.before}</span>
+
+                <svg
+                class="h-3.5 w-3.5 text-brand shrink-0"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                fill="currentColor"
+                aria-hidden="true"
+            >
+                <path d="M305 151.1L320 171.8L335 151.1C360 116.5 400.2 96 442.9 96C516.4 96 576 155.6 576 229.1L576 231.7C576 343.9 436.1 474.2 363.1 529.9C350.7 539.3 335.5 544 320 544C304.5 544 289.2 539.4 276.9 529.9C203.9 474.2 64 343.9 64 231.7L64 229.1C64 155.6 123.6 96 197.1 96C239.8 96 280 116.5 305 151.1z"/>
+            </svg>
+
+				<span>{content.credit.after}</span>
+			</p>
+		</div>
+	</div>
 </footer>

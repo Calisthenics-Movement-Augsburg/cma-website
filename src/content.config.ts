@@ -237,6 +237,102 @@ const homeContactForm = defineCollection({
 	}),
 });
 
+const team = defineCollection({
+	loader: glob({
+		pattern: 'index.md',
+		base: './src/content/team',
+	}),
+	schema: z.object({
+		layoutTitle: z.string(),
+		heroTitle: z.string(),
+		sectionTitle: z.string(),
+
+		members: z.array(
+			z.object({
+				name: z.string(),
+				role: z.string(),
+				image: z.string(),
+				alt: z.string(),
+			})
+		),
+
+		cta: z.object({
+			label: z.string(),
+			href: z.string(),
+			title: z.string().optional(),
+			external: z.boolean().default(false),
+		}),
+	}),
+});
+
+const footer = defineCollection({
+	loader: glob({
+		pattern: 'index.md',
+		base: './src/content/footer',
+	}),
+	schema: z.object({
+		brand: z.object({
+			title: z.string(),
+			descriptionLines: z.array(z.string()),
+		}),
+
+		address: z.object({
+			name: z.string(),
+			lines: z.array(z.string()),
+			email: z.string(),
+		}),
+
+		legalNotice: z.object({
+			before: z.string(),
+			linkLabel: z.string(),
+			href: z.string(),
+			after: z.string(),
+		}),
+
+		footerNavigation: z.object({
+			title: z.string(),
+			ariaLabel: z.string(),
+			links: z.array(
+				z.object({
+					href: z.string(),
+					label: z.string(),
+				})
+			),
+		}),
+
+		legalNavigation: z.object({
+			title: z.string(),
+			links: z.array(
+				z.object({
+					href: z.string(),
+					label: z.string(),
+				})
+			),
+		}),
+
+		social: z.object({
+			title: z.string(),
+			links: z.array(
+				z.object({
+					href: z.string(),
+					label: z.string(),
+					external: z.boolean().default(true),
+				})
+			),
+		}),
+
+		copyright: z.object({
+			name: z.string(),
+			text: z.string(),
+		}),
+
+		credit: z.object({
+			before: z.string(),
+			after: z.string(),
+		}),
+	}),
+});
+
 export const collections = {
 	downloads,
 	faq,
@@ -248,5 +344,7 @@ export const collections = {
     homeTrainingInfo,
     homeTimetable,
     homeGallery,
-    homeContactForm
+    homeContactForm,
+    team,
+    footer
 };
