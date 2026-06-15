@@ -414,3 +414,83 @@ collections:
             media_folder: "/public/uploads/backgrounds"
             public_folder: "/uploads/backgrounds"
 
+  - name: "home_contact_form"
+    label: "Startseite: Kontaktformular"
+    files:
+      - label: "Kontaktformular"
+        name: "contact_form"
+        file: "src/content/home-contact-form/index.md"
+        fields:
+          - label: "Überschrift"
+            name: "title"
+            widget: "string"
+
+          - label: "Einleitung"
+            name: "intro"
+            widget: "text"
+
+          - label: "Altersoptionen"
+            name: "ageOptions"
+            widget: "list"
+            field:
+              label: "Option"
+              name: "option"
+              widget: "string"
+
+          - label: "Trainingstage"
+            name: "trainingDays"
+            widget: "list"
+            field:
+              label: "Trainingstag"
+              name: "day"
+              widget: "string"
+
+          - label: "Trainingserfahrung"
+            name: "experienceOptions"
+            widget: "list"
+            field:
+              label: "Option"
+              name: "option"
+              widget: "string"
+
+          - label: "Nachricht Placeholder"
+            name: "messagePlaceholder"
+            widget: "string"
+
+          - label: "Datenschutz"
+            name: "privacy"
+            widget: "object"
+            fields:
+              - label: "Text vor Link"
+                name: "textBefore"
+                widget: "text"
+
+              - label: "Link Text"
+                name: "linkLabel"
+                widget: "string"
+
+              - label: "Link"
+                name: "href"
+                widget: "string"
+
+          - label: "Hinweistext"
+            name: "note"
+            widget: "text"
+
+          - label: "Absenden Button"
+            name: "submitLabel"
+            widget: "string"
+
+          - label: "Download Button"
+            name: "download"
+            widget: "object"
+            fields:
+              - label: "Button Text"
+                name: "label"
+                widget: "string"
+
+              - label: "Datei"
+                name: "href"
+                widget: "file"
+                media_folder: "public/downloads"
+                public_folder: "/downloads"

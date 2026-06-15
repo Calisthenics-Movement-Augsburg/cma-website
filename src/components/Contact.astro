@@ -1,17 +1,20 @@
 ---
 import ContactForm from './ContactForm.astro';
+
+const { formContent } = Astro.props;
+
 ---
 
 
 
 <section id="contact" class="py-20 px-4">
 	<div class="mx-auto mb-10 max-w-3xl text-center">
-		<h2 class="text-4xl font-bold md:text-5xl">Probetraining anfragen</h2>
+		<h2 class="text-4xl font-bold md:text-5xl">{formContent.title}</h2>
 		<div class="mx-auto mt-4 h-1.5 w-28 bg-brand"></div>
 		<p class="mt-6 text-base leading-relaxed opacity-85 md:text-lg">
-			Schreib uns kurz, wann du vorbeikommen möchtest. Wir melden uns bei dir zurück.
+			{formContent.intro}
 		</p>
 	</div>
 
-	<ContactForm />
+	<ContactForm content={formContent} />
 </section>

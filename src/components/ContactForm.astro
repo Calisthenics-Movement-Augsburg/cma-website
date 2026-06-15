@@ -1,25 +1,31 @@
 ---
-const trainingDays = [
-	'Montag - Gemeinsames Gruppentraining',
-	'Dienstag - Freies Static Training',
-	'Mittwoch - Gemeinsames Gruppentraining',
-	'Donnerstag - Freies Static Training',
-	'Freitag - Gemeinsames Gruppentraining',
-];
+interface ContactFormContent {
+	title: string;
+	intro: string;
+	ageOptions: string[];
+	trainingDays: string[];
+	experienceOptions: string[];
+	messagePlaceholder: string;
+	privacy: {
+		textBefore: string;
+		linkLabel: string;
+		href: string;
+	};
+	note: string;
+	submitLabel: string;
+	download: {
+		label: string;
+		href: string;
+	};
+}
 
-const experienceOptions = [
-	'Keine Vorerfahrung',
-	'Ein bisschen Trainingserfahrung',
-	'Ich trainiere regelmäßig',
-	'Fortgeschritten',
-];
+interface Props {
+	content: ContactFormContent;
+}
 
-const ageOptions = [
-	'Unter 16',
-	'16-17',
-	'18+',
-];
+const { content } = Astro.props;
 ---
+
 <form
 	name="probetraining"
 	method="POST"
@@ -30,7 +36,6 @@ const ageOptions = [
 >
 	<input type="hidden" name="form-name" value="probetraining" />
 
-	<!-- Honeypot: hidden from humans, visible to simple bots -->
 	<div class="hidden" aria-hidden="true">
 		<label>
 			Website
@@ -43,14 +48,13 @@ const ageOptions = [
 		</label>
 	</div>
 
-	<!-- Optional timestamp. Useful for manually spotting instant bot submissions. -->
-	<input type="hidden" name="submitted_at" value={new Date().toISOString()} />
+	<input id="submitted_at" type="hidden" name="submitted_at" value="" />
 
 	<div>
-		<h2 class="text-2xl font-bold uppercase dark:text-white">Probetraining anfragen</h2>
-		<p class="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300">
-			Schreib uns kurz, wann du vorbeikommen möchtest. Wir melden uns bei dir zurück.
-		</p>
+		<h2 class="text-2xl font-bold uppercase dark:text-white">Kontakt</h2>
+		<!-- <p class="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+			{content.intro}
+		</p> -->
 	</div>
 
 	<div class="grid gap-5 md:grid-cols-2">
@@ -95,7 +99,7 @@ const ageOptions = [
 				class="w-full rounded border border-gray-300 bg-white p-3 text-gray-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/30 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
 			>
 				<option value="">Bitte auswählen</option>
-				{ageOptions.map((option) => <option value={option}>{option}</option>)}
+				{content.ageOptions.map((option) => <option value={option}>{option}</option>)}
 			</select>
 		</div>
 
@@ -110,7 +114,7 @@ const ageOptions = [
 				class="w-full rounded border border-gray-300 bg-white p-3 text-gray-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/30 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
 			>
 				<option value="">Bitte auswählen</option>
-				{trainingDays.map((day) => <option value={day}>{day}</option>)}
+				{content.trainingDays.map((day) => <option value={day}>{day}</option>)}
 			</select>
 		</div>
 	</div>
@@ -126,7 +130,7 @@ const ageOptions = [
 			class="w-full rounded border border-gray-300 bg-white p-3 text-gray-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/30 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
 		>
 			<option value="">Bitte auswählen</option>
-			{experienceOptions.map((option) => <option value={option}>{option}</option>)}
+			{content.experienceOptions.map((option) => <option value={option}>{option}</option>)}
 		</select>
 	</div>
 
@@ -139,7 +143,7 @@ const ageOptions = [
 			name="message"
 			rows="5"
 			required
-			placeholder="Zum Beispiel: Ich würde gerne am Mittwoch zum Probetraining kommen."
+			placeholder={content.messagePlaceholder}
 			class="w-full rounded border border-gray-300 bg-white p-3 text-gray-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/30 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
 		></textarea>
 	</div>
@@ -154,10 +158,10 @@ const ageOptions = [
 				class="mt-1 h-4 w-4 rounded border-gray-300 text-brand focus:ring-brand"
 			/>
 			<span>
-				Ich habe die Datenschutzerklärung gelesen und bin damit einverstanden,
-				dass meine Angaben zur Bearbeitung meiner Anfrage verwendet werden.
-				<a href="/datenschutz" class="font-semibold text-brand hover:text-brand-muted">
-					Datenschutzerklärung
+				{content.privacy.textBefore}
+				{' '}
+				<a href={content.privacy.href} class="font-semibold text-brand hover:text-brand-muted">
+					{content.privacy.linkLabel}
 				</a>
 				<span class="text-brand">*</span>
 			</span>
@@ -165,8 +169,7 @@ const ageOptions = [
 	</div>
 
 	<p class="text-xs leading-relaxed text-gray-500 dark:text-gray-400">
-		Bitte bring zum Probetraining das ausgefüllte Probetraining-Formular mit.
-		Bei Minderjährigen benötigen wir die Unterschrift eines Erziehungsberechtigten.
+		{content.note}
 	</p>
 
 	<div class="flex flex-col gap-3 sm:flex-row">
@@ -174,15 +177,23 @@ const ageOptions = [
 			type="submit"
 			class="inline-flex flex-1 items-center justify-center rounded-full bg-brand px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-brand-muted focus:outline-none focus:ring-4 focus:ring-brand/30"
 		>
-			Probetraining anfragen
+			{content.submitLabel}
 		</button>
 
 		<a
-			href="/downloads/probetraining-formular.pdf"
+			href={content.download.href}
 			download
 			class="inline-flex flex-1 items-center justify-center rounded-full border border-brand px-6 py-3 text-center text-sm font-bold uppercase tracking-wide text-brand transition hover:bg-brand hover:text-white focus:outline-none focus:ring-4 focus:ring-brand/30"
 		>
-			Formular herunterladen
+			{content.download.label}
 		</a>
 	</div>
 </form>
+
+<script>
+	const submittedAtInput = document.getElementById('submitted_at') as HTMLInputElement | null;
+
+	if (submittedAtInput) {
+		submittedAtInput.value = new Date().toISOString();
+	}
+</script>

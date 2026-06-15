@@ -61,6 +61,12 @@ const gallery = await getEntry('homeGallery', 'index');
 if (!gallery) {
 	throw new Error('Missing gallery content: src/content/home-gallery/index.md');
 }
+
+const contactForm = await getEntry('homeContactForm', 'index');
+
+if (!contactForm) {
+	throw new Error('Missing contact form content: src/content/home-contact-form/index.md');
+}
 ---
 
 <Layout title="Calisthenics Movement Augsburg">
@@ -75,6 +81,6 @@ if (!gallery) {
 		<Timetable	content={timetable.data} backgroundImage={sharedSectionBackground.data.image} />
 		<Pricing content={pricingPage.data} items={pricingItems} />
 		<TrialTraining backgroundImage={sharedSectionBackground.data.image} />
-		<Contact />
+		<Contact formContent={contactForm.data} />
 	</main>
 </Layout>

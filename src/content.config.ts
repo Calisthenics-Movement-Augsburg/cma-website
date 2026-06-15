@@ -206,6 +206,37 @@ const homeGallery = defineCollection({
 	}),
 });
 
+const homeContactForm = defineCollection({
+	loader: glob({
+		pattern: 'index.md',
+		base: './src/content/home-contact-form',
+	}),
+	schema: z.object({
+		title: z.string(),
+		intro: z.string(),
+
+		ageOptions: z.array(z.string()),
+		trainingDays: z.array(z.string()),
+		experienceOptions: z.array(z.string()),
+
+		messagePlaceholder: z.string(),
+
+		privacy: z.object({
+			textBefore: z.string(),
+			linkLabel: z.string(),
+			href: z.string(),
+		}),
+
+		note: z.string(),
+		submitLabel: z.string(),
+
+		download: z.object({
+			label: z.string(),
+			href: z.string(),
+		}),
+	}),
+});
+
 export const collections = {
 	downloads,
 	faq,
@@ -216,5 +247,6 @@ export const collections = {
     sharedSectionBackground,
     homeTrainingInfo,
     homeTimetable,
-    homeGallery
+    homeGallery,
+    homeContactForm
 };
