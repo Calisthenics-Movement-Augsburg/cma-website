@@ -29,6 +29,9 @@ const {
 
 const canonicalUrl = new URL(canonical, siteSeo.data.siteUrl).toString();
 const ogImageUrl = new URL(ogImage, siteSeo.data.siteUrl).toString();
+
+const shouldNoindex = noindex || import.meta.env.PUBLIC_NOINDEX === 'true';
+
 ---
 
 <!doctype html>
@@ -43,7 +46,7 @@ const ogImageUrl = new URL(ogImage, siteSeo.data.siteUrl).toString();
   
     <StructuredData />
 
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {shouldNoindex && <meta name="robots" content="noindex, nofollow" />}
   
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
