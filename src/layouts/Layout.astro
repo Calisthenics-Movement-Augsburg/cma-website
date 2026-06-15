@@ -78,19 +78,9 @@ const shouldNoindex = noindex || import.meta.env.PUBLIC_NOINDEX === 'true';
           ? storedTheme
           : 'dark';
     
-      if (theme === 'dark') {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
+      document.documentElement.classList.toggle('dark', theme === 'dark');
     
       localStorage.setItem('theme', theme);
-    
-      console.log('[theme]', {
-        storedTheme,
-        appliedTheme: theme,
-        htmlClass: document.documentElement.className,
-      });
     </script>
   </head>
 
