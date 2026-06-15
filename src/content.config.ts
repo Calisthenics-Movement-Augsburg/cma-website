@@ -333,6 +333,25 @@ const footer = defineCollection({
 	}),
 });
 
+const impressum = defineCollection({
+	loader: glob({
+		pattern: 'index.md',
+		base: './src/content/impressum',
+	}),
+	schema: z.object({
+		layoutTitle: z.string(),
+		heroTitle: z.string(),
+		intro: z.string(),
+		buttons: z.array(
+			z.object({
+				label: z.string(),
+				href: z.string(),
+				variant: z.enum(['primary', 'secondary']),
+			})
+		),
+	}),
+});
+
 export const collections = {
 	downloads,
 	faq,
@@ -346,5 +365,6 @@ export const collections = {
     homeGallery,
     homeContactForm,
     team,
-    footer
+    footer,
+    impressum
 };

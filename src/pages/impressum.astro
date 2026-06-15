@@ -1,28 +1,44 @@
 ---
-// src/pages/impressum.astro
-
 import Layout from '../layouts/Layout.astro';
-import ThemeToggle from '../components/ThemeToggle.astro';
 import SmallHeader from '../components/SmallHeader.astro';
+import SectionBackground from '../components/SectionBackground.astro';
+import { getEntry, render } from 'astro:content';
 
-const contactEmail = 'info@cma-augsburg.de';
+const impressumEntry = await getEntry('impressum', 'index');
+
+if (!impressumEntry) {
+	throw new Error('Missing impressum content: src/content/impressum/index.md');
+}
+
+const sharedSectionBackground = await getEntry('sharedSectionBackground', 'index');
+
+if (!sharedSectionBackground) {
+	throw new Error('Missing shared section background content: src/content/shared-section-background/index.md');
+}
+
+const { Content } = await render(impressumEntry);
+
+const content = impressumEntry.data;
+const backgroundImage = sharedSectionBackground.data.image;
+
+const buttonClass = (variant: 'primary' | 'secondary') =>
+	variant === 'primary'
+		? 'inline-flex items-center rounded-full bg-brand px-8 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-brand-muted'
+		: 'inline-flex items-center rounded-full border border-current px-8 py-3 text-sm font-bold uppercase tracking-wide transition hover:bg-black/5 dark:hover:bg-white/10';
 ---
 
-<Layout title="Impressum | Calisthenics Movement Augsburg">
-	<SmallHeader currentPage='impressum' />
-        
+<Layout title={content.layoutTitle}>
+	<SmallHeader currentPage="impressum" />
+
 	<main>
 		<section class="l-section custom relative min-h-[34vh] md:min-h-[40vh] flex items-center justify-center overflow-hidden pt-14 md:pt-16">
-			<div
-				class="absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat"
-				style="background-image:url('https://www.fitnesscenter-california.at/wp-content/uploads/2023/02/banner-breadcrumb.jpeg')"
-				role="img"
-				aria-label="Impressum banner"
-			></div>
-			<div class="absolute inset-0 -z-10 bg-white/70 md:bg-white/60 lg:bg-white/50 dark:bg-black/45"></div>
+			<SectionBackground
+				image={backgroundImage}
+				overlayClass="bg-white/70 md:bg-white/60 lg:bg-white/50 dark:bg-black/45"
+			/>
 
 			<h1 class="text-dark text-4xl md:text-6xl font-black tracking-tight drop-shadow-xl dark:text-white/95">
-				Impressum
+				{content.heroTitle}
 			</h1>
 		</section>
 
@@ -31,186 +47,19 @@ const contactEmail = 'info@cma-augsburg.de';
 				<div class="mx-auto mt-3 h-1.5 w-24 md:w-28 bg-brand"></div>
 
 				<p class="mx-auto mt-8 max-w-3xl text-center text-sm md:text-base opacity-85">
-					Angaben gemäß § 5 DDG und verantwortlich für den Inhalt dieser Webseite.
+					{content.intro}
 				</p>
 
-				<div class="impressum-card mt-10 md:mt-12">
-					<div class="impressum-section">
-						<h2>Angaben gemäß § 5 DDG</h2>
-
-						<p>
-							<strong>Calisthenics Movement Augsburg e.V.</strong><br />
-							Augsburg<br />
-							Deutschland
-						</p>
-
-						<p class="impressum-note">
-							<strong>Hinweis:</strong> Hier muss eure ladungsfähige Vereinsanschrift eingetragen werden.
-							Ein reines Postfach reicht in der Regel nicht.
-						</p>
-					</div>
-
-					<div class="impressum-section">
-						<h2>Vereinsregister</h2>
-
-						<p>
-							Eingetragen im Vereinsregister.<br />
-							Registergericht: Amtsgericht Augsburg<br />
-							Registernummer: VR [bitte eintragen]
-						</p>
-					</div>
-
-					<div class="impressum-section">
-						<h2>Vertreten durch</h2>
-
-						<p>
-							[Vorname Nachname], 1. Vorstand<br />
-							[Vorname Nachname], 2. Vorstand
-						</p>
-
-						<p class="impressum-note">
-							Tragt hier die vertretungsberechtigten Vorstandsmitglieder gemäß Satzung bzw. Registereintrag ein.
-						</p>
-					</div>
-
-					<div class="impressum-section">
-						<h2>Kontakt</h2>
-
-						<p>
-							E-Mail:
-							<a href={`mailto:${contactEmail}`}>
-								{contactEmail}
-							</a>
-						</p>
-
-						<p>
-							Telefon: [optional eintragen]
-						</p>
-					</div>
-
-					<div class="impressum-section">
-						<h2>Verantwortlich für den Inhalt</h2>
-
-						<p>
-							Verantwortlich für den Inhalt dieser Webseite:<br />
-							Calisthenics Movement Augsburg e.V.<br />
-							vertreten durch den Vorstand
-						</p>
-					</div>
-
-					<div class="impressum-section">
-						<h2>Redaktionell verantwortlich</h2>
-
-						<p>
-							[Vorname Nachname]<br />
-							Calisthenics Movement Augsburg e.V.<br />
-							[ladungsfähige Anschrift eintragen]
-						</p>
-
-						<p class="impressum-note">
-							Diesen Abschnitt brauchst du insbesondere dann, wenn ihr redaktionelle Inhalte veröffentlicht,
-							z. B. Vereinsnews, Berichte oder regelmäßig gepflegte Beiträge.
-						</p>
-					</div>
-
-					<div class="impressum-section">
-						<h2>EU-Streitschlichtung</h2>
-
-						<p>
-							Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung bereit:
-							<a
-								href="https://ec.europa.eu/consumers/odr/"
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								https://ec.europa.eu/consumers/odr/
-							</a>
-						</p>
-
-						<p>
-							Unsere E-Mail-Adresse findest du oben im Impressum.
-						</p>
-					</div>
-
-					<div class="impressum-section">
-						<h2>Verbraucherstreitbeilegung</h2>
-
-						<p>
-							Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer
-							Verbraucherschlichtungsstelle teilzunehmen.
-						</p>
-					</div>
-
-					<div class="impressum-section">
-						<h2>Haftung für Inhalte</h2>
-
-						<p>
-							Als Diensteanbieter sind wir für eigene Inhalte auf diesen Seiten nach den allgemeinen
-							Gesetzen verantwortlich. Wir sind jedoch nicht verpflichtet, übermittelte oder gespeicherte
-							fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine
-							rechtswidrige Tätigkeit hinweisen.
-						</p>
-
-						<p>
-							Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den
-							allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch
-							erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden
-							entsprechender Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.
-						</p>
-					</div>
-
-					<div class="impressum-section">
-						<h2>Haftung für Links</h2>
-
-						<p>
-							Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen
-							Einfluss haben. Deshalb können wir für diese fremden Inhalte keine Gewähr übernehmen.
-							Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der
-							Seiten verantwortlich.
-						</p>
-
-						<p>
-							Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße
-							überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar.
-							Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist ohne konkrete Anhaltspunkte
-							einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir
-							derartige Links umgehend entfernen.
-						</p>
-					</div>
-
-					<div class="impressum-section">
-						<h2>Urheberrecht</h2>
-
-						<p>
-							Die durch den Seitenbetreiber erstellten Inhalte und Werke auf dieser Webseite unterliegen
-							dem deutschen Urheberrecht. Beiträge Dritter sind als solche gekennzeichnet. Die Vervielfältigung,
-							Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechts
-							bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.
-						</p>
-
-						<p>
-							Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch
-							gestattet. Solltest du auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um
-							einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige
-							Inhalte umgehend entfernen.
-						</p>
-					</div>
+				<div class="impressum-card impressum-content mt-10 md:mt-12">
+					<Content />
 				</div>
 
 				<div class="mt-10 md:mt-12 flex flex-wrap justify-center gap-4">
-					<a
-						class="inline-flex items-center rounded-full bg-brand px-8 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-brand-muted"
-						href="/datenschutz"
-					>
-						Zur Datenschutzerklärung
-					</a>
-
-					<a
-						class="inline-flex items-center rounded-full border border-current px-8 py-3 text-sm font-bold uppercase tracking-wide transition hover:bg-black/5 dark:hover:bg-white/10"
-						href="/"
-					>
-						Zur Startseite
-					</a>
+					{content.buttons.map((button) => (
+						<a class={buttonClass(button.variant)} href={button.href}>
+							{button.label}
+						</a>
+					))}
 				</div>
 			</div>
 		</section>
@@ -241,39 +90,40 @@ const contactEmail = 'info@cma-augsburg.de';
 		border-color: rgba(255, 255, 255, 0.15);
 	}
 
-	.impressum-section {
-		padding: 1.35rem 1.5rem;
-		border-bottom: 1px solid rgba(17, 24, 39, 0.1);
-	}
-
-	:global(.dark) .impressum-section {
-		border-bottom-color: rgba(255, 255, 255, 0.12);
-	}
-
-	.impressum-section:last-child {
-		border-bottom: none;
-	}
-
-	.impressum-section h2 {
-		margin-bottom: 0.75rem;
+	:global(.impressum-content h2) {
+		margin: 0;
+		padding: 1.35rem 1.5rem 0;
 		font-size: 0.9rem;
 		font-weight: 800;
 		text-transform: uppercase;
 		letter-spacing: 0.06em;
 	}
 
-	.impressum-section p {
-		margin-top: 0.65rem;
+	:global(.impressum-content h2:not(:first-child)) {
+		border-top: 1px solid rgba(17, 24, 39, 0.1);
+	}
+
+	:global(.dark .impressum-content h2:not(:first-child)) {
+		border-top-color: rgba(255, 255, 255, 0.12);
+	}
+
+	:global(.impressum-content p) {
+		margin: 0;
+		padding: 0.65rem 1.5rem 1.35rem;
 		font-size: 0.95rem;
 		line-height: 1.7;
 		opacity: 0.86;
 	}
 
-	.impressum-section p:first-of-type {
-		margin-top: 0;
+	:global(.impressum-content h2 + p) {
+		padding-top: 0.75rem;
 	}
 
-	.impressum-section a {
+	:global(.impressum-content p + p) {
+		padding-top: 0;
+	}
+
+	:global(.impressum-content a) {
 		color: var(--color-brand);
 		font-weight: 700;
 		text-decoration: underline;
@@ -281,15 +131,23 @@ const contactEmail = 'info@cma-augsburg.de';
 		text-decoration-thickness: 1px;
 	}
 
-	.impressum-section a:hover {
+	:global(.impressum-content a:hover) {
 		color: var(--color-brand-muted);
 	}
 
-	.impressum-note {
+	:global(.impressum-content blockquote) {
+		margin: 0 1.5rem 1.35rem;
 		border-left: 4px solid var(--color-brand);
 		padding-left: 0.9rem;
-		font-size: 0.85rem !important;
-		opacity: 0.72 !important;
+		font-size: 0.85rem;
+		line-height: 1.7;
+		opacity: 0.72;
+	}
+
+	:global(.impressum-content blockquote p) {
+		padding: 0;
+		font-size: inherit;
+		opacity: 1;
 	}
 
 	@media (max-width: 767px) {
@@ -305,25 +163,49 @@ const contactEmail = 'info@cma-augsburg.de';
 			overflow: visible;
 		}
 
-		.impressum-section {
-			margin-bottom: 1rem;
+		:global(.impressum-content h2) {
+			margin-top: 1rem;
 			border: 1px solid rgba(17, 24, 39, 0.14);
-			border-radius: 1rem;
+			border-bottom: none;
+			border-radius: 1rem 1rem 0 0;
 			background: rgba(255, 255, 255, 0.78);
-			padding: 1.1rem 1rem;
+			padding: 1.1rem 1rem 0.25rem;
 		}
 
-		:global(.dark) .impressum-section {
+		:global(.dark .impressum-content h2) {
 			background: rgba(255, 255, 255, 0.06);
 			border-color: rgba(255, 255, 255, 0.15);
 		}
 
-		.impressum-section:last-child {
-			margin-bottom: 0;
+		:global(.impressum-content h2:not(:first-child)) {
+			border-top: 1px solid rgba(17, 24, 39, 0.14);
 		}
 
-		.impressum-section p {
+		:global(.impressum-content p),
+		:global(.impressum-content blockquote) {
+			margin: 0;
+			border-left: none;
+			border-right: 1px solid rgba(17, 24, 39, 0.14);
+			border-left: 1px solid rgba(17, 24, 39, 0.14);
+			background: rgba(255, 255, 255, 0.78);
+			padding: 0.85rem 1rem;
 			font-size: 0.9rem;
+		}
+
+		:global(.dark .impressum-content p),
+		:global(.dark .impressum-content blockquote) {
+			background: rgba(255, 255, 255, 0.06);
+			border-color: rgba(255, 255, 255, 0.15);
+		}
+
+		:global(.impressum-content h2 + p),
+		:global(.impressum-content h2 + blockquote) {
+			padding-top: 0.75rem;
+		}
+
+		:global(.impressum-content h2 ~ p:last-child),
+		:global(.impressum-content h2 ~ blockquote:last-child) {
+			border-radius: 0 0 1rem 1rem;
 		}
 	}
 </style>
