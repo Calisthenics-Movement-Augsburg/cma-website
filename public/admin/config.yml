@@ -122,6 +122,35 @@ collections:
             name: "subline"
             widget: "text"
 
+  - name: "home_gallery"
+    label: "Startseite: Galerie"
+    files:
+      - label: "Galerie"
+        name: "gallery"
+        file: "src/content/home-gallery/index.md"
+        fields:
+          - label: "Überschrift"
+            name: "title"
+            widget: "string"
+
+          - label: "ARIA Label"
+            name: "ariaLabel"
+            widget: "string"
+
+          - label: "Bilder"
+            name: "images"
+            widget: "list"
+            fields:
+              - label: "Bild"
+                name: "src"
+                widget: "image"
+                media_folder: "public/gallery"
+                public_folder: "/gallery"
+
+              - label: "Alt Text"
+                name: "alt"
+                widget: "string"
+
   - name: "home_training_info"
     label: "Startseite: Trainingsinfo"
     files:

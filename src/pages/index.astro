@@ -56,6 +56,11 @@ if (!timetable) {
 	throw new Error('Missing timetable content: src/content/home-timetable/index.md');
 }
 
+const gallery = await getEntry('homeGallery', 'index');
+
+if (!gallery) {
+	throw new Error('Missing gallery content: src/content/home-gallery/index.md');
+}
 ---
 
 <Layout title="Calisthenics Movement Augsburg">
@@ -65,7 +70,7 @@ if (!timetable) {
 	<main>
 		<Hero content={hero.data} />
 		<Intro content={intro.data} backgroundImage={sharedSectionBackground.data.image} />
-		<Gallery />
+		<Gallery content={gallery.data} />
 		<TrainingInfo content={trainingInfo.data} backgroundImage={sharedSectionBackground.data.image}/>
 		<Timetable	content={timetable.data} backgroundImage={sharedSectionBackground.data.image} />
 		<Pricing content={pricingPage.data} items={pricingItems} />

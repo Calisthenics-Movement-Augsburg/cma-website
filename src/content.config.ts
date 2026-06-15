@@ -189,6 +189,23 @@ const homeTimetable = defineCollection({
 	}),
 });
 
+const homeGallery = defineCollection({
+	loader: glob({
+		pattern: 'index.md',
+		base: './src/content/home-gallery',
+	}),
+	schema: z.object({
+		title: z.string(),
+		ariaLabel: z.string(),
+		images: z.array(
+			z.object({
+				src: z.string(),
+				alt: z.string(),
+			})
+		),
+	}),
+});
+
 export const collections = {
 	downloads,
 	faq,
@@ -198,5 +215,6 @@ export const collections = {
     homeIntro,
     sharedSectionBackground,
     homeTrainingInfo,
-    homeTimetable
+    homeTimetable,
+    homeGallery
 };
