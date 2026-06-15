@@ -50,6 +50,12 @@ if (!trainingInfo) {
 	throw new Error('Missing training info content: src/content/home-training-info/index.md');
 }
 
+const timetable = await getEntry('homeTimetable', 'index');
+
+if (!timetable) {
+	throw new Error('Missing timetable content: src/content/home-timetable/index.md');
+}
+
 ---
 
 <Layout title="Calisthenics Movement Augsburg">
@@ -61,7 +67,7 @@ if (!trainingInfo) {
 		<Intro content={intro.data} backgroundImage={sharedSectionBackground.data.image} />
 		<Gallery />
 		<TrainingInfo content={trainingInfo.data} backgroundImage={sharedSectionBackground.data.image}/>
-		<Timetable backgroundImage={sharedSectionBackground.data.image} />
+		<Timetable	content={timetable.data} backgroundImage={sharedSectionBackground.data.image} />
 		<Pricing content={pricingPage.data} items={pricingItems} />
 		<TrialTraining backgroundImage={sharedSectionBackground.data.image} />
 		<Contact />

@@ -1,66 +1,69 @@
 ---
-const groupfitnessDays = [
-	{
-		dateLabel: 'Montags',
-		isToday: true,
-		slots: [
-			{ title: 'Gemeinsames Gruppentraining', time: '18:30 - 20:15 Uhr', trainer: 'Tobi, die Maus & Team', booked: 12, max: 20 },
-		],
-	},
-	{
-		dateLabel: 'Dienstags',
-		isToday: false,
-		slots: [{ title: 'Freies Static Training', time: '17:00 - 20:00 Uhr', trainer: 'Lennardo van de Leevar', booked: 4, max: 10 }],
-	},
-	{
-		dateLabel: 'Mittwochs',
-		isToday: false,
-		slots: [
-			{ title: 'Gemeinsames Gruppentraining', time: '18:30 - 20:15 Uhr', trainer: 'Tobi, die Maus & Team', booked: 8, max: 20 },
-		],
-	},
-	{
-		dateLabel: 'Donnerstags',
-		isToday: false,
-		slots: [{ title: 'Freies Static Training', time: '17:00 - 20:00 Uhr', trainer: 'Lennardo van de Leevar', booked: 3, max: 10 }],
-	},
-	{
-		dateLabel: 'Freitags',
-		isToday: false,
-		slots: [
-			{ title: 'Gemeinsames Gruppentraining', time: '18:30 - 20:15 Uhr', trainer: 'Tobi, die Maus & Team', booked: 9, max: 20 },
-		],
-	},
-];
+import SectionBackground from './SectionBackground.astro';
+
+interface TimetableSlot {
+	title: string;
+	time: string;
+	trainer: string;
+	booked: number;
+	max: number;
+}
+
+interface TimetableDay {
+	dateLabel: string;
+	weekday:
+		| 'monday'
+		| 'tuesday'
+		| 'wednesday'
+		| 'thursday'
+		| 'friday'
+		| 'saturday'
+		| 'sunday';
+	slots: TimetableSlot[];
+}
+
+interface TimetableContent {
+	title: string;
+	days: TimetableDay[];
+	cta: {
+		label: string;
+		href: string;
+	};
+}
+
+interface Props {
+	content: TimetableContent;
+	backgroundImage?: string;
+}
+
+const { content, backgroundImage } = Astro.props;
 ---
 
 <section id="trainings-timetable" class="relative isolate overflow-hidden py-20 md:py-28">
-	<div
-		class="absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat"
-		style="background-image:url('https://www.fitnesscenter-california.at/wp-content/uploads/2026/04/Groupfitness-Timetable-Background.png')"
-		role="img"
-		aria-label="trainings timetable background"
-	>
-	</div>
-	<div class="absolute inset-0 -z-10 bg-white/70 dark:bg-black/60"></div>
+	{
+		backgroundImage && (
+			<SectionBackground
+				image={backgroundImage}
+				overlayClass="bg-white/70 dark:bg-black/60"
+			/>
+		)
+	}
 
 	<div class="mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-10 text-gray-900 dark:text-white">
-		<h2 class="text-center text-4xl md:text-5xl font-bold">Trainingszeiten</h2>
+		<h2 class="text-center text-4xl md:text-5xl font-bold">{content.title}</h2>
 		<div class="mx-auto mt-4 h-1.5 w-28 bg-brand"></div>
 
 		<div class="mt-10">
-			<!-- <div class="mb-4 flex items-center justify-center gap-3">
-				<button class="ml-nav-btn" id="ml-prev" type="button" disabled>Zuruck</button>
-				<button class="ml-nav-btn" id="ml-next" type="button">Weiter</button>
-			</div> -->
-
 			<div id="ml-slider" class="ml-slider-cols">
 				{
-					groupfitnessDays.map((day) => (
+					content.days.map((day) => (
 						<article class="ml-day-col">
 							<header class="ml-day-header">
-								<span class:list={['ml-day-title', day.isToday && 'ml-today']}>{day.dateLabel}</span>
+								<span class="ml-day-title" data-weekday={day.weekday}>
+									{day.dateLabel}
+								</span>
 							</header>
+
 							<div class="ml-day-slots">
 								{day.slots.map((slot) => {
 									const percent = Math.round((slot.booked / slot.max) * 100);
@@ -70,25 +73,35 @@ const groupfitnessDays = [
 									return (
 										<div class="ml-card">
 											<div class="ml-card-title">{slot.title}</div>
+
 											<div class="ml-meta-row">
 												<strong>{slot.time}</strong>
 											</div>
+
 											<div class="ml-meta-row">
 												<strong>{slot.trainer}</strong>
 											</div>
+
 											<div class="ml-progress-labels">
 												<span>
 													{slot.booked} / {slot.max} Anmeldungen
 												</span>
 												<span>{percent}%</span>
 											</div>
+
 											<div class="ml-progress-bar-bg">
 												<div
-													class:list={['ml-progress-bar-fill', warnProgress && 'ml-progress-warn']}
+													class:list={[
+														'ml-progress-bar-fill',
+														warnProgress && 'ml-progress-warn',
+													]}
 													style={`width:${percent}%`}
 												/>
 											</div>
-											<span class="ml-badge ml-badge-free">{freeSpots} Plätze frei</span>
+
+											<span class="ml-badge ml-badge-free">
+												{freeSpots} Plätze frei
+											</span>
 										</div>
 									);
 								})}
@@ -102,9 +115,9 @@ const groupfitnessDays = [
 		<div class="mt-10 flex justify-center">
 			<a
 				class="inline-flex items-center rounded-full bg-brand px-8 py-3 text-sm font-bold uppercase tracking-wide transition hover:bg-brand-muted"
-				href="#contact"
+				href={content.cta.href}
 			>
-				Zum Probetraining
+				{content.cta.label}
 			</a>
 		</div>
 	</div>
@@ -262,6 +275,25 @@ const groupfitnessDays = [
 </style>
 
 <script>
+	const todayFormatter = new Intl.DateTimeFormat('en-US', {
+		weekday: 'long',
+		timeZone: 'Europe/Berlin',
+	});
+
+	const today = todayFormatter.format(new Date()).toLowerCase();
+
+	document.querySelectorAll<HTMLElement>('[data-weekday]').forEach((dayTitle) => {
+		const isToday = dayTitle.dataset.weekday === today;
+
+		dayTitle.classList.toggle('ml-today', isToday);
+
+		if (isToday) {
+			dayTitle.setAttribute('aria-current', 'date');
+		} else {
+			dayTitle.removeAttribute('aria-current');
+		}
+	});
+
 	const slider = document.getElementById('ml-slider');
 	const prevBtn = document.getElementById('ml-prev') as HTMLButtonElement | null;
 	const nextBtn = document.getElementById('ml-next') as HTMLButtonElement | null;
@@ -275,9 +307,11 @@ const groupfitnessDays = [
 
 		const update = () => {
 			const visible = visibleCount();
+
 			dayCols.forEach((col, idx) => {
 				col.style.display = idx >= page && idx < page + visible ? '' : 'none';
 			});
+
 			prevBtn.disabled = page === 0;
 			nextBtn.disabled = page + visible >= pages;
 		};
@@ -286,11 +320,13 @@ const groupfitnessDays = [
 			page = Math.max(0, page - 1);
 			update();
 		});
+
 		nextBtn.addEventListener('click', () => {
 			const visible = visibleCount();
 			page = Math.min(Math.max(0, pages - visible), page + 1);
 			update();
 		});
+
 		window.addEventListener('resize', update);
 		update();
 	}

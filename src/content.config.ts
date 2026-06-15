@@ -150,6 +150,45 @@ const homeTrainingInfo = defineCollection({
 	}),
 });
 
+const homeTimetable = defineCollection({
+	loader: glob({
+		pattern: 'index.md',
+		base: './src/content/home-timetable',
+	}),
+	schema: z.object({
+		title: z.string(),
+
+		days: z.array(
+			z.object({
+				dateLabel: z.string(),
+				weekday: z.enum([
+					'monday',
+					'tuesday',
+					'wednesday',
+					'thursday',
+					'friday',
+					'saturday',
+					'sunday',
+				]),
+				slots: z.array(
+					z.object({
+						title: z.string(),
+						time: z.string(),
+						trainer: z.string(),
+						booked: z.number(),
+						max: z.number(),
+					})
+				),
+			})
+		),
+
+		cta: z.object({
+			label: z.string(),
+			href: z.string(),
+		}),
+	}),
+});
+
 export const collections = {
 	downloads,
 	faq,
@@ -158,5 +197,6 @@ export const collections = {
     homeHero,
     homeIntro,
     sharedSectionBackground,
-    homeTrainingInfo
+    homeTrainingInfo,
+    homeTimetable
 };

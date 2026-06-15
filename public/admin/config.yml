@@ -234,6 +234,75 @@ collections:
                 name: "href"
                 widget: "string"
 
+  - name: "home_timetable"
+    label: "Startseite: Trainingszeiten"
+    files:
+      - label: "Trainingszeiten"
+        name: "timetable"
+        file: "src/content/home-timetable/index.md"
+        fields:
+          - label: "Überschrift"
+            name: "title"
+            widget: "string"
+
+          - label: "Trainingstage"
+            name: "days"
+            widget: "list"
+            fields:
+              - label: "Anzeigetext"
+                name: "dateLabel"
+                widget: "string"
+
+              - label: "Wochentag"
+                name: "weekday"
+                widget: "select"
+                options:
+                  - { label: "Montag", value: "monday" }
+                  - { label: "Dienstag", value: "tuesday" }
+                  - { label: "Mittwoch", value: "wednesday" }
+                  - { label: "Donnerstag", value: "thursday" }
+                  - { label: "Freitag", value: "friday" }
+                  - { label: "Samstag", value: "saturday" }
+                  - { label: "Sonntag", value: "sunday" }
+
+              - label: "Einheiten"
+                name: "slots"
+                widget: "list"
+                fields:
+                  - label: "Titel"
+                    name: "title"
+                    widget: "string"
+
+                  - label: "Uhrzeit"
+                    name: "time"
+                    widget: "string"
+
+                  - label: "Trainer"
+                    name: "trainer"
+                    widget: "string"
+
+                  - label: "Anmeldungen"
+                    name: "booked"
+                    widget: "number"
+                    value_type: "int"
+
+                  - label: "Maximale Plätze"
+                    name: "max"
+                    widget: "number"
+                    value_type: "int"
+
+          - label: "CTA"
+            name: "cta"
+            widget: "object"
+            fields:
+              - label: "Button Text"
+                name: "label"
+                widget: "string"
+
+              - label: "Button Link"
+                name: "href"
+                widget: "string"
+
   - name: "pricing"
     label: "Mitgliedsbeiträge"
     folder: "src/content/pricing"
