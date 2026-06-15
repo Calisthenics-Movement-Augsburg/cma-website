@@ -1,0 +1,23 @@
+---
+const siteUrl = 'https://calisthenics-augsburg.de';
+
+const organization = {
+	'@context': 'https://schema.org',
+	'@type': 'SportsOrganization',
+	name: 'Calisthenics Movement Augsburg e.V.',
+	url: siteUrl,
+	logo: `${siteUrl}/logo.png`,
+	email: 'info@cma-augsburg.de',
+	sport: 'Calisthenics',
+	address: {
+		'@type': 'PostalAddress',
+		addressLocality: 'Augsburg',
+		addressCountry: 'DE',
+	},
+	sameAs: [
+		'https://www.instagram.com/YOUR_REAL_PROFILE',
+	],
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(organization)} />
