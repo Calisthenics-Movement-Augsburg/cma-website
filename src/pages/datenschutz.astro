@@ -1,28 +1,48 @@
 ---
-// src/pages/datenschutz.astro
-
 import Layout from '../layouts/Layout.astro';
-import ThemeToggle from '../components/ThemeToggle.astro';
 import SmallHeader from '../components/SmallHeader.astro';
+import SectionBackground from '../components/SectionBackground.astro';
+import { getEntry, render } from 'astro:content';
 
-const contactEmail = 'info@cma-augsburg.de';
+const datenschutzEntry = await getEntry('datenschutz', 'index');
+
+if (!datenschutzEntry) {
+	throw new Error('Missing datenschutz content: src/content/datenschutz/index.md');
+}
+
+const sharedSectionBackground = await getEntry('sharedSectionBackground', 'index');
+
+if (!sharedSectionBackground) {
+	throw new Error('Missing shared section background content: src/content/shared-section-background/index.md');
+}
+
+const { Content } = await render(datenschutzEntry);
+
+const content = datenschutzEntry.data;
+const backgroundImage = sharedSectionBackground.data.image;
+
+const buttonClass = (variant: 'primary' | 'secondary') =>
+	variant === 'primary'
+		? 'inline-flex items-center rounded-full bg-brand px-8 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-brand-muted'
+		: 'inline-flex items-center rounded-full border border-current px-8 py-3 text-sm font-bold uppercase tracking-wide transition hover:bg-black/5 dark:hover:bg-white/10';
 ---
 
-<Layout title="Datenschutz | Calisthenics Movement Augsburg">
+<Layout
+	title="Datenschutz | Calisthenics Movement Augsburg"
+	description="Datenschutzerklärung des Calisthenics Movement Augsburg e.V. mit Informationen zur Verarbeitung personenbezogener Daten."
+	canonical="/datenschutz"
+>
 	<SmallHeader currentPage="datenschutz" />
 
 	<main>
 		<section class="l-section custom relative min-h-[34vh] md:min-h-[40vh] flex items-center justify-center overflow-hidden pt-14 md:pt-16">
-			<div
-				class="absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat"
-				style="background-image:url('https://www.fitnesscenter-california.at/wp-content/uploads/2023/02/banner-breadcrumb.jpeg')"
-				role="img"
-				aria-label="Datenschutz banner"
-			></div>
-			<div class="absolute inset-0 -z-10 bg-white/70 md:bg-white/60 lg:bg-white/50 dark:bg-black/45"></div>
+			<SectionBackground
+				image={backgroundImage}
+				overlayClass="bg-white/70 md:bg-white/60 lg:bg-white/50 dark:bg-black/45"
+			/>
 
 			<h1 class="text-dark text-4xl md:text-6xl font-black tracking-tight drop-shadow-xl dark:text-white/95">
-				Datenschutz
+				{content.heroTitle}
 			</h1>
 		</section>
 
@@ -31,350 +51,19 @@ const contactEmail = 'info@cma-augsburg.de';
 				<div class="mx-auto mt-3 h-1.5 w-24 md:w-28 bg-brand"></div>
 
 				<p class="mx-auto mt-8 max-w-3xl text-center text-sm md:text-base opacity-85">
-					Hinweise zum Umgang mit personenbezogenen Daten auf dieser Webseite.
+					{content.intro}
 				</p>
 
-				<div class="privacy-card mt-10 md:mt-12">
-					<div class="privacy-section">
-						<h2>1. Datenschutz auf einen Blick</h2>
-
-						<p>
-							Der Schutz deiner persönlichen Daten ist uns wichtig. Auf dieser Webseite verarbeiten wir
-							personenbezogene Daten nur, soweit dies für den Betrieb der Webseite, die Bearbeitung von
-							Anfragen, die Organisation des Vereinsbetriebs oder die Erfüllung gesetzlicher Pflichten
-							erforderlich ist.
-						</p>
-
-						<p>
-							Personenbezogene Daten sind alle Informationen, mit denen du persönlich identifiziert werden
-							kannst, zum Beispiel Name, E-Mail-Adresse, Telefonnummer, IP-Adresse oder Angaben, die du uns
-							über ein Kontaktformular übermittelst.
-						</p>
-					</div>
-
-					<div class="privacy-section">
-						<h2>2. Verantwortlicher</h2>
-
-						<p>
-							Verantwortlich für die Datenverarbeitung auf dieser Webseite ist:
-						</p>
-
-						<p>
-							<strong>Calisthenics Movement Augsburg e.V.</strong><br />
-							Augsburg<br />
-							Deutschland
-						</p>
-
-						<p>
-							E-Mail:
-							<a href={`mailto:${contactEmail}`}>
-								{contactEmail}
-							</a>
-						</p>
-
-						<p class="privacy-note">
-							Hier muss dieselbe ladungsfähige Vereinsanschrift eingetragen werden wie im Impressum.
-						</p>
-					</div>
-
-					<div class="privacy-section">
-						<h2>3. Allgemeine Hinweise zur Datenverarbeitung</h2>
-
-						<p>
-							Wir verarbeiten personenbezogene Daten nur, wenn hierfür eine rechtliche Grundlage besteht.
-							Die Verarbeitung erfolgt insbesondere auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, wenn die
-							Verarbeitung zur Durchführung vorvertraglicher oder vertraglicher Maßnahmen erforderlich ist,
-							zum Beispiel bei Anfragen zu Probetraining oder Mitgliedschaft.
-						</p>
-
-						<p>
-							Soweit wir ein berechtigtes Interesse am sicheren und stabilen Betrieb dieser Webseite haben,
-							erfolgt die Verarbeitung auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Soweit eine Einwilligung
-							erforderlich ist, erfolgt die Verarbeitung auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO.
-						</p>
-					</div>
-
-					<div class="privacy-section">
-						<h2>4. Hosting und technische Bereitstellung der Webseite</h2>
-
-						<p>
-							Diese Webseite wird technisch durch einen Hosting-Anbieter bereitgestellt. Beim Aufruf der
-							Webseite werden automatisch technische Daten verarbeitet, damit die Webseite ausgeliefert,
-							stabil betrieben und gegen Missbrauch geschützt werden kann.
-						</p>
-
-						<p>
-							Zu diesen Daten können insbesondere gehören:
-						</p>
-
-						<ul>
-							<li>IP-Adresse</li>
-							<li>Datum und Uhrzeit des Zugriffs</li>
-							<li>aufgerufene Seite oder Datei</li>
-							<li>übertragene Datenmenge</li>
-							<li>Browsertyp und Browserversion</li>
-							<li>Betriebssystem</li>
-							<li>Referrer-URL</li>
-						</ul>
-
-						<p>
-							Die Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Unser
-							berechtigtes Interesse liegt im sicheren, fehlerfreien und effizienten Betrieb unserer Webseite.
-						</p>
-
-						<p class="privacy-note">
-							Wenn ihr Netlify nutzt, sollte hier ergänzt werden: „Hosting-Anbieter ist Netlify, Inc.“.
-							Prüfe zusätzlich, ob ihr einen Auftragsverarbeitungsvertrag bzw. ein Data Processing Addendum
-							abgeschlossen habt.
-						</p>
-					</div>
-
-					<div class="privacy-section">
-						<h2>5. Kontaktaufnahme</h2>
-
-						<p>
-							Wenn du uns per Kontaktformular oder E-Mail kontaktierst, verarbeiten wir die von dir
-							übermittelten Angaben zur Bearbeitung deiner Anfrage. Dazu können insbesondere Name,
-							E-Mail-Adresse, Telefonnummer und der Inhalt deiner Nachricht gehören.
-						</p>
-
-						<p>
-							Die Verarbeitung erfolgt zur Bearbeitung deiner Anfrage und, falls deine Anfrage auf ein
-							Probetraining, eine Mitgliedschaft oder eine sonstige Vereinsleistung gerichtet ist, auf
-							Grundlage von Art. 6 Abs. 1 lit. b DSGVO. In anderen Fällen erfolgt die Verarbeitung auf
-							Grundlage unseres berechtigten Interesses an der Beantwortung von Anfragen gemäß Art. 6
-							Abs. 1 lit. f DSGVO.
-						</p>
-
-						<p>
-							Die Daten werden gelöscht, sobald deine Anfrage abschließend bearbeitet wurde und keine
-							gesetzlichen Aufbewahrungspflichten entgegenstehen.
-						</p>
-					</div>
-
-					<div class="privacy-section">
-						<h2>6. Kontaktformular über Netlify Forms</h2>
-
-						<p>
-							Sofern unser Kontaktformular über Netlify Forms verarbeitet wird, werden die über das Formular
-							eingegebenen Daten an Netlify übermittelt und dort technisch verarbeitet, damit wir deine
-							Anfrage empfangen und beantworten können.
-						</p>
-
-						<p>
-							Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, soweit die Anfrage mit
-							einer Mitgliedschaft, einem Probetraining oder einer vergleichbaren Vereinsleistung zusammenhängt.
-							Im Übrigen erfolgt die Verarbeitung auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO.
-						</p>
-
-						<p>
-							Weitere Informationen findest du in der Datenschutzerklärung von Netlify:
-							<a
-								href="https://www.netlify.com/privacy/"
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								https://www.netlify.com/privacy/
-							</a>
-						</p>
-
-						<p class="privacy-note">
-							Diesen Abschnitt löschen, falls ihr das Formular nicht über Netlify Forms verarbeitet.
-						</p>
-					</div>
-
-					<div class="privacy-section">
-						<h2>7. Downloads</h2>
-
-						<p>
-							Auf unserer Webseite stellen wir Dokumente zum Download bereit, zum Beispiel Mitgliedsanträge,
-							Satzung oder Formulare für ein Probetraining. Beim Abruf dieser Dateien können technisch
-							erforderliche Zugriffsdaten verarbeitet werden, insbesondere IP-Adresse, Zeitpunkt des Abrufs
-							und die abgerufene Datei.
-						</p>
-
-						<p>
-							Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes
-							Interesse liegt in der Bereitstellung wichtiger Vereinsdokumente und im sicheren technischen
-							Betrieb der Webseite.
-						</p>
-					</div>
-
-					<div class="privacy-section">
-						<h2>8. Mitgliedschaft und Probetraining</h2>
-
-						<p>
-							Wenn du uns Unterlagen für eine Mitgliedschaft oder ein Probetraining übermittelst, verarbeiten
-							wir die darin enthaltenen Daten zur Durchführung vorvertraglicher Maßnahmen, zur Organisation
-							des Trainingsbetriebs und gegebenenfalls zur Durchführung der Mitgliedschaft.
-						</p>
-
-						<p>
-							Dazu können insbesondere Name, Anschrift, Geburtsdatum, Kontaktdaten, Angaben zu
-							Erziehungsberechtigten, Zahlungsdaten und trainingsbezogene Angaben gehören.
-						</p>
-
-						<p>
-							Die Verarbeitung erfolgt insbesondere auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO. Soweit
-							gesetzliche Aufbewahrungspflichten bestehen, erfolgt die Verarbeitung zusätzlich auf Grundlage
-							von Art. 6 Abs. 1 lit. c DSGVO.
-						</p>
-
-						<p>
-							Für Mitgliedschaftsdaten können zusätzliche Datenschutzinformationen im Mitgliedsantrag oder
-							in separaten Vereinsunterlagen gelten.
-						</p>
-					</div>
-
-					<div class="privacy-section">
-						<h2>9. Cookies, Tracking und Analyse-Tools</h2>
-
-						<p>
-							Wir setzen auf dieser Webseite keine Analyse-Tools wie Google Analytics und keine Tracking-Cookies
-							ein. Soweit technisch notwendige Speichermechanismen verwendet werden, dienen diese ausschließlich
-							der Bereitstellung grundlegender Funktionen der Webseite, zum Beispiel der Darstellung im hellen
-							oder dunklen Design.
-						</p>
-
-						<p>
-							Technisch notwendige Verarbeitungen erfolgen auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO.
-							Unser berechtigtes Interesse liegt in der nutzerfreundlichen und technisch stabilen Bereitstellung
-							unserer Webseite.
-						</p>
-
-						<p class="privacy-note">
-							Wenn ihr später Analytics, Meta Pixel, YouTube-Einbettungen, Google Maps, Fonts von externen
-							Servern oder Newsletter-Tools einbaut, muss diese Datenschutzerklärung erweitert werden.
-						</p>
-					</div>
-
-					<div class="privacy-section">
-						<h2>10. Externe Links und Social Media</h2>
-
-						<p>
-							Unsere Webseite kann Links zu externen Webseiten enthalten, zum Beispiel zu unserem Instagram-Profil.
-							Wenn du einen solchen Link anklickst, verlässt du unsere Webseite. Für die Verarbeitung deiner Daten
-							auf den verlinkten Seiten ist der jeweilige Anbieter verantwortlich.
-						</p>
-
-						<p>
-							Wir binden derzeit keine Social-Media-Plugins ein, die bereits beim Laden unserer Webseite Daten
-							an soziale Netzwerke übertragen.
-						</p>
-					</div>
-
-					<div class="privacy-section">
-						<h2>11. Empfänger personenbezogener Daten</h2>
-
-						<p>
-							Personenbezogene Daten werden nur an Dritte weitergegeben, wenn dies zur Bearbeitung deiner Anfrage,
-							zur Durchführung der Mitgliedschaft, zur technischen Bereitstellung der Webseite oder aufgrund
-							gesetzlicher Pflichten erforderlich ist.
-						</p>
-
-						<p>
-							Empfänger können insbesondere technische Dienstleister, Hosting-Anbieter, Zahlungsdienstleister,
-							Banken, Steuerberatung oder zuständige Behörden sein.
-						</p>
-					</div>
-
-					<div class="privacy-section">
-						<h2>12. Speicherdauer</h2>
-
-						<p>
-							Wir speichern personenbezogene Daten nur so lange, wie dies für die jeweiligen Zwecke erforderlich
-							ist oder gesetzliche Aufbewahrungsfristen bestehen. Daten aus Kontaktanfragen löschen wir in der
-							Regel, sobald die Anfrage abschließend bearbeitet wurde und keine weiteren Aufbewahrungspflichten
-							bestehen.
-						</p>
-
-						<p>
-							Daten im Zusammenhang mit Mitgliedschaft, Beiträgen oder Vereinsverwaltung können aufgrund
-							gesetzlicher Pflichten länger gespeichert werden.
-						</p>
-					</div>
-
-					<div class="privacy-section">
-						<h2>13. Deine Rechte</h2>
-
-						<p>
-							Du hast im Rahmen der gesetzlichen Voraussetzungen folgende Rechte:
-						</p>
-
-						<ul>
-							<li>Recht auf Auskunft über die zu deiner Person gespeicherten Daten</li>
-							<li>Recht auf Berichtigung unrichtiger Daten</li>
-							<li>Recht auf Löschung deiner Daten</li>
-							<li>Recht auf Einschränkung der Verarbeitung</li>
-							<li>Recht auf Datenübertragbarkeit</li>
-							<li>Recht auf Widerspruch gegen bestimmte Verarbeitungen</li>
-							<li>Recht auf Widerruf einer erteilten Einwilligung mit Wirkung für die Zukunft</li>
-						</ul>
-
-						<p>
-							Zur Ausübung deiner Rechte kannst du dich jederzeit an uns wenden:
-							<a href={`mailto:${contactEmail}`}>
-								{contactEmail}
-							</a>
-						</p>
-					</div>
-
-					<div class="privacy-section">
-						<h2>14. Beschwerderecht bei einer Aufsichtsbehörde</h2>
-
-						<p>
-							Wenn du der Ansicht bist, dass die Verarbeitung deiner personenbezogenen Daten gegen die DSGVO
-							verstößt, hast du das Recht, dich bei einer Datenschutzaufsichtsbehörde zu beschweren.
-						</p>
-
-						<p>
-							Zuständig kann insbesondere die Datenschutzaufsichtsbehörde deines Wohnorts oder die für uns
-							zuständige Aufsichtsbehörde sein.
-						</p>
-					</div>
-
-					<div class="privacy-section">
-						<h2>15. Sicherheit</h2>
-
-						<p>
-							Wir treffen angemessene technische und organisatorische Maßnahmen, um personenbezogene Daten vor
-							Verlust, Missbrauch, unbefugtem Zugriff und unbefugter Weitergabe zu schützen.
-						</p>
-
-						<p>
-							Bitte beachte, dass die Datenübertragung im Internet Sicherheitslücken aufweisen kann. Ein
-							lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht vollständig möglich.
-						</p>
-					</div>
-
-					<div class="privacy-section">
-						<h2>16. Änderungen dieser Datenschutzerklärung</h2>
-
-						<p>
-							Wir behalten uns vor, diese Datenschutzerklärung anzupassen, wenn sich rechtliche Anforderungen,
-							technische Funktionen dieser Webseite oder unsere Datenverarbeitung ändern.
-						</p>
-
-						<p>
-							Stand: Juni 2026
-						</p>
-					</div>
+				<div class="privacy-card privacy-content mt-10 md:mt-12">
+					<Content />
 				</div>
 
 				<div class="mt-10 md:mt-12 flex flex-wrap justify-center gap-4">
-					<a
-						class="inline-flex items-center rounded-full bg-brand px-8 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-brand-muted"
-						href="/impressum"
-					>
-						Zum Impressum
-					</a>
-
-					<a
-						class="inline-flex items-center rounded-full border border-current px-8 py-3 text-sm font-bold uppercase tracking-wide transition hover:bg-black/5 dark:hover:bg-white/10"
-						href="/"
-					>
-						Zur Startseite
-					</a>
+					{content.buttons.map((button) => (
+						<a class={buttonClass(button.variant)} href={button.href}>
+							{button.label}
+						</a>
+					))}
 				</div>
 			</div>
 		</section>
@@ -405,52 +94,53 @@ const contactEmail = 'info@cma-augsburg.de';
 		border-color: rgba(255, 255, 255, 0.15);
 	}
 
-	.privacy-section {
-		padding: 1.35rem 1.5rem;
-		border-bottom: 1px solid rgba(17, 24, 39, 0.1);
-	}
-
-	:global(.dark) .privacy-section {
-		border-bottom-color: rgba(255, 255, 255, 0.12);
-	}
-
-	.privacy-section:last-child {
-		border-bottom: none;
-	}
-
-	.privacy-section h2 {
-		margin-bottom: 0.75rem;
+	:global(.privacy-content h2) {
+		margin: 0;
+		padding: 1.35rem 1.5rem 0;
 		font-size: 0.9rem;
 		font-weight: 800;
 		text-transform: uppercase;
 		letter-spacing: 0.06em;
 	}
 
-	.privacy-section p {
-		margin-top: 0.65rem;
+	:global(.privacy-content h2:not(:first-child)) {
+		border-top: 1px solid rgba(17, 24, 39, 0.1);
+	}
+
+	:global(.dark .privacy-content h2:not(:first-child)) {
+		border-top-color: rgba(255, 255, 255, 0.12);
+	}
+
+	:global(.privacy-content p) {
+		margin: 0;
+		padding: 0.65rem 1.5rem 1.35rem;
 		font-size: 0.95rem;
 		line-height: 1.7;
 		opacity: 0.86;
 	}
 
-	.privacy-section p:first-of-type {
-		margin-top: 0;
+	:global(.privacy-content h2 + p) {
+		padding-top: 0.75rem;
 	}
 
-	.privacy-section ul {
-		margin-top: 0.75rem;
-		margin-left: 1.25rem;
+	:global(.privacy-content p + p) {
+		padding-top: 0;
+	}
+
+	:global(.privacy-content ul) {
+		margin: 0;
+		padding: 0.25rem 1.5rem 1.35rem 2.75rem;
 		list-style: disc;
 		font-size: 0.95rem;
 		line-height: 1.7;
 		opacity: 0.86;
 	}
 
-	.privacy-section li + li {
+	:global(.privacy-content li + li) {
 		margin-top: 0.25rem;
 	}
 
-	.privacy-section a {
+	:global(.privacy-content a) {
 		color: var(--color-brand);
 		font-weight: 700;
 		text-decoration: underline;
@@ -458,15 +148,23 @@ const contactEmail = 'info@cma-augsburg.de';
 		text-decoration-thickness: 1px;
 	}
 
-	.privacy-section a:hover {
+	:global(.privacy-content a:hover) {
 		color: var(--color-brand-muted);
 	}
 
-	.privacy-note {
+	:global(.privacy-content blockquote) {
+		margin: 0 1.5rem 1.35rem;
 		border-left: 4px solid var(--color-brand);
 		padding-left: 0.9rem;
-		font-size: 0.85rem !important;
-		opacity: 0.72 !important;
+		font-size: 0.85rem;
+		line-height: 1.7;
+		opacity: 0.72;
+	}
+
+	:global(.privacy-content blockquote p) {
+		padding: 0;
+		font-size: inherit;
+		opacity: 1;
 	}
 
 	@media (max-width: 767px) {
@@ -482,26 +180,54 @@ const contactEmail = 'info@cma-augsburg.de';
 			overflow: visible;
 		}
 
-		.privacy-section {
-			margin-bottom: 1rem;
+		:global(.privacy-content h2) {
+			margin-top: 1rem;
 			border: 1px solid rgba(17, 24, 39, 0.14);
-			border-radius: 1rem;
+			border-bottom: none;
+			border-radius: 1rem 1rem 0 0;
 			background: rgba(255, 255, 255, 0.78);
-			padding: 1.1rem 1rem;
+			padding: 1.1rem 1rem 0.25rem;
 		}
 
-		:global(.dark) .privacy-section {
+		:global(.dark .privacy-content h2) {
 			background: rgba(255, 255, 255, 0.06);
 			border-color: rgba(255, 255, 255, 0.15);
 		}
 
-		.privacy-section:last-child {
-			margin-bottom: 0;
+		:global(.privacy-content h2:not(:first-child)) {
+			border-top: 1px solid rgba(17, 24, 39, 0.14);
 		}
 
-		.privacy-section p,
-		.privacy-section ul {
+		:global(.privacy-content p),
+		:global(.privacy-content ul),
+		:global(.privacy-content blockquote) {
+			margin: 0;
+			border-left: 1px solid rgba(17, 24, 39, 0.14);
+			border-right: 1px solid rgba(17, 24, 39, 0.14);
+			background: rgba(255, 255, 255, 0.78);
 			font-size: 0.9rem;
+		}
+
+		:global(.privacy-content p) {
+			padding: 0.85rem 1rem;
+		}
+
+		:global(.privacy-content ul) {
+			padding: 0.85rem 1rem 0.85rem 2.25rem;
+		}
+
+		:global(.privacy-content blockquote) {
+			padding: 0.85rem 1rem;
+			border-top: none;
+			border-bottom: none;
+			opacity: 0.72;
+		}
+
+		:global(.dark .privacy-content p),
+		:global(.dark .privacy-content ul),
+		:global(.dark .privacy-content blockquote) {
+			background: rgba(255, 255, 255, 0.06);
+			border-color: rgba(255, 255, 255, 0.15);
 		}
 	}
 </style>

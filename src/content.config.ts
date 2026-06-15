@@ -352,6 +352,40 @@ const impressum = defineCollection({
 	}),
 });
 
+const datenschutz = defineCollection({
+	loader: glob({
+		pattern: 'index.md',
+		base: './src/content/datenschutz',
+	}),
+	schema: z.object({
+		layoutTitle: z.string(),
+		heroTitle: z.string(),
+		intro: z.string(),
+		buttons: z.array(
+			z.object({
+				label: z.string(),
+				href: z.string(),
+				variant: z.enum(['primary', 'secondary']),
+			})
+		),
+	}),
+});
+
+const siteSeo = defineCollection({
+	loader: glob({
+		pattern: 'index.md',
+		base: './src/content/site-seo',
+	}),
+	schema: z.object({
+		siteUrl: z.string(),
+		siteName: z.string(),
+		defaultTitle: z.string(),
+		defaultDescription: z.string(),
+		defaultOgImage: z.string(),
+		locale: z.string().default('de_DE'),
+	}),
+});
+
 export const collections = {
 	downloads,
 	faq,
@@ -366,5 +400,7 @@ export const collections = {
     homeContactForm,
     team,
     footer,
-    impressum
+    impressum,
+    datenschutz,
+    siteSeo
 };

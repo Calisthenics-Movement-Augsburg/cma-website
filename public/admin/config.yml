@@ -757,3 +757,79 @@ collections:
           - label: "Inhalt"
             name: "body"
             widget: "markdown"                
+
+  - name: "datenschutz"
+    label: "Datenschutz"
+    files:
+      - label: "Datenschutz"
+        name: "datenschutz"
+        file: "src/content/datenschutz/index.md"
+        fields:
+          - label: "Browser Titel"
+            name: "layoutTitle"
+            widget: "string"
+
+          - label: "Hero Titel"
+            name: "heroTitle"
+            widget: "string"
+
+          - label: "Einleitung"
+            name: "intro"
+            widget: "text"
+
+          - label: "Buttons"
+            name: "buttons"
+            widget: "list"
+            fields:
+              - label: "Text"
+                name: "label"
+                widget: "string"
+
+              - label: "Link"
+                name: "href"
+                widget: "string"
+
+              - label: "Variante"
+                name: "variant"
+                widget: "select"
+                options:
+                  - { label: "Primär", value: "primary" }
+                  - { label: "Sekundär", value: "secondary" }
+
+          - label: "Inhalt"
+            name: "body"
+            widget: "markdown"            
+
+  - name: "site_seo"
+    label: "Global: SEO"
+    files:
+      - label: "SEO Einstellungen"
+        name: "site_seo"
+        file: "src/content/site-seo/index.md"
+        fields:
+          - label: "Website URL"
+            name: "siteUrl"
+            widget: "string"
+
+          - label: "Website Name"
+            name: "siteName"
+            widget: "string"
+
+          - label: "Standard Titel"
+            name: "defaultTitle"
+            widget: "string"
+
+          - label: "Standard Beschreibung"
+            name: "defaultDescription"
+            widget: "text"
+
+          - label: "Standard OG Bild"
+            name: "defaultOgImage"
+            widget: "image"
+            media_folder: "public/uploads/seo"
+            public_folder: "/uploads/seo"
+
+          - label: "Locale"
+            name: "locale"
+            widget: "string"
+            default: "de_DE"            
