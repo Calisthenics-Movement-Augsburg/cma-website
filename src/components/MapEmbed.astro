@@ -5,7 +5,6 @@ const {
 	imageSrc = '/images/location-map.svg',
 	googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=Calisthenics+Augsburg',
 	title = 'Training in Augsburg',
-	description = 'Unser Training findet im Raum Augsburg statt. Die genaue Route kannst du direkt über Google Maps öffnen.',
 	alt = 'Grobe Karte des Trainingsorts in Augsburg',
 } = Astro.props;
 ---
@@ -15,14 +14,6 @@ const {
 		<p class="text-sm font-bold uppercase tracking-wide text-brand">
 			{title}
 		</p>
-
-		<!-- <h2 class="mt-2 text-3xl font-black uppercase tracking-tight text-gray-950 dark:text-white">
-			{title}
-		</h2> -->
-
-		<!-- <p class="mt-3 max-w-2xl text-gray-600 dark:text-gray-300">
-			{description}
-		</p> -->
 	</div>
 
 	<figure class="overflow-hidden rounded-2xl border border-gray-200 bg-[#f4f1e8] dark:border-gray-800 dark:bg-gray-900">
@@ -62,7 +53,7 @@ const {
 
             <a
             class="inline-flex items-center rounded-full bg-brand px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-brand-muted"
-            href="https://www.google.com/maps"
+            href={googleMapsUrl}
             target="_blank"
             rel="noreferrer"
             >

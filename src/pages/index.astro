@@ -32,6 +32,24 @@ if (!pricingPage) {
 	throw new Error('Missing pricing page content: src/content/pricing-page/index.md');
 }
 
+const sharedSectionBackground = await getEntry('sharedSectionBackground', 'index');
+
+if (!sharedSectionBackground) {
+	throw new Error('Missing shared section background content: src/content/shared-section-background/index.md');
+}
+
+const intro = await getEntry('homeIntro', 'index');
+
+if (!intro) {
+	throw new Error('Missing intro content: src/content/home-intro/index.md');
+}
+
+const trainingInfo = await getEntry('homeTrainingInfo', 'index');
+
+if (!trainingInfo) {
+	throw new Error('Missing training info content: src/content/home-training-info/index.md');
+}
+
 ---
 
 <Layout title="Calisthenics Movement Augsburg">
@@ -40,12 +58,12 @@ if (!pricingPage) {
 
 	<main>
 		<Hero content={hero.data} />
-		<Intro />
+		<Intro content={intro.data} backgroundImage={sharedSectionBackground.data.image} />
 		<Gallery />
-		<TrainingInfo />
-		<Timetable />
+		<TrainingInfo content={trainingInfo.data} backgroundImage={sharedSectionBackground.data.image}/>
+		<Timetable backgroundImage={sharedSectionBackground.data.image} />
 		<Pricing content={pricingPage.data} items={pricingItems} />
-		<TrialTraining />
+		<TrialTraining backgroundImage={sharedSectionBackground.data.image} />
 		<Contact />
 	</main>
 </Layout>

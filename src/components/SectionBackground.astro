@@ -1,0 +1,26 @@
+---
+interface Props {
+	image: string;
+	alt?: string;
+	overlayClass?: string;
+}
+
+const {
+	image,
+	alt,
+	overlayClass = 'bg-white/70 dark:bg-black/60',
+} = Astro.props;
+
+const isDecorative = !alt;
+---
+
+<div
+	class="absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat"
+	style={`background-image:url('${image}')`}
+	role={isDecorative ? undefined : 'img'}
+	aria-label={isDecorative ? undefined : alt}
+	aria-hidden={isDecorative ? 'true' : undefined}
+>
+</div>
+
+<div class={`absolute inset-0 -z-10 ${overlayClass}`}></div>

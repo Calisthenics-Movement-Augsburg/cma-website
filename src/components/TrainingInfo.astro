@@ -1,89 +1,102 @@
 ---
-import MapEmbed from "./MapEmbed.astro";
+import MapEmbed from './MapEmbed.astro';
+import SectionBackground from './SectionBackground.astro';
 
+interface TrainingCard {
+	title: string;
+	text: string;
+}
+
+interface TrainingInfoContent {
+	title: string;
+	intro: string;
+	trainingCards: TrainingCard[];
+	audience: {
+		title: string;
+		text: string;
+	};
+	bring: {
+		title: string;
+		items: string[];
+	};
+	location: {
+		title: string;
+		addressLabel: string;
+		address: string;
+		accessLabel: string;
+		access: string;
+		transportLabel: string;
+		transport: string;
+		mapAddress: string;
+		mapsUrl: string;
+	};
+	cta: {
+		title: string;
+		text: string;
+		label: string;
+		href: string;
+	};
+}
+
+interface Props {
+	content: TrainingInfoContent;
+	backgroundImage?: string;
+}
+
+const { content, backgroundImage } = Astro.props;
 ---
 
 <section id="training-ablauf" class="relative isolate overflow-hidden py-20 md:py-28">
-	<!-- <div
-		class="absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat"
-		style="background-image:url('https://www.fitnesscenter-california.at/wp-content/uploads/2026/04/Groupfitness-Timetable-Background.png')"
-		role="img"
-		aria-label="Training background"
-	></div> -->
-	<!-- <div class="absolute inset-0 -z-10 bg-white/75 dark:bg-black/65"></div> -->
+	{
+		backgroundImage && (
+			<SectionBackground
+				image={backgroundImage}
+				overlayClass="bg-white/70 dark:bg-black/60"
+			/>
+		)
+	}
 
 	<div class="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-10 text-gray-900 dark:text-white">
 		<div class="text-center">
-			<h2 class="text-4xl font-bold md:text-5xl">Was trainieren wir?</h2>
+			<h2 class="text-4xl font-bold md:text-5xl">{content.title}</h2>
 			<div class="mx-auto mt-4 h-1.5 w-28 bg-brand"></div>
+
 			<p class="mx-auto mt-6 max-w-3xl text-base leading-relaxed opacity-85 md:text-lg">
-				Bei uns trainierst du Calisthenics, Körpergewichtskraft, Skills und Beweglichkeit. Der Fokus liegt auf sauberer Technik,
-				sinnvollen Progressionen und langfristigem Aufbau.
+				{content.intro}
 			</p>
 		</div>
 
 		<div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-			<article class="training-info-card rounded-2xl border p-6">
-				<h3 class="text-2xl font-extrabold">Basics</h3>
-				<p class="mt-3 text-sm leading-relaxed opacity-85">
-					Klimmzüge, Liegestütze, Dips, Core und grundlegende Körperspannung.
-				</p>
-			</article>
-
-			<article class="training-info-card rounded-2xl border p-6">
-				<h3 class="text-2xl font-extrabold">Skills</h3>
-				<p class="mt-3 text-sm leading-relaxed opacity-85">
-					Handstand, Muscle-Up, Front Lever, Planche und Human Flag.
-				</p>
-			</article>
-
-			<article class="training-info-card rounded-2xl border p-6">
-				<h3 class="text-2xl font-extrabold">Mobility</h3>
-				<p class="mt-3 text-sm leading-relaxed opacity-85">
-					Schulter, Hüfte, Pancake, aktive Beweglichkeit und kontrollierte Endpositionen.
-				</p>
-			</article>
-
-			<article class="training-info-card rounded-2xl border p-6">
-				<h3 class="text-2xl font-extrabold">Kraft</h3>
-				<p class="mt-3 text-sm leading-relaxed opacity-85">
-					Saubere Technik, passende Progressionen und nachhaltiger Kraftaufbau.
-				</p>
-			</article>
+			{
+				content.trainingCards.map((card) => (
+					<article class="training-info-card rounded-2xl border p-6">
+						<h3 class="text-2xl font-extrabold">{card.title}</h3>
+						<p class="mt-3 text-sm leading-relaxed opacity-85">{card.text}</p>
+					</article>
+				))
+			}
 		</div>
 
 		<div class="mt-14 grid gap-8 lg:grid-cols-2">
 			<article class="training-info-card rounded-2xl border p-6 md:p-8">
-				<h3 class="text-3xl font-extrabold">Für wen ist das Training geeignet?</h3>
+				<h3 class="text-3xl font-extrabold">{content.audience.title}</h3>
 				<p class="mt-5 text-base leading-relaxed opacity-90">
-					Du musst keine Klimmzüge können, um bei uns anzufangen. Wir arbeiten mit Progressionen, sodass Anfänger und
-					Fortgeschrittene im selben Training sinnvoll trainieren können.
+					{content.audience.text}
 				</p>
 			</article>
 
 			<article class="training-info-card rounded-2xl border p-6 md:p-8">
-				<h3 class="text-3xl font-extrabold">Was soll man mitbringen?</h3>
+				<h3 class="text-3xl font-extrabold">{content.bring.title}</h3>
+
 				<ul class="mt-5 grid gap-3 text-base opacity-90">
-					<li class="flex gap-3">
-						<span class="text-brand font-black">•</span>
-						<span>Sportkleidung</span>
-					</li>
-					<li class="flex gap-3">
-						<span class="text-brand font-black">•</span>
-						<span>Wasser</span>
-					</li>
-					<li class="flex gap-3">
-						<span class="text-brand font-black">•</span>
-						<span>Handtuch</span>
-					</li>
-					<li class="flex gap-3">
-						<span class="text-brand font-black">•</span>
-						<span>Saubere Hallenschuhe</span>
-					</li>
-					<li class="flex gap-3">
-						<span class="text-brand font-black">•</span>
-						<span>Keine spezielle Ausrüstung nötig</span>
-					</li>
+					{
+						content.bring.items.map((item) => (
+							<li class="flex gap-3">
+								<span class="text-brand font-black">•</span>
+								<span>{item}</span>
+							</li>
+						))
+					}
 				</ul>
 			</article>
 		</div>
@@ -91,74 +104,44 @@ import MapEmbed from "./MapEmbed.astro";
 		<article class="training-info-card mt-8 rounded-2xl border p-6 md:p-8">
 			<div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
 				<div>
-					<h3 class="text-3xl font-extrabold">Trainingsort</h3>
+					<h3 class="text-3xl font-extrabold">{content.location.title}</h3>
 
 					<div class="mt-5 space-y-4 text-base leading-relaxed opacity-90">
 						<p>
-							<strong>Adresse:</strong><br />
-							<!-- TODO: echte Adresse einsetzen -->
-							Bla Bla Bla Musterstraße Bla Bla
+							<strong>{content.location.addressLabel}:</strong><br />
+							{content.location.address}
 						</p>
 
 						<p>
-							<strong>Zugang:</strong><br />
-							<!-- TODO: Zugangshinweis anpassen -->
-							Bla Bla Bla Bla Bla Bla Bla
+							<strong>{content.location.accessLabel}:</strong><br />
+							{content.location.access}
 						</p>
 
 						<p>
-							<strong>Parken / ÖPNV:</strong><br />
-							<!-- TODO: echte Infos ergänzen -->
-							Parkmöglichkeiten und ÖPNV-Anbindung ergänzen wir hier noch.
+							<strong>{content.location.transportLabel}:</strong><br />
+							{content.location.transport}
 						</p>
 					</div>
-
-					<!-- <div class="mt-6 flex flex-wrap gap-4">
-						<a
-							class="inline-flex items-center rounded-full bg-brand px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-brand-muted"
-							href="https://www.google.com/maps"
-							target="_blank"
-							rel="noreferrer"
-						>
-							Auf Google Maps öffnen
-						</a>
-					</div> -->
 				</div>
 
 				<MapEmbed
-				address="Augsburg"
-				mapsUrl="https://www.google.com/maps?q=Calisthenics+Augsburg"
-			  />
-				<!-- <div class="overflow-hidden rounded-2xl border border-gray-200 bg-gray-100 dark:border-white/15 dark:bg-white/5">
-					<a
-						href="https://www.google.com/maps"
-						target="_blank"
-						rel="noreferrer"
-						class="flex aspect-[4/3] items-center justify-center p-8 text-center transition hover:bg-black/5 dark:hover:bg-white/5"
-					>
-						<div>
-							<div class="text-5xl">📍</div>
-							<p class="mt-4 text-lg font-bold">Karte / Maps-Link</p>
-							<p class="mt-2 text-sm opacity-75">
-								TODO: Falls wir das wirklich wollen, müssen wir Datenschutz anpassen.
-							</p>
-						</div>
-					</a>
-				</div> -->
+					mapsUrl={content.location.mapsUrl}
+				/>
 			</div>
 		</article>
 
 		<div class="mt-14 text-center">
-			<h3 class="text-3xl font-extrabold">Du möchtest mittrainieren?</h3>
+			<h3 class="text-3xl font-extrabold">{content.cta.title}</h3>
+
 			<p class="mt-3 text-base opacity-85 md:text-lg">
-				Dann melde dich für ein Probetraining an.
+				{content.cta.text}
 			</p>
 
 			<a
 				class="mt-6 inline-flex items-center rounded-full bg-brand px-8 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-brand-muted"
-				href="#contact"
+				href={content.cta.href}
 			>
-				Probetraining anfragen
+				{content.cta.label}
 			</a>
 		</div>
 	</div>

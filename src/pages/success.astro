@@ -1,0 +1,176 @@
+---
+// src/pages/success.astro
+
+import Layout from '../layouts/Layout.astro';
+import SmallHeader from '../components/SmallHeader.astro';
+import Background from '../components/Background.astro';
+---
+
+<Layout
+	title="Nachricht gesendet | Calisthenics Movement Augsburg"
+	description="Danke für deine Nachricht. Wir melden uns schnellstmöglich bei dir."
+>
+    <Background />
+	<SmallHeader currentPage="none" />
+
+	<main class="relative min-h-84 overflow-hidden text-gray-950 dark:text-white">
+		<canvas
+			id="confetti-canvas"
+			class="pointer-events-none fixed inset-0 z-[80] h-full w-full"
+			aria-hidden="true"
+		></canvas>
+
+		<div class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(34,197,94,0.18),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.08),transparent_35%)]"></div>
+
+		<section class="mx-auto flex min-h-24 w-full max-w-5xl items-center justify-center px-4 py-28 md:px-6">
+			<div class="relative w-full max-w-2xl overflow-hidden rounded-3xl border border-gray-200/80 bg-white/85 p-8 text-center shadow-2xl shadow-black/10 backdrop-blur-md dark:border-white/10 dark:bg-white/[0.06] dark:shadow-black/40 md:p-12">
+				<div class="absolute inset-x-0 top-0 h-1 bg-brand"></div>
+
+                <div class="mx-auto mb-7 grid h-20 w-20 place-items-center rounded-full bg-brand/10 text-brand ring-1 ring-brand/30">
+                    <div class="grid h-10 w-10 place-items-center">
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.25"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="block h-full w-full translate-x-[1px] -translate-y-[1px]"
+                            aria-hidden="true"
+                        >
+                            <path d="M20 6 9 17l-5-5" />
+                        </svg>
+                    </div>
+                </div>
+
+				<p class="mb-3 text-sm font-bold uppercase tracking-[0.22em] text-brand">
+					Nachricht gesendet
+				</p>
+
+				<h1 class="text-4xl font-black uppercase tracking-tight md:text-6xl">
+					Danke!
+				</h1>
+
+				<p class="mx-auto mt-5 max-w-xl text-base leading-8 text-gray-700 dark:text-gray-300 md:text-lg">
+					Deine Nachricht ist bei uns angekommen. Wir melden uns so bald wie möglich bei dir.
+				</p>
+
+				<div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+					<a
+						href="/"
+						class="inline-flex items-center justify-center rounded-full bg-brand px-6 py-3 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-brand/25 transition hover:-translate-y-0.5 hover:shadow-xl hover:shadow-brand/30 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-black"
+					>
+						Zur Startseite
+					</a>
+
+					<a
+						href="/#kontakt"
+						class="inline-flex items-center justify-center rounded-full border border-gray-300 px-6 py-3 text-sm font-bold uppercase tracking-wide text-gray-900 transition hover:-translate-y-0.5 hover:border-brand hover:text-brand dark:border-white/15 dark:text-white"
+					>
+						Zurück zum Kontakt
+					</a>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<script is:inline>
+		(() => {
+			const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			if (prefersReducedMotion) return;
+
+			const canvas = document.getElementById('confetti-canvas');
+			if (!canvas) return;
+
+			const ctx = canvas.getContext('2d');
+			if (!ctx) return;
+
+			const particleCount = 140;
+			const duration = 3600;
+			const gravity = 0.09;
+			const drag = 0.985;
+			const colors = ['#22c55e', '#ffffff', '#facc15', '#38bdf8', '#fb7185'];
+
+			let width = 0;
+			let height = 0;
+			let dpr = Math.min(window.devicePixelRatio || 1, 2);
+			let start = performance.now();
+
+			const particles = [];
+
+			function resize() {
+				width = window.innerWidth;
+				height = window.innerHeight;
+				dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+				canvas.width = width * dpr;
+				canvas.height = height * dpr;
+				canvas.style.width = `${width}px`;
+				canvas.style.height = `${height}px`;
+
+				ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+			}
+
+			function createParticles() {
+				particles.length = 0;
+
+				for (let i = 0; i < particleCount; i++) {
+					particles.push({
+						x: Math.random() * width,
+						y: -20 - Math.random() * height * 0.35,
+						w: 6 + Math.random() * 8,
+						h: 8 + Math.random() * 12,
+						vx: -2 + Math.random() * 4,
+						vy: 2 + Math.random() * 4,
+						rotation: Math.random() * Math.PI * 2,
+						spin: -0.16 + Math.random() * 0.32,
+						color: colors[Math.floor(Math.random() * colors.length)],
+						opacity: 0.75 + Math.random() * 0.25,
+					});
+				}
+			}
+
+			function drawParticle(p) {
+				ctx.save();
+				ctx.translate(p.x, p.y);
+				ctx.rotate(p.rotation);
+				ctx.globalAlpha = p.opacity;
+				ctx.fillStyle = p.color;
+				ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+				ctx.restore();
+			}
+
+			function animate(now) {
+				const elapsed = now - start;
+				const fade = Math.max(0, 1 - elapsed / duration);
+
+				ctx.clearRect(0, 0, width, height);
+
+				for (const p of particles) {
+					p.vx *= drag;
+					p.vy += gravity;
+					p.x += p.vx;
+					p.y += p.vy;
+					p.rotation += p.spin;
+					p.opacity = Math.min(p.opacity, fade + 0.15);
+
+					drawParticle(p);
+				}
+
+				if (elapsed < duration) {
+					requestAnimationFrame(animate);
+				} else {
+					ctx.clearRect(0, 0, width, height);
+				}
+			}
+
+			resize();
+			createParticles();
+			requestAnimationFrame(animate);
+
+			window.addEventListener('resize', () => {
+				resize();
+			});
+		})();
+	</script>
+</Layout>

@@ -98,6 +98,142 @@ collections:
                 value_type: "int"
                 default: 300
 
+  - name: "home_intro"
+    label: "Startseite: Intro"
+    files:
+      - label: "Intro"
+        name: "intro"
+        file: "src/content/home-intro/index.md"
+        fields:
+
+          - label: "Titel Anfang"
+            name: "titleStart"
+            widget: "string"
+
+          - label: "Titel Hervorhebung"
+            name: "titleHighlight"
+            widget: "string"
+
+          - label: "Tagline"
+            name: "tagline"
+            widget: "text"
+
+          - label: "Unterzeile"
+            name: "subline"
+            widget: "text"
+
+  - name: "home_training_info"
+    label: "Startseite: Trainingsinfo"
+    files:
+      - label: "Trainingsinfo"
+        name: "training_info"
+        file: "src/content/home-training-info/index.md"
+        fields:
+          - label: "Überschrift"
+            name: "title"
+            widget: "string"
+
+          - label: "Einleitung"
+            name: "intro"
+            widget: "text"
+
+          - label: "Trainingsbereiche"
+            name: "trainingCards"
+            widget: "list"
+            fields:
+              - label: "Titel"
+                name: "title"
+                widget: "string"
+              - label: "Text"
+                name: "text"
+                widget: "text"
+
+          - label: "Für wen geeignet?"
+            name: "audience"
+            widget: "object"
+            fields:
+              - label: "Titel"
+                name: "title"
+                widget: "string"
+              - label: "Text"
+                name: "text"
+                widget: "text"
+
+          - label: "Mitbringen"
+            name: "bring"
+            widget: "object"
+            fields:
+              - label: "Titel"
+                name: "title"
+                widget: "string"
+              - label: "Liste"
+                name: "items"
+                widget: "list"
+                field:
+                  label: "Eintrag"
+                  name: "item"
+                  widget: "string"
+
+          - label: "Trainingsort"
+            name: "location"
+            widget: "object"
+            fields:
+              - label: "Titel"
+                name: "title"
+                widget: "string"
+
+              - label: "Adresse Label"
+                name: "addressLabel"
+                widget: "string"
+
+              - label: "Adresse"
+                name: "address"
+                widget: "text"
+
+              - label: "Zugang Label"
+                name: "accessLabel"
+                widget: "string"
+
+              - label: "Zugang"
+                name: "access"
+                widget: "text"
+
+              - label: "Parken / ÖPNV Label"
+                name: "transportLabel"
+                widget: "string"
+
+              - label: "Parken / ÖPNV"
+                name: "transport"
+                widget: "text"
+
+              - label: "Karten-Adresse"
+                name: "mapAddress"
+                widget: "string"
+
+              - label: "Google Maps URL"
+                name: "mapsUrl"
+                widget: "string"
+
+          - label: "CTA"
+            name: "cta"
+            widget: "object"
+            fields:
+              - label: "Titel"
+                name: "title"
+                widget: "string"
+
+              - label: "Text"
+                name: "text"
+                widget: "text"
+
+              - label: "Button Text"
+                name: "label"
+                widget: "string"
+
+              - label: "Button Link"
+                name: "href"
+                widget: "string"
+
   - name: "pricing"
     label: "Mitgliedsbeiträge"
     folder: "src/content/pricing"
@@ -165,3 +301,18 @@ collections:
               label: "Absatz"
               name: "paragraph"
               widget: "text"
+
+  - name: "shared_section_background"
+    label: "Global: Section Background"
+    files:
+      - label: "Section Background"
+        name: "section_background"
+        file: "src/content/shared-section-background/index.md"
+        fields:
+          - label: "Hintergrundbild"
+            name: "image"
+            widget: "image"
+            required: true
+            media_folder: "/public/uploads/backgrounds"
+            public_folder: "/uploads/backgrounds"
+

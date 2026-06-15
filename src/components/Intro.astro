@@ -1,28 +1,40 @@
 ---
+import SectionBackground from './SectionBackground.astro';
+
+interface IntroContent {
+	titleStart: string;
+	titleHighlight: string;
+	tagline: string;
+	subline: string;
+}
+
+interface Props {
+	content: IntroContent;
+	backgroundImage: string;
+}
+
+const { content, backgroundImage } = Astro.props;
 ---
 
 <section id="hero" class="relative isolate overflow-hidden py-20 md:py-28">
-	<div
-		class="absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat"
-		style="background-image:url('https://www.fitnesscenter-california.at/wp-content/uploads/2026/04/Groupfitness-Timetable-Background.png')"
-		role="img"
-		aria-label="hero background"
-	>
-	</div>
-	<div class="absolute inset-0 -z-10 bg-white/70 dark:bg-black/60"></div>
+	<SectionBackground
+	image={backgroundImage}
+	alt="background image"
+	overlayClass="bg-white/70 dark:bg-black/60"
+/>
 
 	<div class="mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-10 text-gray-900 dark:text-white">
 		<h2 class="text-center text-4xl md:text-5xl font-bold">
-			Calisthenics Movement <span class="text-brand">Augsburg</span>
+			{content.titleStart} <span class="text-brand">{content.titleHighlight}</span>
 		</h2>
 		<div class="mx-auto mt-4 h-1.5 w-28 bg-brand"></div>
 
 		<div class="mx-auto mt-8 max-w-3xl text-center md:mt-10 lg:max-w-4xl">
 			<p class="text-xl text-brand-muted font-bold leading-snug tracking-tight text-balance md:text-2xl lg:text-3xl">
-				Wir trainieren Calisthenics, Körpergewichtskraft, Skillarbeit und Beweglichkeit
+				{content.tagline}
 			</p>
 			<p class="hero-intro-sub mt-3 text-sm leading-relaxed text-balance opacity-80 md:text-base lg:text-lg">
-				Gemeinsam, strukturiert und unabhängig vom aktuellen Leistungsstand.
+				{content.subline}
 			</p>
 		</div>
 	</div>
