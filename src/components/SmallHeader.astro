@@ -1,66 +1,253 @@
 ---
-
 import ThemeToggle from '../components/ThemeToggle.astro';
 
 type Props = {
-	currentPage?: 'home' | 'pricing' | 'training' | 'team' | 'downloads' | 'faq' | 'kontakt' | 'impressum' | 'datenschutz' | 'none';
+	currentPage?:
+		| 'home'
+		| 'pricing'
+		| 'training'
+		| 'team'
+		| 'downloads'
+		| 'faq'
+		| 'kontakt'
+		| 'impressum'
+		| 'datenschutz'
+		| 'none';
 };
 
-const { currentPage } = Astro.props;
+type PageKey = Exclude<NonNullable<Props['currentPage']>, 'none'>;
 
-const linkClass = (page: Props['currentPage']) =>
+const { currentPage = 'none' } = Astro.props;
+
+const navLinks: { href: string; label: string; page: PageKey }[] = [
+	{ href: '/#pricing', label: 'Kosten', page: 'pricing' },
+	{ href: '/#trainings-timetable', label: 'Training', page: 'training' },
+	{ href: '/team', label: 'Team', page: 'team' },
+	{ href: '/downloads', label: 'Downloads', page: 'downloads' },
+	{ href: '/faq', label: 'FAQ', page: 'faq' },
+	{ href: '/#contact', label: 'Kontakt', page: 'kontakt' },
+];
+
+const desktopLinkClass = (page: PageKey) =>
 	currentPage === page
 		? 'text-brand'
-		: 'hover:text-brand';
+		: 'text-white/95 hover:text-brand';
 
+const mobileLinkClass = (page: PageKey) =>
+	currentPage === page
+		? 'bg-white/10 text-brand'
+		: 'text-white/80 hover:bg-white/10 hover:text-brand';
 ---
 
 <header
-		id="faq-header"
-		class="fixed top-0 w-full z-50 border-b border-white/10 bg-black/55 backdrop-blur-md"
-	>
-		<div class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 md:px-6">
-			<a href="/" aria-label="Calisthenics Movement Augsburg">
-				<img
-					src="/logo_3.svg"
-					alt="Calisthenics Movement Augsburg"
-					loading="lazy"
-					decoding="async"
-					class="h-9 w-9 md:h-10 md:w-10"
-				/>
-			</a>
+	id="small-header"
+	class="fixed top-0 z-50 w-full border-b border-white/10 bg-black/55 backdrop-blur-md"
+>
+	<div class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 md:px-6">
+		<a href="/" aria-label="Calisthenics Movement Augsburg">
+			<img
+				src="/logo_3.svg"
+				alt="Calisthenics Movement Augsburg"
+				loading="lazy"
+				decoding="async"
+				class="h-9 w-9 md:h-10 md:w-10"
+			/>
+		</a>
 
-            <nav class="hidden lg:block">
-                <ul class="flex gap-7 uppercase font-bold text-sm text-white/95">
-                    <li>
-                        <a href="/#pricing" class={linkClass('pricing')}>Kosten</a>
-                    </li>
-                    <li>
-                        <a href="/#trainings-timetable" class={linkClass('training')}>Training</a>
-                    </li>
-                    <li>
-                        <a href="/team" class={linkClass('team')}>Team</a>
-                    </li>
-                    <li>
-                        <a href="/downloads" class={linkClass('downloads')}>Downloads</a>
-                    </li>
-                    <li>
-                        <a href="/faq" class={linkClass('faq')}>FAQ</a>
-                    </li>
-                    <li>
-                        <a href="/#contact" class={linkClass('kontakt')}>Kontakt</a>
-                    </li>
-                </ul>
-            </nav>
+		<nav class="hidden lg:block" aria-label="Hauptnavigation">
+			<ul class="flex gap-7 text-sm font-bold uppercase text-white/95">
+				{
+					navLinks.map((link) => (
+						<li>
+							<a href={link.href} class={`transition ${desktopLinkClass(link.page)}`}>
+								{link.label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
 
-			<div class="flex items-center gap-3">
+		<div class="flex items-center gap-3">
+			<div class="hidden items-center gap-3 md:flex">
 				<a
-					class="hidden md:inline-flex items-center rounded-full bg-brand px-5 py-2 text-xs font-bold uppercase tracking-wide text-white transition hover:bg-brand-muted"
+					class="inline-flex items-center rounded-full bg-brand px-5 py-2 text-xs font-bold uppercase tracking-wide text-white transition hover:bg-brand-muted"
 					href="/#contact"
 				>
 					Zum Probetraining
 				</a>
+
 				<ThemeToggle />
 			</div>
+
+			<button
+				id="small-mobile-menu-open"
+				type="button"
+				class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/30 text-white backdrop-blur-md transition hover:bg-black/50 md:hidden"
+				aria-label="Navigation öffnen"
+				aria-controls="small-mobile-menu"
+				aria-expanded="false"
+			>
+				<svg
+					class="h-5 w-5"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					aria-hidden="true"
+				>
+					<path d="M4 7h16" />
+					<path d="M4 12h16" />
+					<path d="M4 17h16" />
+				</svg>
+			</button>
 		</div>
-	</header>
+	</div>
+</header>
+
+<div
+	id="small-mobile-menu-overlay"
+	class="fixed inset-0 z-[60] hidden bg-black/60 opacity-0 backdrop-blur-sm transition-opacity duration-300 md:hidden"
+	aria-hidden="true"
+></div>
+
+<aside
+	id="small-mobile-menu"
+	class="fixed right-0 top-0 z-[70] h-dvh w-[min(22rem,85vw)] translate-x-full border-l border-white/10 bg-black/95 text-white shadow-2xl transition-transform duration-300 md:hidden"
+	aria-hidden="true"
+>
+	<div class="flex h-full flex-col px-6 py-5">
+		<div class="flex items-center justify-between gap-4">
+			<a
+				href="/"
+				class="flex items-center gap-3"
+				aria-label="Calisthenics Movement Augsburg Startseite"
+			>
+				<img
+					src="/logo_3.svg"
+					alt=""
+					loading="lazy"
+					decoding="async"
+					class="h-9 w-9"
+				/>
+
+				<p class="text-lg font-black uppercase leading-none">
+					CMA <span class="text-brand">Augsburg</span>
+				</p>
+			</a>
+
+			<button
+				id="small-mobile-menu-close"
+				type="button"
+				class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition hover:bg-white/10"
+				aria-label="Navigation schließen"
+			>
+				<svg
+					class="h-5 w-5"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					aria-hidden="true"
+				>
+					<path d="M6 6l12 12" />
+					<path d="M18 6L6 18" />
+				</svg>
+			</button>
+		</div>
+
+		<nav class="mt-10" aria-label="Mobile Navigation">
+			<ul class="space-y-1">
+				{
+					navLinks.map((link) => (
+						<li>
+							<a
+								href={link.href}
+								class={`small-mobile-menu-link block rounded-xl px-3 py-3 text-lg font-bold uppercase tracking-wide transition ${mobileLinkClass(link.page)}`}
+							>
+								{link.label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+
+		<div class="mt-8">
+			<a
+				class="small-mobile-menu-link inline-flex w-full items-center justify-center rounded-full bg-brand px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-brand-muted"
+				href="/#contact"
+			>
+				Zum Probetraining
+			</a>
+		</div>
+
+		<div class="mt-auto border-t border-white/10 pt-6">
+			<p class="mb-3 text-xs font-bold uppercase tracking-wide text-white/45">
+				Darstellung
+			</p>
+
+			<ThemeToggle />
+		</div>
+	</div>
+</aside>
+
+<script>
+	const menu = document.getElementById('small-mobile-menu');
+	const overlay = document.getElementById('small-mobile-menu-overlay');
+	const openButton = document.getElementById('small-mobile-menu-open');
+	const closeButton = document.getElementById('small-mobile-menu-close');
+	const mobileLinks = document.querySelectorAll('.small-mobile-menu-link');
+
+	const openMenu = () => {
+		if (!menu || !overlay || !openButton) return;
+
+		menu.classList.remove('translate-x-full');
+		menu.setAttribute('aria-hidden', 'false');
+
+		overlay.classList.remove('hidden');
+
+		requestAnimationFrame(() => {
+			overlay.classList.remove('opacity-0');
+			overlay.classList.add('opacity-100');
+		});
+
+		openButton.setAttribute('aria-expanded', 'true');
+		document.body.classList.add('overflow-hidden');
+	};
+
+	const closeMenu = () => {
+		if (!menu || !overlay || !openButton) return;
+
+		menu.classList.add('translate-x-full');
+		menu.setAttribute('aria-hidden', 'true');
+
+		overlay.classList.remove('opacity-100');
+		overlay.classList.add('opacity-0');
+
+		openButton.setAttribute('aria-expanded', 'false');
+		document.body.classList.remove('overflow-hidden');
+
+		window.setTimeout(() => {
+			if (overlay.classList.contains('opacity-0')) {
+				overlay.classList.add('hidden');
+			}
+		}, 300);
+	};
+
+	openButton?.addEventListener('click', openMenu);
+	closeButton?.addEventListener('click', closeMenu);
+	overlay?.addEventListener('click', closeMenu);
+
+	mobileLinks.forEach((link) => {
+		link.addEventListener('click', closeMenu);
+	});
+
+	window.addEventListener('keydown', (event) => {
+		if (event.key === 'Escape') {
+			closeMenu();
+		}
+	});
+</script>

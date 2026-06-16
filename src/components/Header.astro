@@ -2,11 +2,11 @@
 import ThemeToggle from './ThemeToggle.astro';
 
 const navLinks = [
-	{ href: '#home', label: 'Home' },
-	{ href: '#image-gallery', label: 'Training' },
-	{ href: '#trainings-timetable', label: 'Trainingszeiten' },
-	{ href: '#pricing', label: 'Kosten' },
-	{ href: '#contact', label: 'Kontakt' },
+	{ href: '/#home', label: 'Home' },
+	{ href: '/#image-gallery', label: 'Training' },
+	{ href: '/#trainings-timetable', label: 'Trainingszeiten' },
+	{ href: '/#pricing', label: 'Kosten' },
+	{ href: '/#contact', label: 'Kontakt' },
 	{ href: '/team', label: 'Team' },
 	{ href: '/downloads', label: 'Downloads' },
 ];
@@ -14,18 +14,23 @@ const navLinks = [
 
 <header
 	id="site-header"
-	class="fixed top-0 w-full z-50 flex justify-between items-center px-8 py-4 border-b border-transparent bg-transparent transition-all duration-300"
+	class="fixed top-0 z-50 flex w-full items-center justify-between border-b border-transparent bg-transparent px-4 py-4 transition-all duration-300 md:px-8"
 >
-	<div class="text-2xl font-black text-white drop-shadow-md">
+	<a
+		href="/#home"
+		class="max-w-[13rem] text-xl font-black leading-none text-white drop-shadow-md sm:max-w-none sm:text-2xl"
+		aria-label="Calisthenics Movement Augsburg Startseite"
+	>
 		Calisthenics Movement <span id="logo-augsburg" class="text-brand">Augsburg</span>
-	</div>
+	</a>
+
 	<div class="flex items-center gap-6">
-		<nav class="hidden md:block">
-			<ul class="flex gap-6 uppercase font-bold text-sm text-white drop-shadow-md">
+		<nav class="hidden md:block" aria-label="Hauptnavigation">
+			<ul class="flex gap-6 text-sm font-bold uppercase text-white drop-shadow-md">
 				{
 					navLinks.map((link) => (
 						<li>
-							<a href={link.href} class="hover:text-brand">
+							<a href={link.href} class="transition hover:text-brand">
 								{link.label}
 							</a>
 						</li>
@@ -33,24 +38,170 @@ const navLinks = [
 				}
 			</ul>
 		</nav>
-		<ThemeToggle />
+
+		<div class="hidden md:block">
+			<ThemeToggle />
+		</div>
+
+		<button
+			id="mobile-menu-open"
+			type="button"
+			class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/30 text-white backdrop-blur-md transition hover:bg-black/50 md:hidden"
+			aria-label="Navigation öffnen"
+			aria-controls="mobile-menu"
+			aria-expanded="false"
+		>
+			<svg
+				class="h-5 w-5"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				aria-hidden="true"
+			>
+				<path d="M4 7h16" />
+				<path d="M4 12h16" />
+				<path d="M4 17h16" />
+			</svg>
+		</button>
 	</div>
 </header>
+
+<div
+	id="mobile-menu-overlay"
+	class="fixed inset-0 z-[60] hidden bg-black/60 opacity-0 backdrop-blur-sm transition-opacity duration-300 md:hidden"
+	aria-hidden="true"
+></div>
+
+<aside
+	id="mobile-menu"
+	class="fixed right-0 top-0 z-[70] h-dvh w-[min(22rem,85vw)] translate-x-full border-l border-white/10 bg-black/95 text-white shadow-2xl transition-transform duration-300 md:hidden"
+	aria-hidden="true"
+>
+	<div class="flex h-full flex-col px-6 py-5">
+		<div class="flex items-center justify-between gap-4">
+			<p class="text-lg font-black uppercase leading-none">
+				CMA <span class="text-brand">Augsburg</span>
+			</p>
+
+			<button
+				id="mobile-menu-close"
+				type="button"
+				class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition hover:bg-white/10"
+				aria-label="Navigation schließen"
+			>
+				<svg
+					class="h-5 w-5"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					aria-hidden="true"
+				>
+					<path d="M6 6l12 12" />
+					<path d="M18 6L6 18" />
+				</svg>
+			</button>
+		</div>
+
+		<nav class="mt-10" aria-label="Mobile Navigation">
+			<ul class="space-y-1">
+				{
+					navLinks.map((link) => (
+						<li>
+							<a
+								href={link.href}
+								class="mobile-menu-link block rounded-xl px-3 py-3 text-lg font-bold uppercase tracking-wide text-white/80 transition hover:bg-white/10 hover:text-brand"
+							>
+								{link.label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+
+		<div class="mt-auto border-t border-white/10 pt-6">
+			<p class="mb-3 text-xs font-bold uppercase tracking-wide text-white/45">
+				Darstellung
+			</p>
+
+			<ThemeToggle />
+		</div>
+	</div>
+</aside>
 
 <script>
 	const header = document.getElementById('site-header');
 	const augsburg = document.getElementById('logo-augsburg');
 	const hero = document.getElementById('home');
 
+	const menu = document.getElementById('mobile-menu');
+	const overlay = document.getElementById('mobile-menu-overlay');
+	const openButton = document.getElementById('mobile-menu-open');
+	const closeButton = document.getElementById('mobile-menu-close');
+	const mobileLinks = document.querySelectorAll('.mobile-menu-link');
+
 	const getTheme = () => {
-	const storedTheme = localStorage.getItem('theme');
+		const storedTheme = localStorage.getItem('theme');
 
-	if (storedTheme) {
-		return storedTheme;
-	}
+		if (storedTheme) {
+			return storedTheme;
+		}
 
-	return 'dark';
-};
+		return 'dark';
+	};
+
+	const openMenu = () => {
+		if (!menu || !overlay || !openButton) return;
+
+		menu.classList.remove('translate-x-full');
+		menu.setAttribute('aria-hidden', 'false');
+
+		overlay.classList.remove('hidden');
+		requestAnimationFrame(() => {
+			overlay.classList.remove('opacity-0');
+			overlay.classList.add('opacity-100');
+		});
+
+		openButton.setAttribute('aria-expanded', 'true');
+		document.body.classList.add('overflow-hidden');
+	};
+
+	const closeMenu = () => {
+		if (!menu || !overlay || !openButton) return;
+
+		menu.classList.add('translate-x-full');
+		menu.setAttribute('aria-hidden', 'true');
+
+		overlay.classList.remove('opacity-100');
+		overlay.classList.add('opacity-0');
+
+		openButton.setAttribute('aria-expanded', 'false');
+		document.body.classList.remove('overflow-hidden');
+
+		window.setTimeout(() => {
+			if (overlay.classList.contains('opacity-0')) {
+				overlay.classList.add('hidden');
+			}
+		}, 300);
+	};
+
+	openButton?.addEventListener('click', openMenu);
+	closeButton?.addEventListener('click', closeMenu);
+	overlay?.addEventListener('click', closeMenu);
+
+	mobileLinks.forEach((link) => {
+		link.addEventListener('click', closeMenu);
+	});
+
+	window.addEventListener('keydown', (event) => {
+		if (event.key === 'Escape') {
+			closeMenu();
+		}
+	});
 
 	if (header && hero) {
 		const setHeaderState = () => {
@@ -73,13 +224,12 @@ const navLinks = [
 				} else {
 					augsburg.classList.add('text-brand');
 					augsburg.classList.remove('text-black/80');
-}
-			} 
+				}
+			}
 		};
 
 		setHeaderState();
 		window.addEventListener('scroll', setHeaderState, { passive: true });
 		window.addEventListener('resize', setHeaderState);
 	}
-	
 </script>
