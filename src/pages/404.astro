@@ -1,0 +1,84 @@
+---
+// src/pages/404.astro
+
+import Layout from '../layouts/Layout.astro';
+import SmallHeader from '../components/SmallHeader.astro';
+import SectionBackground from '../components/SectionBackground.astro';
+import { getEntry } from 'astro:content';
+
+const sharedSectionBackground = await getEntry('sharedSectionBackground', 'index');
+
+if (!sharedSectionBackground) {
+	throw new Error('Missing shared section background content: src/content/shared-section-background/index.md');
+}
+
+const backgroundImage = sharedSectionBackground.data.image;
+---
+
+<Layout
+	title="404 | Seite nicht gefunden"
+	description="Diese Seite wurde nicht gefunden. Zurück zur Startseite des Calisthenics Movement Augsburg e.V."
+	canonical="/404"
+	noindex={true}
+>
+	<SmallHeader currentPage="none" />
+
+	<main>
+		<section class="l-section custom relative flex min-h-screen items-center justify-center overflow-hidden px-4 pt-20 text-center">
+			<SectionBackground
+				image={backgroundImage}
+				overlayClass="bg-white/75 md:bg-white/65 lg:bg-white/55 dark:bg-black/55"
+			/>
+
+			<div class="relative z-10 mx-auto max-w-2xl">
+				<p class="text-sm font-bold uppercase tracking-[0.24em] text-brand">
+					404
+				</p>
+
+				<h1 class="mt-4 text-4xl font-black tracking-tight text-dark drop-shadow-xl dark:text-white/95 md:text-6xl">
+					Seite nicht gefunden
+				</h1>
+
+				<p class="mx-auto mt-6 max-w-xl text-base leading-7 opacity-85 md:text-lg">
+					Die Seite, die du gesucht hast, existiert nicht oder wurde verschoben.
+					Am besten gehst du zurück zur Startseite oder direkt zum Kontaktbereich.
+				</p>
+
+				<div class="mt-8 flex flex-wrap justify-center gap-4">
+					<a
+						class="inline-flex items-center rounded-full bg-brand px-8 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-brand-muted"
+						href="/"
+					>
+						Zur Startseite
+					</a>
+
+					<a
+						class="inline-flex items-center rounded-full border border-current px-8 py-3 text-sm font-bold uppercase tracking-wide transition hover:bg-black/5 dark:hover:bg-white/10"
+						href="/#contact"
+					>
+						Kontakt
+					</a>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	.l-section {
+		padding-left: 2.5rem;
+		padding-right: 2.5rem;
+	}
+
+	.l-section.custom {
+		padding-top: var(--section-custom-padding, 5vmax);
+		padding-bottom: var(--section-custom-padding, 5vmax);
+	}
+
+	@media (max-width: 767px) {
+		.l-section {
+			padding-left: 1.25rem;
+			padding-right: 1.25rem;
+		}
+	}
+</style>
