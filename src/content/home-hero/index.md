@@ -1,7 +1,8 @@
 ---
-backgroundImage: https://www.fitnesscenter-california.at/wp-content/uploads/2025/12/Hero-Gym-2025-Thumbnail.webp
-posterImage: https://www.fitnesscenter-california.at/wp-content/uploads/2025/12/Hero-Gym-2025-Thumbnail.webp
-videoUrl: https://www.fitnesscenter-california.at/wp-content/uploads/2025/12/Hero-Gym-2025.mp4
+backgroundImage: /hero/Hero-Gym-2025-Thumbnail.webp
+posterImage: /hero/Hero-Gym-2025-Thumbnail.webp
+videoUrl: /hero/Hero-Gym-2025.mp4
+videoWebmUrl: /hero/Hero-Gym-2025.webm
 backgroundAlt: Calisthenics Movement Augsburg
 logo:
   src: /logo.png

@@ -2,14 +2,26 @@
 title: Einblicke ins Training
 ariaLabel: Trainingsbilder
 images:
-  - src: /gallery/training-0.jpg
-    alt: Athlet beim Handstandtraining im CMA Augsburg
-  - src: /gallery/training-3.jpg
-    alt: Static-Training an Parallettes und Stangen
-  - src: /gallery/training-4.jpg
-    alt: Calisthenics Gruppentraining im CMA Augsburg
-  - src: /gallery/training-1.jpg
-    alt: Athlet beim Handstandtraining im CMA Augsburg
-  - src: /gallery/training-2.jpg
-    alt: Calisthenics Gruppentraining im CMA Augsburg
+  - src: /training/IMG_3599.webp
+    alt: Einblick in die Halle
+  - src: /training/IMG_3600.webp
+    alt: Einblick in die Halle
+  - src: /training/IMG_3601.webp
+    alt: Einblick in die Halle
+  - src: /training/IMG_3602.webp
+    alt: Einblick in die Halle
+  - src: /training/IMG_3603.webp
+    alt: Einblick in die Halle
+  - src: /training/IMG_3604.webp
+    alt: Einblick in die Halle
+  - src: /training/IMG_3605.webp
+    alt: Einblick in die Halle
+  - src: /training/IMG_3606.webp
+    alt: Einblick in die Halle
+  - src: /training/IMG_3607.webp
+    alt: Einblick in die Halle
+  - src: /training/IMG_3608.webp
+    alt: Einblick in die Halle            
+  - src: /training/IMG_3609.webp
+    alt: Einblick in die Halle    
 ---

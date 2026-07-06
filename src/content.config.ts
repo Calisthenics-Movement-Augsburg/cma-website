@@ -69,7 +69,8 @@ const homeHero = defineCollection({
 	schema: z.object({
 		backgroundImage: z.string(),
 		posterImage: z.string(),
-		videoUrl: z.string().optional(),
+		videoMp4Url: z.string().optional(),
+		videoWebmUrl: z.string().optional(),
 		backgroundAlt: z.string(),
 		logo: z.object({
 			src: z.string(),
@@ -157,7 +158,7 @@ const homeTimetable = defineCollection({
 	}),
 	schema: z.object({
 		title: z.string(),
-
+		intro: z.string().optional(),
 		days: z.array(
 			z.object({
 				dateLabel: z.string(),
@@ -175,8 +176,8 @@ const homeTimetable = defineCollection({
 						title: z.string(),
 						time: z.string(),
 						trainer: z.string(),
-						booked: z.number(),
-						max: z.number(),
+						description: z.string().optional(),
+						note: z.string().optional(),
 					})
 				),
 			})

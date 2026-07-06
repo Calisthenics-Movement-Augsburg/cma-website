@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import SmallHeader from '../components/SmallHeader.astro';
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
+import SectionBackground from '../components/SectionBackground.astro';
+import { getEntry } from 'astro:content';
 
 const downloads = (await getCollection('downloads')) as CollectionEntry<'downloads'>[];
 
@@ -10,6 +12,14 @@ const downloadDocuments = [...downloads].sort(
 	(a: CollectionEntry<'downloads'>, b: CollectionEntry<'downloads'>) =>
 		a.data.order - b.data.order
 );
+
+const sharedSectionBackground = await getEntry('sharedSectionBackground', 'index');
+
+if (!sharedSectionBackground) {
+	throw new Error('Missing shared section background content: src/content/shared-section-background/index.md');
+}
+
+const backgroundImage = sharedSectionBackground.data.image;
 
 // const downloadDocuments = [
 // 	{
@@ -45,12 +55,10 @@ const downloadDocuments = [...downloads].sort(
 
 	<main>
 		<section class="l-section custom relative min-h-[34vh] md:min-h-[40vh] flex items-center justify-center overflow-hidden pt-14 md:pt-16">
-			<div
-				class="absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat"
-				style="background-image:url('https://www.fitnesscenter-california.at/wp-content/uploads/2023/02/banner-breadcrumb.jpeg')"
-				role="img"
-				aria-label="Downloads banner"
-			></div>
+			<SectionBackground
+				image={backgroundImage}
+				overlayClass="bg-white/70 md:bg-white/60 lg:bg-white/50 dark:bg-black/45"
+			/>
 			<div class="absolute inset-0 -z-10 bg-white/70 md:bg-white/60 lg:bg-white/50 dark:bg-black/45"></div>
 			<h1 class="text-dark text-4xl md:text-6xl font-black tracking-tight drop-shadow-xl dark:text-white/95">
 				Downloads

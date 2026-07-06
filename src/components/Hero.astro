@@ -2,7 +2,8 @@
 interface HeroContent {
 	backgroundImage: string;
 	posterImage: string;
-	videoUrl?: string;
+	videoMp4Url?: string;
+	videoWebmUrl?: string;
 	backgroundAlt: string;
 	logo: {
 		src: string;
@@ -29,7 +30,7 @@ const { content } = Astro.props;
 	</div>
 
 	{
-		content.videoUrl && (
+		(content.videoWebmUrl || content.videoMp4Url) && (
 			<video
 				autoplay
 				muted
@@ -40,7 +41,8 @@ const { content } = Astro.props;
 				poster={content.posterImage}
 				aria-hidden="true"
 			>
-				<source src={content.videoUrl} type="video/mp4" />
+				{content.videoWebmUrl && <source src={content.videoWebmUrl} type="video/webm" />}
+				{content.videoMp4Url && <source src={content.videoMp4Url} type="video/mp4" />}
 			</video>
 		)
 	}

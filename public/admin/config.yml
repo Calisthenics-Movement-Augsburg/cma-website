@@ -25,12 +25,19 @@ collections:
             widget: "image"
             required: true
 
-          - label: "Video URL"
-            name: "videoUrl"
+          - label: "Video URL MP4"
+            name: "videoMp4Url"
             widget: "file"
             required: false
-            media_folder: "/public/videos"
-            public_folder: "/videos"
+            media_folder: "/public/hero"
+            public_folder: "/hero"
+
+          - label: "Hero Video WebM"
+            name: "videoWebmUrl"
+            widget: "file"
+            required: false
+            media_folder: "/public/hero"
+            public_folder: "/hero"
 
           - label: "Bildbeschreibung"
             name: "backgroundAlt"
@@ -236,6 +243,11 @@ collections:
             name: "title"
             widget: "string"
 
+          - label: "Einleitung"
+            name: "intro"
+            widget: "text"
+            required: false
+
           - label: "Trainingstage"
             name: "days"
             widget: "list"
@@ -272,15 +284,15 @@ collections:
                     name: "trainer"
                     widget: "string"
 
-                  - label: "Anmeldungen"
-                    name: "booked"
-                    widget: "number"
-                    value_type: "int"
-
-                  - label: "Maximale Plätze"
-                    name: "max"
-                    widget: "number"
-                    value_type: "int"
+                  - label: "Beschreibung"
+                    name: "description"
+                    widget: "text"
+                    required: false
+                  
+                  - label: "Hinweis"
+                    name: "note"
+                    widget: "string"
+                    required: false
 
           - label: "CTA"
             name: "cta"

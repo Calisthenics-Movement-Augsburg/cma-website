@@ -70,3 +70,8 @@ Thumbs.db
 
 # Optional: generated assets/cache
 .cache/
+
+*.afdesign
+
+convert.sh
+convert_mp4_to_webm.sh
