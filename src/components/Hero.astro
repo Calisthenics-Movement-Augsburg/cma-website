@@ -41,8 +41,8 @@ const { content } = Astro.props;
 				poster={content.posterImage}
 				aria-hidden="true"
 			>
-				{content.videoWebmUrl && <source src={content.videoWebmUrl} type="video/webm" />}
 				{content.videoMp4Url && <source src={content.videoMp4Url} type="video/mp4" />}
+				{content.videoWebmUrl && <source src={content.videoWebmUrl} type="video/webm" />}
 			</video>
 		)
 	}

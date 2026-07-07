@@ -126,6 +126,8 @@ const { content, backgroundImage } = Astro.props;
 
 				<MapEmbed
 					mapsUrl={content.location.mapsUrl}
+					title={content.location.title}
+					alt={content.location.title}
 				/>
 			</div>
 		</article>

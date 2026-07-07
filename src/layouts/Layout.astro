@@ -27,66 +27,72 @@ const {
 	noindex = false,
 } = Astro.props;
 
-const canonicalUrl = new URL(canonical, siteSeo.data.siteUrl).toString();
-const ogImageUrl = new URL(ogImage, siteSeo.data.siteUrl).toString();
+const siteBaseUrl = new URL(siteSeo.data.siteUrl);
+
+// Force canonical URLs to use the main domain.
+// This prevents accidental canonicals like cma-augsburg.de or the Netlify preview URL.
+const canonicalPath = new URL(canonical, siteBaseUrl).pathname;
+const canonicalUrl = new URL(canonicalPath, siteBaseUrl).toString();
+
+const ogImageUrl = new URL(ogImage, siteBaseUrl).toString();
 
 const shouldNoindex = noindex || import.meta.env.PUBLIC_NOINDEX === 'true';
-
 ---
 
 <!doctype html>
 <html lang="de" class="dark">
 	<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-  
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalUrl} />
-  
-    <StructuredData />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    {shouldNoindex && <meta name="robots" content="noindex, nofollow" />}
-  
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:image" content={ogImageUrl} />
-    <meta property="og:site_name" content={siteSeo.data.siteName} />
-    <meta property="og:locale" content={siteSeo.data.locale} />
-  
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImageUrl} />
-  
-    <meta name="theme-color" content="#000000" />
-  
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-  
-    <script is:inline>
-      const storedTheme = localStorage.getItem('theme');
-    
-      const theme =
-        storedTheme === 'light' || storedTheme === 'dark'
-          ? storedTheme
-          : 'dark';
-    
-      document.documentElement.classList.toggle('dark', theme === 'dark');
-    
-      localStorage.setItem('theme', theme);
-    </script>
-  </head>
+		<title>{title}</title>
+		<meta name="description" content={description} />
+
+		<link rel="canonical" href={canonicalUrl} />
+
+		{shouldNoindex && <meta name="robots" content="noindex, nofollow" />}
+
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:image" content={ogImageUrl} />
+		<meta property="og:site_name" content={siteSeo.data.siteName} />
+		<meta property="og:locale" content={siteSeo.data.locale} />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageUrl} />
+
+		<meta name="theme-color" content="#000000" />
+
+		<StructuredData />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+
+		<script is:inline>
+			const storedTheme = localStorage.getItem('theme');
+
+			const theme =
+				storedTheme === 'light' || storedTheme === 'dark'
+					? storedTheme
+					: 'dark';
+
+			document.documentElement.classList.toggle('dark', theme === 'dark');
+
+			localStorage.setItem('theme', theme);
+		</script>
+	</head>
 
 	<body>
 		<slot />
-    <Footer />
+		<Footer />
 	</body>
 </html>
 

@@ -24,13 +24,13 @@ footerNavigation:
   links:
     - href: /#trainings-timetable
       label: Training
-    - href: /probetraining
+    - href: /#probetraining
       label: Probetraining
     - href: /pricing
       label: Mitgliedschaft
     - href: /downloads
       label: Downloads
-    - href: /contact
+    - href: /#contact
       label: Kontakt
 
 legalNavigation:

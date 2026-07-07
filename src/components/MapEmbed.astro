@@ -3,9 +3,9 @@
 
 const {
 	imageSrc = '/images/location-map.svg',
-	googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=Calisthenics+Augsburg',
-	title = 'Training in Augsburg',
-	alt = 'Grobe Karte des Trainingsorts in Augsburg',
+	mapsUrl,
+	title,
+	alt,
 } = Astro.props;
 ---
 
@@ -53,7 +53,7 @@ const {
 
             <a
             class="inline-flex items-center rounded-full bg-brand px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-brand-muted"
-            href={googleMapsUrl}
+            href={mapsUrl}
             target="_blank"
             rel="noreferrer"
             >

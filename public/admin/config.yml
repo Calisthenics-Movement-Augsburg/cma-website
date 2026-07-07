@@ -7,6 +7,9 @@ backend:
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
+site_url: "https://calisthenics-movement.de"
+display_url: "https://calisthenics-movement.de"
+
 collections:
   - name: "home_hero"
     label: "Startseite: Hero"

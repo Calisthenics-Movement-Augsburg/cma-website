@@ -33,13 +33,13 @@ bring:
 location:
   title: Trainingsort
   addressLabel: Adresse
-  address: Bla Bla Bla Musterstraße Bla Bla
+  address: Riedinger Straße 26, 86153 Augsburg
   accessLabel: Zugang
-  access: Bla Bla Bla Bla Bla Bla Bla
+  access: Bla Bla Bla Bla kommt noch, sorry ... Bla Bla Bla
   transportLabel: Parken / ÖPNV
-  transport: Parkmöglichkeiten und ÖPNV-Anbindung ergänzen wir hier noch.
+  transport: Parkmöglichkeiten und ÖPNV-Anbindung ergänzen wir hier auch noch.
   mapAddress: Augsburg
-  mapsUrl: https://www.google.com/maps?q=Calisthenics+Augsburg
+  mapsUrl: https://maps.app.goo.gl/PxxH37cP6VkhfgRU6
 
 cta:
   title: Du möchtest mittrainieren?
