@@ -22,12 +22,12 @@ Personenbezogene Daten sind alle Informationen, mit denen du persönlich identif
 Verantwortlich für die Datenverarbeitung auf dieser Webseite ist:
 
 **Calisthenics Movement Augsburg e.V.**  
-Augsburg  
+Riedinger Straße 26 
+86153 Augsburg  
 Deutschland
 
-E-Mail: [info@cma-augsburg.de](mailto:info@cma-augsburg.de)
+E-Mail: [info@calisthenics-augsburg.de](mailto:info@calisthenics-augsburg.de)
 
-> Hier muss dieselbe ladungsfähige Vereinsanschrift eingetragen werden wie im Impressum.
 
 ## 3. Allgemeine Hinweise zur Datenverarbeitung
 
@@ -51,7 +51,7 @@ Zu diesen Daten können insbesondere gehören:
 
 Die Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt im sicheren, fehlerfreien und effizienten Betrieb unserer Webseite.
 
-> Wenn ihr Netlify nutzt, sollte hier ergänzt werden: „Hosting-Anbieter ist Netlify, Inc.“. Prüfe zusätzlich, ob ihr einen Auftragsverarbeitungsvertrag bzw. ein Data Processing Addendum abgeschlossen habt.
+Hosting-Anbieter ist Netlify, Inc.
 
 ## 5. Kontaktaufnahme
 
@@ -70,7 +70,6 @@ Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, soweit di
 Weitere Informationen findest du in der Datenschutzerklärung von Netlify:  
 [https://www.netlify.com/privacy/](https://www.netlify.com/privacy/)
 
-> Diesen Abschnitt löschen, falls ihr das Formular nicht über Netlify Forms verarbeitet.
 
 ## 7. Downloads
 
@@ -94,7 +93,6 @@ Wir setzen auf dieser Webseite keine Analyse-Tools wie Google Analytics und kein
 
 Technisch notwendige Verarbeitungen erfolgen auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt in der nutzerfreundlichen und technisch stabilen Bereitstellung unserer Webseite.
 
-> Wenn ihr später Analytics, Meta Pixel, YouTube-Einbettungen, Google Maps, Fonts von externen Servern oder Newsletter-Tools einbaut, muss diese Datenschutzerklärung erweitert werden.
 
 ## 10. Externe Links und Social Media
 
@@ -127,7 +125,7 @@ Du hast im Rahmen der gesetzlichen Voraussetzungen folgende Rechte:
 - Recht auf Widerruf einer erteilten Einwilligung mit Wirkung für die Zukunft
 
 Zur Ausübung deiner Rechte kannst du dich jederzeit an uns wenden:  
-[info@cma-augsburg.de](mailto:info@cma-augsburg.de)
+[info@calisthenics-augsburg.de](mailto:info@calisthenics-augsburg.de)
 
 ## 14. Beschwerderecht bei einer Aufsichtsbehörde
 

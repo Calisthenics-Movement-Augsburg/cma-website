@@ -8,11 +8,12 @@ brand:
 address:
   name: CMA e.V.
   lines:
-    - Augsburg, Deutschland
-  email: info@cma-augsburg.de
+    - Riedinger Straße 26 
+    - 86153, Augsburg
+  email: info@calisthenics-augsburg.de
 
 legalNotice:
-  before: Vertreten durch den Vorstand. Vollständige Angaben gemäß § 5 TMG findest du im
+  before: Vertreten durch den Vorstand. Vollständige Angaben gemäß §5 TMG findest du im
   linkLabel: Impressum
   href: /impressum
   after: "."
@@ -21,15 +22,15 @@ footerNavigation:
   title: Verein
   ariaLabel: Footer Navigation
   links:
-    - href: /training
+    - href: /#trainings-timetable
       label: Training
     - href: /probetraining
       label: Probetraining
-    - href: /mitgliedschaft
+    - href: /pricing
       label: Mitgliedschaft
     - href: /downloads
       label: Downloads
-    - href: /kontakt
+    - href: /contact
       label: Kontakt
 
 legalNavigation:
@@ -43,7 +44,7 @@ legalNavigation:
 social:
   title: Folge uns
   links:
-    - href: https://www.instagram.com/
+    - href: https://www.instagram.com/calisthenics_mafia/
       label: Instagram
       external: true
 

@@ -14,29 +14,25 @@ buttons:
 ## Angaben gemäß § 5 DDG
 
 **Calisthenics Movement Augsburg e.V.**  
-Augsburg  
+Riedinger Straße 26 
+86153 Augsburg  
 Deutschland
-
-> **Hinweis:** Hier muss eure ladungsfähige Vereinsanschrift eingetragen werden. Ein reines Postfach reicht in der Regel nicht.
 
 ## Vereinsregister
 
 Eingetragen im Vereinsregister.  
 Registergericht: Amtsgericht Augsburg  
-Registernummer: VR [bitte eintragen]
+Registernummer: VR 203162
 
 ## Vertreten durch
 
-[Vorname Nachname], 1. Vorstand  
-[Vorname Nachname], 2. Vorstand
+Ivo Prahm, 1. Vorstand  
+Leonie Pfeil, 2. Vorstand
 
-> Tragt hier die vertretungsberechtigten Vorstandsmitglieder gemäß Satzung bzw. Registereintrag ein.
 
 ## Kontakt
 
-E-Mail: [info@cma-augsburg.de](mailto:info@cma-augsburg.de)
-
-Telefon: [optional eintragen]
+E-Mail: [info@calisthenics-augsburg.de](mailto:info@calisthenics-augsburg.de)
 
 ## Verantwortlich für den Inhalt
 
@@ -44,13 +40,6 @@ Verantwortlich für den Inhalt dieser Webseite:
 Calisthenics Movement Augsburg e.V.  
 vertreten durch den Vorstand
 
-## Redaktionell verantwortlich
-
-[Vorname Nachname]  
-Calisthenics Movement Augsburg e.V.  
-[ladungsfähige Anschrift eintragen]
-
-> Diesen Abschnitt brauchst du insbesondere dann, wenn ihr redaktionelle Inhalte veröffentlicht, z. B. Vereinsnews, Berichte oder regelmäßig gepflegte Beiträge.
 
 ## EU-Streitschlichtung
 
