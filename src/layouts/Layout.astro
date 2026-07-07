@@ -30,7 +30,7 @@ const {
 const siteBaseUrl = new URL(siteSeo.data.siteUrl);
 
 // Force canonical URLs to use the main domain.
-// This prevents accidental canonicals like cma-augsburg.de or the Netlify preview URL.
+// This prevents accidental canonicals like calisthenics-augsburg.de or the Netlify preview URL.
 const canonicalPath = new URL(canonical, siteBaseUrl).pathname;
 const canonicalUrl = new URL(canonicalPath, siteBaseUrl).toString();
 
