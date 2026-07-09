@@ -29,8 +29,8 @@ const {
 
 const siteBaseUrl = new URL(siteSeo.data.siteUrl);
 
-// Force canonical URLs to use the main domain.
-// This prevents accidental canonicals like calisthenics-augsburg.de or the Netlify preview URL.
+// Force canonical URLs to use the configured main domain.
+// This prevents accidental canonicals like the Netlify preview URL or old alias domains.
 const canonicalPath = new URL(canonical, siteBaseUrl).pathname;
 const canonicalUrl = new URL(canonicalPath, siteBaseUrl).toString();
 
@@ -75,6 +75,20 @@ const shouldNoindex = noindex || import.meta.env.PUBLIC_NOINDEX === 'true';
 			href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap"
 			rel="stylesheet"
 		/>
+
+		<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+		<script is:inline>
+			if (window.netlifyIdentity) {
+				window.netlifyIdentity.on('init', (user) => {
+					if (!user) {
+						window.netlifyIdentity.on('login', () => {
+							document.location.href = '/admin/';
+						});
+					}
+				});
+			}
+		</script>
 
 		<script is:inline>
 			const storedTheme = localStorage.getItem('theme');
