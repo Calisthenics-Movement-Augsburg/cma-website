@@ -26,7 +26,11 @@ members:
   - name: Stefan
     role: Kassenwart
     image: /vorstand/stefan.webp
-    alt: Stefan        
+    alt: Stefan 
+  - name: Lenny
+    role: Leiter freies Training
+    image: /vorstand/lenny.webp
+    alt: Lenny          
 cta:
   label: Jetzt anmelden
   href: /#contact

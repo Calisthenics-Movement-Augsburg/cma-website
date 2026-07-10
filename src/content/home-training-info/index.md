@@ -22,7 +22,7 @@ audience:
     trainieren können.
 
 bring:
-  title: Was soll man mitbringen?
+  title: Was du mitbringen solltest
   items:
     - Sportkleidung
     - Wasser
