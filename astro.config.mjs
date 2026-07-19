@@ -11,5 +11,10 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
 
-  integrations: [sitemap()],
+  integrations: [sitemap({
+    filter: (page) =>
+      !page.includes('/success') &&
+      !page.includes('/404') &&
+      !page.includes('/admin'),
+  })],
 });

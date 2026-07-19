@@ -39,7 +39,7 @@ location:
   transportLabel: Parken / ÖPNV
   transport: Parkmöglichkeiten und ÖPNV-Anbindung ergänzen wir hier auch noch.
   mapAddress: Augsburg
-  mapsUrl: https://maps.app.goo.gl/PxxH37cP6VkhfgRU6
+  mapsUrl: https://maps.app.goo.gl/8R2WschQoffCSytG7
 
 cta:
   title: Du möchtest mittrainieren?

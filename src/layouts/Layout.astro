@@ -36,7 +36,7 @@ const canonicalUrl = new URL(canonicalPath, siteBaseUrl).toString();
 
 const ogImageUrl = new URL(ogImage, siteBaseUrl).toString();
 
-const shouldNoindex = noindex || import.meta.env.PUBLIC_NOINDEX === 'true';
+const shouldNoindex = noindex;
 ---
 
 <!doctype html>

@@ -2,7 +2,7 @@
 title: Mitgliedschaft & Beiträge
 paragraphs:
   - >
-    Wir möchten Training möglichst zugänglich halten und finanzieren den Verein deshalb
+    Wir möchten das Training möglichst zugänglich halten und finanzieren den Verein deshalb
     über ein solidarisches Beitragsmodell.
   - >
     Die Mitgliedschaft ist bereits ab 5 € monatlich möglich. Unser empfohlener
